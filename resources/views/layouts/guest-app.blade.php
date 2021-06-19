@@ -7,7 +7,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="/"><b>Admin</b> Dashboard</a>
+            <a href="/"><b>Ad Ins</b> Dashboard</a>
         </div>
 
         @yield('content')

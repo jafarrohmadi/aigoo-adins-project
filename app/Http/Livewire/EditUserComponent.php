@@ -15,9 +15,7 @@ class EditUserComponent extends Component
     /** @var \App\Models\User */
     public User $user;
 
-    /** @var \Illuminate\Database\Eloquent\Collection */
     public $roles;
-
     /**
      * Component mount.
      *
@@ -75,6 +73,12 @@ class EditUserComponent extends Component
             'user.roles' => [
                 'required',
             ],
+            'user.name' => [
+                'required',
+            ],
+            'user.employee_level_id' => [
+                'required'
+            ]
         ];
     }
 }

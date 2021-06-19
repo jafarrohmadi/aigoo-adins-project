@@ -18,9 +18,7 @@ class CreateUserComponent extends Component
     /** @var \App\Models\User */
     public $user;
 
-    /** @var \Illuminate\Database\Eloquent\Collection */
     public $roles;
-
     /**
      * Render the component view.
      *
@@ -46,7 +44,8 @@ class CreateUserComponent extends Component
         $user = User::create([
             'email' => $this->user['email'],
             'roles' => $this->user['roles'],
-            'name' => $this->user['name']
+            'name' => $this->user['name'],
+            'employee_level_id' => $this->user['employee_level_id']
 
         ]);
 
@@ -77,6 +76,9 @@ class CreateUserComponent extends Component
             'user.name' => [
                 'required',
             ],
+            'user.employee_level_id' => [
+                'required'
+            ]
         ];
     }
 }

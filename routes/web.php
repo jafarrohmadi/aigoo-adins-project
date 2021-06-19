@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ConfirmedEmailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Profile\UserController as ProfileUserController;
+use App\Http\Controllers\QuizGame\QuizGameController;
 use App\Http\Livewire\AcceptedInvitationComponent;
 use App\Http\Livewire\CreateRoleComponent;
 use App\Http\Livewire\CreateUserComponent;
@@ -50,6 +51,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('users/create', CreateUserComponent::class)->name('users.create');
         Route::get('users/{user}/edit', EditUserComponent::class)->name('users.edit');
 
+        Route::get('quiz-game/choices', [QuizGameController::class, 'choices'])->name('quiz-game.choices');
+        Route::get('quiz-game/matches', [QuestionGame1Controller::class, 'matches'])->name('questiongame1.matches');
+        Route::get('quiz-game/completes', [QuestionGame1Controller::class, 'completes'])->name('questiongame1.completes');
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');
 //        Route::get('roles/create', CreateRoleComponent::class)->name('roles.create');
 //        Route::get('roles/{role}/edit', EditRoleComponent::class)->name('roles.edit');

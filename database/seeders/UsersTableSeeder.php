@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 
@@ -16,19 +15,17 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         UserFactory::new()->create([
-            'email' => 'admin@lte.com',
-            'role_id' => Role::whereName('admin')->first(),
+            'email'             => 'admin@admin.com',
+            'roles'             => 'Managerial',
+            'name'              => 'admin',
+            'employee_level_id' => 1
         ]);
 
         UserFactory::new()->create([
-            'email' => 'manager@lte.com',
-            'role_id' => Role::whereName('manager')->first(),
+            'email'             => 'manager@lte.com',
+            'roles'             => 'Staff',
+            'name'              => 'staff',
+            'employee_level_id' => 1
         ]);
-
-        for ($i = 1; $i < 10; $i++) {
-            UserFactory::new()->create([
-                'role_id' => Role::whereName('manager')->first(),
-            ]);
-        }
     }
 }

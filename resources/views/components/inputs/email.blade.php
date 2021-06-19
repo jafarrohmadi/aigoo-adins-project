@@ -1,6 +1,7 @@
 @props(['key' => 'email'])
 
 <div class="input-group mb-3">
+
     <input
         {{ $attributes }}
         wire:model.defer="{{ $key }}"

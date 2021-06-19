@@ -4127,14 +4127,14 @@ var nav = {
         this.collapsed = !this.collapsed;
 
         if (!this.collapsed) {
-          this.$refs.body.classList.add("sidebar-open");
+          this.$refs.body.classList.add("sidebar-collapse");
         } else {
-          this.$refs.body.classList.remove("sidebar-open");
+          this.$refs.body.classList.remove("sidebar-collapse");
         }
       },
       clickAway: function clickAway() {
         if (window.innerWidth < this.width) {
-          this.$refs.body.classList.remove("sidebar-open");
+          this.$refs.body.classList.remove("sidebar-collapse");
           this.collapsed = true;
         }
       }

@@ -17,22 +17,22 @@
             <x-inputs.password />
 
             <div class="row">
-                <div class="col-8">
-                    <div class="icheck-primary">
-                        <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label for="remember">{{ trans('validation.attributes.remember_me') }}</label>
-                    </div>
-                </div>
+{{--                <div class="col-8">--}}
+{{--                    <div class="icheck-primary">--}}
+{{--                        <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>--}}
+{{--                        <label for="remember">{{ trans('validation.attributes.remember_me') }}</label>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="col-4">
+                <div class="col-12">
                     <x-inputs.button text="Sign In" class="btn-primary" />
                 </div>
             </div>
         </form>
 
-        <p class="mb-1">
-            <a href="{{ route('password.request') }}">I forgot my password</a>
-        </p>
+{{--        <p class="mb-1">--}}
+{{--            <a href="{{ route('password.request') }}">I forgot my password</a>--}}
+{{--        </p>--}}
     </div>
 </div>
 
