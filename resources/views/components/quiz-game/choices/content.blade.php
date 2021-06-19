@@ -11,14 +11,15 @@
         <div class="card-header">
             <h3 class="card-title">
                 Quiz Choices Table
-                {{-- {{ $header }} --}}
             </h3>
-
+            <div class="float-right">
+                <livewire:quiz-game.choices.create/>
+            </div>
         </div>
     @endif
 
     @if (isset($body))
-        <livewire:quiz-game.choices.index />
+        <livewire:quiz-game.choices.index/>
     @endif
 
     @if (isset($footer))

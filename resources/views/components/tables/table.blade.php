@@ -11,9 +11,9 @@
                 {{ $tbody }}
             </tbody>
             
-            <tfoot>
-                {{ $thead_tfoot }}
-            </tfoot>
+{{--            <tfoot>--}}
+{{--                {{ $thead_tfoot }}--}}
+{{--            </tfoot>--}}
         </table>
     </div>
 </div>

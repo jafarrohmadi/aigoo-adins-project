@@ -20,8 +20,22 @@ class Index extends Component
     /**
      * @var string
      */
-    public $search, $questionId, $question, $choice1, $choice2, $choice3, $choice4, $choice5, $answer, $image,
-        $difficulty, $totalData, $tempUrl;
+    public $search;
+    public $questionId;
+    public $question;
+    public $choice1;
+    public $choice2;
+    public $choice3;
+    public $choice4;
+    public $choice5;
+    public $answer;
+    public $image;
+    public $difficulty;
+    public $totalData;
+    public $tempUrl;
+    public $level;
+    public $category;
+
 
     /**
      * @var array|string[]
@@ -83,7 +97,7 @@ class Index extends Component
         }
     }
 
-    public function getQuestionChoice($id)
+    public function edit($id)
     {
         $questionChoice   = QuizChoice::find($id);
         $this->questionId = $questionChoice->id;
@@ -96,6 +110,8 @@ class Index extends Component
         $this->answer     = $questionChoice->answer;
         $this->image      = $questionChoice->image;
         $this->difficulty = $questionChoice->difficulty;
+        $this->category   = $questionChoice->category;
+        $this->level      = $questionChoice->level;
     }
 
     public function update()
@@ -115,6 +131,8 @@ class Index extends Component
                     'choice5'    => 'required',
                     'answer'     => 'required|digits_between:1,5',
                     'difficulty' => 'required|digits_between:1,4',
+                    'category'   => 'required',
+                    'level'      => 'required'
                 ]);
             } else
             {
@@ -128,6 +146,8 @@ class Index extends Component
                     'answer'     => 'required|digits_between:1,5',
                     'image'      => 'nullable|sometimes|image',
                     'difficulty' => 'required|digits_between:1,4',
+                    'category'   => 'required',
+                    'level'      => 'required'
                 ]);
             }
 
@@ -141,7 +161,9 @@ class Index extends Component
                 'answer'     => $this->answer,
                 'image'      => $this->image == $questionChoice->image ? $this->image :
                     $this->image->store('image/question-game1/choices', 'public'),
-                'difficulty' => $this->difficulty
+                'difficulty' => $this->difficulty,
+                'category'   => $this->category,
+                'level'      => $this->level
             ]);
         }
 
@@ -158,7 +180,9 @@ class Index extends Component
                 'answer',
                 'image',
                 'difficulty',
-                'tempUrl'
+                'tempUrl',
+                'category',
+                'level'
             ]);
             $this->emit('closeEditModalSuccess'); // Close model to using to jquery when Success
         } else

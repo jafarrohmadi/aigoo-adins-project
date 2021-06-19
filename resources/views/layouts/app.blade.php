@@ -123,15 +123,33 @@
 
 <script src="{{ asset('js/app.js') }}"></script>
 
+<!-- Bootstrap4 js-->
+<script src="{{URL::asset('assets/plugins/bootstrap/popper.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+
+<!-- INTERNAL Clipboard js -->
+<script src="{{URL::asset('assets/plugins/clipboard/clipboard.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/clipboard/clipboard.js')}}"></script>
+
+<!-- INTERNAL Prism js -->
+<script src="{{URL::asset('assets/plugins/prism/prism.js')}}"></script>
+
+<!--INTERNAL Select2 js -->
+<script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/select2.js')}}"></script>
+
+<!-- INTERNAL Popover js -->
+{{--    <script src="{{URL::asset('assets/js/popover.js')}}"></script>--}}
+
+<!-- INTERNAL Sweet alert js -->
+<script src="{{URL::asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/sweet-alert/sweetalert.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/sweet-alert.js')}}"></script>
+
 @yield('scripts')
 
 @stack('scripts')
 
-<script>
-
-    $('.clickAwayData').trigger("click")
-
-</script>
 </body>
 
 </html>
