@@ -1,5 +1,5 @@
 <div>
-    <a href="#" class="btn btn-info" data-toggle="modal" data-target="#createmodal"><i class="fas fa-plus-circle"></i> Create Questions Choices </a>
+    <a href="#" class="btn btn-info" data-toggle="modal" data-target="#createmodal"><i class="fas fa-plus-circle"></i> Create </a>
 
         <!-- Create Modal -->
         <div wire:ignore.self class="modal" id="createmodal" tabindex="-1" role="dialog" aria-labelledby="createmodal" aria-hidden="true">

@@ -1,6 +1,6 @@
 @if (isset($headerActions))
 
-    {{ $headerActions }}
+            {{ $headerActions }}
     <div class="clearfix"></div>
     </br>
 
@@ -10,16 +10,18 @@
 
         <div class="card-header">
             <h3 class="card-title">
-                Quiz Choices Table
+                Questions Completes Table
+                {{-- {{ $header }} --}}
             </h3>
             <div class="float-right">
-                <livewire:quiz-game.choices.create/>
+                <livewire:quiz-game.matches.create/>
             </div>
+
         </div>
     @endif
 
     @if (isset($body))
-        <livewire:quiz-game.choices.index/>
+    <livewire:question-game1.completes.index />
     @endif
 
     @if (isset($footer))

@@ -80,7 +80,21 @@
                         </a>
                     </li>
 
-                    @can('for-route', ['users.index'])
+                    <li class="nav-item">
+                        <a href="{{ route('quiz-game.choices') }}" class="nav-link">
+                            <i class="nav-icon fas fa-user elevation-3"></i>
+                            <span class="brand-text">Quiz Choice </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('quiz-game.matches') }}" class="nav-link">
+                            <i class="nav-icon fas fa-user elevation-3"></i>
+                            <span class="brand-text">Quiz Matches </span>
+                        </a>
+                    </li>
+
+                @can('for-route', ['users.index'])
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user elevation-3"></i>

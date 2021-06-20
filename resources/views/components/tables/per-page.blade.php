@@ -1,4 +1,4 @@
-<div class="col-sm-12 col-md-3">
+<div class="col-sm-12 col-md-6">
     <label>
         <div class="float-left mr-2">Show</div>
         <div class="float-left mr-2">

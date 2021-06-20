@@ -1,6 +1,6 @@
 <div class="card-body">
     <div class="card-body p-0">
-        <div class="dataTables_wrapper dt-bootstrap4">
+        <div class="table-responsive">
             <div class="row">
                 <x-tables.per-page/>
 
@@ -47,14 +47,13 @@
                             <td>{{ $question->created_at->format('d/m/Y') }}</td>
 
                             <td>
-                                <div class="btn-list"
-                                     style="display: flex; justify-content: center; align-items: center;">
+                                <div class="btn-list">
                                     <button type="button" wire:click="edit({{ $question->id }})"
-                                            class="btn btn-warning" data-toggle="modal" data-target="#editmodal"><i
+                                            class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editmodal"><i
                                                 class="far fa-edit"></i> Edit
                                     </button>
                                     <button type="button" onclick="deleteModal({{ $question->id }})"
-                                            class="btn btn-danger">
+                                            class="btn btn-danger btn-sm">
                                         <i class="far fa-trash-alt"></i> Delete
                                     </button>
                                 </div>
