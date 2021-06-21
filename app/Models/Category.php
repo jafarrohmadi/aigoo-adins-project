@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Category
@@ -19,10 +20,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Category extends Model
 {
-	use SoftDeletes;
+	use SoftDeletes, LogsActivity;
+
 	protected $table = 'categories';
+
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
 
 	protected $fillable = [
 		'name'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Category has been {$eventName}";
+    }
 }

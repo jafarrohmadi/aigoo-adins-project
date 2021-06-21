@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class PointHistory
@@ -25,10 +26,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PointHistory extends Model
 {
+    use LogsActivity;
 	protected $table = 'point_histories';
 	public $timestamps = false;
 
-	protected $casts = [
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
+
+    protected $casts = [
 		'user_id' => 'int',
 		'game_id' => 'int',
 		'team_id' => 'int',
@@ -44,4 +50,9 @@ class PointHistory extends Model
 		'score',
 		'info'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Point History has been {$eventName}";
+    }
 }

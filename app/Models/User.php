@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class User
@@ -37,10 +38,15 @@ use Illuminate\Support\Facades\Storage;
  */
 class User extends Authenticatable
 {
-	use SoftDeletes;
+	use SoftDeletes,LogsActivity;
+
 	protected $table = 'users';
 
-	protected $casts = [
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
+
+    protected $casts = [
 		'employee_level_id' => 'int',
 		'active' => 'int',
 		'to_be_logged_out' => 'bool'
@@ -187,6 +193,11 @@ class User extends Authenticatable
     public function isHimself($comparedUser)
     {
         return $this->is($comparedUser);
+    }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This User has been {$eventName}";
     }
 
 }

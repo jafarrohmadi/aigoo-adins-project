@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Question
@@ -26,8 +27,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Question extends Model
 {
-	use SoftDeletes;
+	use SoftDeletes,LogsActivity;
 	protected $table = 'questions';
+
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
 
 	protected $casts = [
 		'category_id' => 'int'
@@ -39,4 +44,9 @@ class Question extends Model
 		'content',
 		'level'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Question has been {$eventName}";
+    }
 }

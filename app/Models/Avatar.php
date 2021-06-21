@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Avatar
@@ -18,7 +19,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Avatar extends Model
 {
-	protected $table = 'avatars';
+    use LogsActivity;
+
+    protected $table = 'avatars';
+
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
 
 	protected $casts = [
 		'user_id' => 'int',
@@ -29,4 +36,9 @@ class Avatar extends Model
 		'user_id',
 		'avatar_settings'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Assesment has been {$eventName}";
+    }
 }

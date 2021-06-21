@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class UserCollection
@@ -22,9 +23,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserCollection extends Model
 {
+    use LogsActivity;
+
 	protected $table = 'user_collections';
 
-	protected $casts = [
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
+
+    protected $casts = [
 		'user_id' => 'int',
 		'collection' => 'json'
 	];
@@ -33,4 +40,9 @@ class UserCollection extends Model
 		'user_id',
 		'collection'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This User Collection has been {$eventName}";
+    }
 }

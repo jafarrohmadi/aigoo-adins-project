@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class QuizMatch
@@ -27,9 +28,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class QuizMatch extends Model
 {
+    use LogsActivity;
+
 	protected $table = 'quiz_matches';
 
-	protected $casts = [
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
+
+    protected $casts = [
 		'difficulty' => 'int'
 	];
 
@@ -42,4 +49,9 @@ class QuizMatch extends Model
 		'answer',
 		'wrong_answer'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Quiz Match has been {$eventName}";
+    }
 }

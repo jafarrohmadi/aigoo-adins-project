@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Setting
@@ -20,12 +21,24 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Setting extends Model
 {
+    use LogsActivity;
+
 	protected $table = 'settings';
-	public $timestamps = false;
+
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
+
+    public $timestamps = false;
 
 	protected $fillable = [
 		'name',
 		'value',
 		'group_name'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Setting has been {$eventName}";
+    }
 }

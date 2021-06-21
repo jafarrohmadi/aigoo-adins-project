@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class QuizChoice
@@ -31,9 +32,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class QuizChoice extends Model
 {
+    use LogsActivity;
+
 	protected $table = 'quiz_choices';
 
-	protected $casts = [
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
+
+    protected $casts = [
 		'answer' => 'int',
 		'difficulty' => 'int'
 	];
@@ -51,4 +58,9 @@ class QuizChoice extends Model
 		'image',
 		'difficulty'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Quiz Choice has been {$eventName}";
+    }
 }

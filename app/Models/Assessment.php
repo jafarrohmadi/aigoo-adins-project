@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Assessment
@@ -20,7 +21,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Assessment extends Model
 {
+    use LogsActivity;
+
 	protected $table = 'assessment';
+
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
 
 	protected $casts = [
 		'assessor_id' => 'int',
@@ -35,4 +42,9 @@ class Assessment extends Model
 		'question_id',
 		'value'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Assesment has been {$eventName}";
+    }
 }

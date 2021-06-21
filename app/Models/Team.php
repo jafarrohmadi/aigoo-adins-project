@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Team
@@ -24,8 +25,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Team extends Model
 {
+    use LogsActivity;
+
 	protected $table = 'teams';
-	public $timestamps = false;
+
+    protected static $logFillable = true;
+
+    protected static $logOnlyDirty = true;
+
+    public $timestamps = false;
 
 	protected $casts = [
 		'locked' => 'bool',
@@ -43,4 +51,9 @@ class Team extends Model
 		'members',
 		'created_ad'
 	];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This Team has been {$eventName}";
+    }
 }

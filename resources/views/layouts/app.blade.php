@@ -118,6 +118,12 @@
                         </li>
                     @endcan
 
+                    <li class="nav-item">
+                        <a href="{{ route('activity-log.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-th elevation-3"></i>
+                            <span class="brand-text">Activity Logs</span>
+                        </a>
+                    </li>
                     {{--  @can('for-route', ['roles.index'])
                           <a href="{{ route('roles.index') }}" class="brand-link">
                               <i class="nav-icon fas fa-users elevation-3"></i>
