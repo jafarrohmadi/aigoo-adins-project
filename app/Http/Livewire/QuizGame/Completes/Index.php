@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\QuestionGame1\Completes;
+namespace App\Http\Livewire\QuizGame\Completes;
 
 use App\Models\QuizComplete;
-use App\QuestionComplete;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,8 +11,7 @@ class Index extends Component
     use WithPagination;
 
     public int $paginate = 10;
-    public string $search;
-    public string $questionId, $difficulty, $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $totalData;
+    public $search, $questionId, $difficulty, $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $totalData, $level, $category;
     public array $answer = [];
 
     protected array $updatesQueryString = ['search'];
@@ -45,14 +43,14 @@ class Index extends Component
         {
             $query           = QuizComplete::latest()->where('question', 'like', '%' . $this->search . '%');
             $this->totalData = $query->count();
-            return view('livewire.question-game1.completes.index', [
+            return view('livewire.quiz-game.completes.index', [
                 'questionsCompletes' => $query->paginate($this->paginate)
             ]);
         } else
         {
             $query           = QuizComplete::latest();
             $this->totalData = $query->count();
-            return view('livewire.question-game1.completes.index', [
+            return view('livewire.quiz-game.completes.index', [
                 'questionsCompletes' => $query->paginate($this->paginate)
             ]);
         }
@@ -73,6 +71,8 @@ class Index extends Component
         $answerRemoveCharacter = trim($questionComplete->answer, "[]");
         $answerArray           = explode(",", $answerRemoveCharacter);
         $this->answer          = $answerArray;
+        $this->level           = $questionComplete->level;
+        $this->category        = $questionComplete->category;
     }
 
     public function update()
@@ -90,7 +90,9 @@ class Index extends Component
                 'choice4'    => 'required',
                 'choice5'    => 'required',
                 'choice6'    => 'required',
-                'answer'     => 'required|array'
+                'answer'     => 'required|array',
+                'level'      => 'required',
+                'category'   => 'required'
             ]);
 
             sort($this->answer);
@@ -105,6 +107,8 @@ class Index extends Component
                 'choice5'    => $this->choice5,
                 'choice6'    => $this->choice6,
                 'answer'     => '[' . implode(",", $this->answer) . ']',
+                'level'      => $this->level,
+                'category'   => $this->category
             ]);
         }
 
@@ -120,12 +124,14 @@ class Index extends Component
                 'choice4',
                 'choice5',
                 'choice6',
-                'answer'
+                'answer',
+                'level',
+                'category'
             ]);
-            $this->emit('closeEditModalSuccess'); // Close model to using to jquery when Success
+            $this->emit('closeEditModalSuccess');
         } else
         {
-            $this->emit('closeEditModalFailed'); // Close model to using to jquery when Failed
+            $this->emit('closeEditModalFailed');
         }
     }
 

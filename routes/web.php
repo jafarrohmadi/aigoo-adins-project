@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('quiz-game/choices', [QuizGameController::class, 'choices'])->name('quiz-game.choices');
         Route::get('quiz-game/matches', [QuizGameController::class, 'matches'])->name('quiz-game.matches');
-        Route::get('quiz-game/completes', [QuestionGame1Controller::class, 'completes'])->name('questiongame1.completes');
+        Route::get('quiz-game/completes', [QuizGameController::class, 'completes'])->name('quiz-game.completes');
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');
 //        Route::get('roles/create', CreateRoleComponent::class)->name('roles.create');
 //        Route::get('roles/{role}/edit', EditRoleComponent::class)->name('roles.edit');

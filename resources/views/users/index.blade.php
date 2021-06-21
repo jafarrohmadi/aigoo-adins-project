@@ -20,19 +20,18 @@
                 </div>
 
                 <div class="card-body" x-data="{showModal : false, deleteId : false}">
-                    <div class="dataTables_wrapper dt-bootstrap4">
+                    <div class="table-responsive">
                         <div class="row">
                             <x-tables.per-page/>
 
                             <x-tables.search/>
                         </div>
 
-                        <x-tables.table>
-
+                        <x-tables.no-responsive-table>
                             <x-slot name="thead_tfoot">
                                 <tr>
                                     <th class="sorting">
-                                        #
+                                        No
                                     </th>
                                     <th class="sorting">
                                         <a href="#" wire:click.prevent="sortBy('email')">Email</a>
@@ -48,6 +47,7 @@
                                                           field="created_at"/>
                                     </th>
 
+                                    <th>Last Login</th>
                                     <th class="sorting">
                                         Edit
                                     </th>
@@ -64,6 +64,7 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->roles }}</td>
                                         <td>{{ $user->created_at->format('d/m/Y') }}</td>
+                                        <td>{{$user->last_login_at}}</td>
                                         <td>
 
                                             @can('for-route', ['users.edit', $user])
@@ -84,7 +85,7 @@
                                 @endforelse
                             </x-slot>
 
-                        </x-tables.table>
+                        </x-tables.no-responsive-table>
 
                         <div class="row">
                             <x-tables.entries-data :data="$users"/>

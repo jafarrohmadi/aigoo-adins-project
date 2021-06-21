@@ -14,14 +14,14 @@
                 {{-- {{ $header }} --}}
             </h3>
             <div class="float-right">
-                <livewire:quiz-game.matches.create/>
+                <livewire:quiz-game.completes.create/>
             </div>
 
         </div>
     @endif
 
     @if (isset($body))
-    <livewire:question-game1.completes.index />
+    <livewire:quiz-game.completes.index />
     @endif
 
     @if (isset($footer))

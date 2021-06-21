@@ -71,8 +71,7 @@
         </a>
         <div class="sidebar">
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column sidebar-menu" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
                         <a href="{{ route('home.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt elevation-3"></i>
@@ -80,18 +79,34 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('quiz-game.choices') }}" class="nav-link">
-                            <i class="nav-icon fas fa-user elevation-3"></i>
-                            <span class="brand-text">Quiz Choice </span>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Question Game
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
                         </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('quiz-game.matches') }}" class="nav-link">
-                            <i class="nav-icon fas fa-user elevation-3"></i>
-                            <span class="brand-text">Quiz Matches </span>
-                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('quiz-game.choices') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Quiz Choice</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('quiz-game.matches') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Quiz Matches</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('quiz-game.completes') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Quiz Completes</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                 @can('for-route', ['users.index'])
@@ -132,15 +147,15 @@
     </footer>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 @livewireScripts
-
 <script src="{{ asset('js/app.js') }}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Bootstrap4 js-->
 <script src="{{URL::asset('assets/plugins/bootstrap/popper.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-
+<script src="{{URL::asset('assets/plugins/bootstrap/js/bootstrap.js')}}"></script>
+<script src="{{ asset('js/adminlte.min.js') }}"></script>
 <!-- INTERNAL Clipboard js -->
 <script src="{{URL::asset('assets/plugins/clipboard/clipboard.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/clipboard/clipboard.js')}}"></script>
@@ -153,13 +168,24 @@
 <script src="{{URL::asset('assets/js/select2.js')}}"></script>
 
 <!-- INTERNAL Popover js -->
-{{--    <script src="{{URL::asset('assets/js/popover.js')}}"></script>--}}
+    <script src="{{URL::asset('assets/js/popover.js')}}"></script>
 
 <!-- INTERNAL Sweet alert js -->
 <script src="{{URL::asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/sweet-alert/sweetalert.min.js')}}"></script>
 <script src="{{URL::asset('assets/js/sweet-alert.js')}}"></script>
 
+<script type="text/javascript">
+    var url = window.location;
+    // for sidebar menu but not for treeview submenu
+    $('ul.sidebar-menu a.nav-link').filter(function() {
+        return this.href == url;
+    }).siblings().removeClass('active').end().addClass('active');
+    // for treeview which is like a submenu
+    $('ul.nav-treeview a.nav-link').filter(function() {
+        return this.href == url;
+    }).parentsUntil(".sidebar-menu > .nav-treeview").siblings().removeClass('active menu-open').end().addClass('active menu-open');
+</script>
 @yield('scripts')
 
 @stack('scripts')
