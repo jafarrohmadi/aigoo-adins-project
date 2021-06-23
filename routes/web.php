@@ -9,12 +9,10 @@ use App\Http\Controllers\ConfirmedEmailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Profile\UserController as ProfileUserController;
 use App\Http\Controllers\QuizGame\QuizGameController;
+use App\Http\Controllers\Setting\SettingController;
 use App\Http\Livewire\AcceptedInvitationComponent;
-use App\Http\Livewire\CreateRoleComponent;
 use App\Http\Livewire\CreateUserComponent;
-use App\Http\Livewire\EditRoleComponent;
 use App\Http\Livewire\EditUserComponent;
-use App\Http\Livewire\IndexRoleComponent;
 use App\Http\Livewire\IndexUserComponent;
 
 Route::post('login', [LoginController::class, 'login']);
@@ -57,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('quiz-game/completes', [QuizGameController::class, 'completes'])->name('quiz-game.completes');
 
         Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');
+        Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');
 //        Route::get('roles/create', CreateRoleComponent::class)->name('roles.create');
 //        Route::get('roles/{role}/edit', EditRoleComponent::class)->name('roles.edit');

@@ -117,6 +117,12 @@
                             </a>
                         </li>
                     @endcan
+                    <li class="nav-item">
+                        <a href="{{ route('settings.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-cogs elevation-3"></i>
+                            <span class="brand-text">Setting</span>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{ route('activity-log.index') }}" class="nav-link">
