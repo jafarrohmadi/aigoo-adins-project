@@ -109,14 +109,38 @@
                         </ul>
                     </li>
 
-                @can('for-route', ['users.index'])
-                        <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-user elevation-3"></i>
-                                <span class="brand-text">Users</span>
-                            </a>
-                        </li>
-                    @endcan
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user elevation-3"></i>
+                            <p>
+                                User Management
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('department.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span class="brand-text">Department</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('team.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span class="brand-text">Team</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span class="brand-text">Users</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
                     <li class="nav-item">
                         <a href="{{ route('settings.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-cogs elevation-3"></i>

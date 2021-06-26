@@ -14,9 +14,9 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">List of Users</h3>
-                    @can('for-route', ['users.create'])
-                        <a href="{{ route('users.create') }}" class="float-right">Add New</a>
-                    @endcan
+{{--                    @can('for-route', ['users.create'])--}}
+{{--                        <a href="{{ route('users.create') }}" class="float-right">Add New</a>--}}
+{{--                    @endcan--}}
                 </div>
 
                 <div class="card-body" x-data="{showModal : false, deleteId : false}">
@@ -48,12 +48,12 @@
                                     </th>
 
                                     <th>Last Login</th>
-                                    <th class="sorting">
-                                        Edit
-                                    </th>
-                                    <th class="sorting">
-                                        Delete
-                                    </th>
+{{--                                    <th class="sorting">--}}
+{{--                                        Edit--}}
+{{--                                    </th>--}}
+{{--                                    <th class="sorting">--}}
+{{--                                        Delete--}}
+{{--                                    </th>--}}
                                 </tr>
                             </x-slot>
 
@@ -65,7 +65,7 @@
                                         <td>{{ $user->roles }}</td>
                                         <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                         <td>{{$user->last_login_at}}</td>
-                                        <td>
+                                        {{--<td>
 
                                             @can('for-route', ['users.edit', $user])
                                                 @if(!$user->isHimself(auth()->user()))
@@ -76,11 +76,11 @@
                                         </td>
                                         <td>
                                             <livewire:delete-user-component :user="$user" :key="'user-'.$user->id"/>
-                                        </td>
+                                        </td>--}}
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6">No results.</td>
+                                        <td colspan="5">No results.</td>
                                     </tr>
                                 @endforelse
                             </x-slot>

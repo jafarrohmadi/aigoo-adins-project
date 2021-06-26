@@ -200,4 +200,8 @@ class User extends Authenticatable
         return "This User has been {$eventName}";
     }
 
+    public function scopeUserOnly($query)
+    {
+        return $query->where('type', 'user');
+    }
 }

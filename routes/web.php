@@ -6,10 +6,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ConfirmedEmailController;
+use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LeaderBoard\LeaderBoardController;
 use App\Http\Controllers\Profile\UserController as ProfileUserController;
 use App\Http\Controllers\QuizGame\QuizGameController;
 use App\Http\Controllers\Setting\SettingController;
+use App\Http\Controllers\Team\TeamController;
 use App\Http\Livewire\AcceptedInvitationComponent;
 use App\Http\Livewire\CreateUserComponent;
 use App\Http\Livewire\EditUserComponent;
@@ -56,6 +59,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::get('leaderboard', [LeaderBoardController::class, 'index'])->name('leaderboard.index');
+        Route::get('department', [DepartmentController::class, 'index'])->name('department.index');
+        Route::get('team', [TeamController::class, 'index'])->name('team.index');
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');
 //        Route::get('roles/create', CreateRoleComponent::class)->name('roles.create');
 //        Route::get('roles/{role}/edit', EditRoleComponent::class)->name('roles.edit');

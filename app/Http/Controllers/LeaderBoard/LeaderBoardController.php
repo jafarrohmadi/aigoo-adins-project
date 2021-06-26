@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class LeaderBoardController extends Controller
 {
-    public function leaderboard()
+    public function index()
     {
         return view('leaderboards.index');
     }
