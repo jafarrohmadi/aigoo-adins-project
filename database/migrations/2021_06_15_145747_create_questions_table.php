@@ -20,7 +20,7 @@ class CreateQuestionsTable extends Migration
             $table->text('content');
             $table->enum('level', ['staff', 'managerial']);
             $table->timestamps();
-            $table->timestamp('deleted_at');
+            $table->softDeletes();
         });
     }
 

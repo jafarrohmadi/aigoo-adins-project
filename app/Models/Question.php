@@ -28,6 +28,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Question extends Model
 {
 	use SoftDeletes,LogsActivity;
+
 	protected $table = 'questions';
 
     protected static $logFillable = true;
@@ -48,5 +49,10 @@ class Question extends Model
     public function getDescriptionForEvent(string $eventName): string
     {
         return "This Question has been {$eventName}";
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class , 'category_id');
     }
 }

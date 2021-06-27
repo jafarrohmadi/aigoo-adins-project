@@ -109,6 +109,24 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('category.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt elevation-3"></i>
+                            <span class="brand-text">Category</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('question.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt elevation-3"></i>
+                            <span class="brand-text">Assessment Question</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('leaderboard.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt elevation-3"></i>
+                            <span class="brand-text">LeaderBoard</span>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user elevation-3"></i>
