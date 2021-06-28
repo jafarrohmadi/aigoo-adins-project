@@ -10,7 +10,7 @@ class ComponentsScaffoldMakeCommandTest extends TestCase
     {
         parent::tearDown();
 
-        @unlink(base_path('resources/views/bla/index.blade.php'));
+        @unlink(base_path('resources/views/bla/content.blade.php'));
         @unlink(base_path('app/Http/Livewire/IndexBlaComponent.php'));
         @unlink(base_path('tests/Feature/Http/Livewire/IndexBlaComponentTest.php'));
         @unlink(base_path('app/Filters/BlaFilter.php'));
