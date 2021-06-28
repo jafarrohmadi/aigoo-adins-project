@@ -9,8 +9,7 @@
 
     <!--Bootstrap css -->
     <link href="{{URL::asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link href="{{asset('css/app.css') }}" rel="stylesheet">
     <link href="{{URL::asset('assets/plugins/prism/prism.css')}}" rel="stylesheet">
 
     <!--INTERNAL Select2 css -->

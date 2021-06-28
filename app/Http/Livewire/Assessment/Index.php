@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Assessment;
 
 
 use App\Models\Assessment;
-use App\Models\Category;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -42,14 +42,14 @@ class Index extends Component
     {
         if ($this->search)
         {
-            $query           = Assessment::latest()->where('user_id', 'like', '%' . $this->search . '%');
+            $query           = Assessment::latest()->where('user_id', 'like', '%' . $this->search . '%')->select('assessor_id', 'user_id','created_at')->groupBy('assessor_id', 'user_id');
             $this->totalData = $query->count();
             return view('livewire.assessment.index', [
                 'assessment' => $query->paginate($this->paginate)
             ]);
         } else
         {
-            $query           = Assessment::latest();
+            $query           = Assessment::latest()->select('assessor_id', 'user_id','created_at')->groupBy('assessor_id', 'user_id');
             $this->totalData = $query->count();
             return view('livewire.assessment.index', [
                 'assessment' => $query->paginate($this->paginate)

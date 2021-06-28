@@ -53,7 +53,7 @@ class Assessment extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        return "This Assesment has been {$eventName}";
+        return "This Assessment has been {$eventName}";
     }
 
     /**

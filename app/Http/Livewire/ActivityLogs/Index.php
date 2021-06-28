@@ -51,7 +51,7 @@ class Index extends Component
     {
         if ($this->search)
         {
-            $query           = Activity::latest()->where('log_name', 'like', '%' . $this->search . '%');
+            $query           = Activity::latest()->where('description', 'like', '%' . $this->search . '%');
             $this->totalData = $query->count();
             return view('livewire.activity-log.index', [
                 'activityLogs' => $query->paginate($this->paginate)
