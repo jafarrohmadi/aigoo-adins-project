@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityLog\ActivityLogController;
+use App\Http\Controllers\Assessment\AssessmentController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -66,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('team', [TeamController::class, 'index'])->name('team.index');
         Route::get('category', [CategoryController::class, 'index'])->name('category.index');
         Route::get('assessment-question', [QuestionController::class, 'index'])->name('question.index');
+        Route::get('assessment', [AssessmentController::class, 'index'])->name('assessment.index');
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');
 //        Route::get('roles/create', CreateRoleComponent::class)->name('roles.create');
 //        Route::get('roles/{role}/edit', EditRoleComponent::class)->name('roles.edit');
