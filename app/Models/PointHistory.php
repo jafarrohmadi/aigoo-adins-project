@@ -55,4 +55,9 @@ class PointHistory extends Model
     {
         return "This Point History has been {$eventName}";
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id');
+    }
 }

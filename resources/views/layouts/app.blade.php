@@ -111,19 +111,37 @@
 
                     <li class="nav-item">
                         <a href="{{ route('category.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt elevation-3"></i>
+                            <i class="nav-icon fas fa-list-alt elevation-3"></i>
                             <span class="brand-text">Category</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('question.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt elevation-3"></i>
-                            <span class="brand-text">Assessment Question</span>
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-question-circle"></i>
+                            <p>
+                                Assessment
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('question.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Assessment Question</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('assessment.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span class="brand-text">Assessment History</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+
                     <li class="nav-item">
                         <a href="{{ route('leaderboard.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt elevation-3"></i>
+                            <i class="nav-icon fas fa-trophy elevation-3"></i>
                             <span class="brand-text">LeaderBoard</span>
                         </a>
                     </li>

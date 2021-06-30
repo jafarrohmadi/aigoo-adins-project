@@ -27,7 +27,7 @@
                 <x-tables.search/>
             </div>
 
-            <x-tables.table>
+            <x-tables.no-responsive-table>
                 <x-slot name="thead_tfoot">
                     <tr>
                         <th class="sorting">No</th>
@@ -56,7 +56,7 @@
                         </tr>
                     @endforelse
                 </x-slot>
-            </x-tables.table>
+            </x-tables.no-responsive-table>
             <div class="row">
                 <x-tables.entries-data :data="$vwLeadeboard"/>
 
