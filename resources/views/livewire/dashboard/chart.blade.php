@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-@section('scripts')
+@push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
@@ -50,8 +50,8 @@
         });
 
         function setDivisionChart() {
-            let divisions = @this.data.divisions;
-            let divisionAggregate = @this.data.divisionAggregate;
+            let divisions = @this.divisions;
+            let divisionAggregate = @this.divisionAggregate;
 
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -84,7 +84,7 @@
         function dailyChart()
         {
             am4core.ready(function() {
-                let dataDaily = @this.data.daily;
+                let dataDaily = @this.daily;
                 am4core.useTheme(am4themes_animated);
 
                 var chart = am4core.create("chartdiv", am4charts.XYChart);
@@ -125,4 +125,4 @@
             });
         }
     </script>
-@endsection
+@endpush

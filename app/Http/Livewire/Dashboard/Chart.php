@@ -23,10 +23,9 @@ class Chart extends Component
 
     public function calculateDivisionChart($points)
     {
-        $divisionPoints = collect($points)->groupBy('user.department_id')->map(function($item){
+        $divisionPoints = collect($points)->groupBy('user.department_name')->map(function($item){
             return $item->sum('score');
         })->sortDesc();
-
 
         $this->divisions = $divisionPoints->keys()->all();
         $this->divisionAggregate = $divisionPoints->values()->all();

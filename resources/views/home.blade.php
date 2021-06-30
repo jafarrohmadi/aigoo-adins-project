@@ -71,3 +71,7 @@
         <!-- /.row (main row) -->
     </div>
 @endsection
+
+@section('scripts')
+    @yield('js')
+@endsection
