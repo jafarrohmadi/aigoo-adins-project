@@ -1,5 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
+if (! function_exists('me')) {
+
+    function me()
+    {
+        return Auth::user();
+    }
+}
+
 if (! function_exists('msg_success')) {
     /**
      * Flash success message.
