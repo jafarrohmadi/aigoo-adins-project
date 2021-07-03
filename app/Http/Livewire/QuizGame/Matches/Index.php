@@ -11,7 +11,7 @@ class Index extends Component
     use WithPagination;
 
     public $paginate = 10;
-    public $search, $questionId, $difficulty, $question, $wrong_question, $answer, $wrong_answer, $totalData;
+    public $search, $questionId, $difficulty, $question, $wrong_question, $answer, $wrong_answer, $totalData, $category, $level;
     protected $updatesQueryString = ['search'];
 
     protected $listeners
@@ -60,6 +60,8 @@ class Index extends Component
         $this->wrong_question = $questionMatch->wrong_question;
         $this->answer         = $questionMatch->answer;
         $this->wrong_answer   = $questionMatch->wrong_answer;
+        $this->category       = $questionMatch->category;
+        $this->level          = $questionMatch->level;
     }
 
     public function update()
@@ -74,6 +76,8 @@ class Index extends Component
                 'wrong_question' => 'required',
                 'answer'         => 'required',
                 'wrong_answer'   => 'required',
+                'category'       => 'required',
+                'level'          => 'required'
             ]);
 
             $result = $questionMatch->update([
@@ -81,7 +85,9 @@ class Index extends Component
                 'question'       => $this->question,
                 'wrong_question' => $this->wrong_question,
                 'answer'         => $this->answer,
-                'wrong_answer'   => $this->wrong_answer
+                'wrong_answer'   => $this->wrong_answer,
+                'category'       => $this->category,
+                'level'          => $this->level
             ]);
         }
 

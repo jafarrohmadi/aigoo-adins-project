@@ -99,7 +99,7 @@
                                     <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <select wire:model="level"
-                                                class="form-control @error('answer') mb-4 is-invalid state-invalid @enderror">
+                                                class="form-control @error('level') mb-4 is-invalid state-invalid @enderror">
                                             <option>--Select--</option>
                                             <option value="Staff">Staff</option>
                                             <option value="Managerial">Managerial</option>

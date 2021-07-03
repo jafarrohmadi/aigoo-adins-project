@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Leaderboard;
 
+use App\Models\Department;
 use App\Models\User;
 use App\ViewModels\VwLeadeboard;
 use Livewire\Component;
@@ -18,8 +19,7 @@ class Index extends Component
     public function mount()
     {
         $this->search = request()->query('search', $this->search);
-        $this->department
-                      = collect(User::userOnly()->select('department_id')->get())->groupBy('department_id')->keys()->toArray();
+        $this->department = Department::all()->pluck('name', 'id');
     }
 
     public function updatingSearch()
@@ -114,13 +114,13 @@ class Index extends Component
             
             return view('livewire.leaderboard.index', [
                 'department'   => $this->department,
-                'vwLeadeboard' => VwLeadeboard::paginate($this->paginate)
+                'vwLeadeboard' => VwLeadeboard::with('department')->paginate($this->paginate)
             ]);
         }
         
         return view('livewire.leaderboard.index', [
             'department'   => $this->department,
-            'vwLeadeboard' => $query->paginate($this->paginate)
+            'vwLeadeboard' => $query->with('department')->paginate($this->paginate)
         ]);
     }
 }

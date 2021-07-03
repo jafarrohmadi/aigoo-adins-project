@@ -6,8 +6,8 @@
                     <select wire:model="filterByDepartment" class="form-control form-control-md bg-primary"
                             style="border-radius: 16px;">
                         <option selected>Filter by Department</option>
-                        @foreach($department as $division)
-                            <option value="{{ $division }}">{{ $division }}</option>
+                        @foreach($department as $key => $division)
+                            <option value="{{ $key }}">{{ $division }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -47,7 +47,7 @@
                             <td>{{ $leaderboard->total_score }}</td>
                             <td>{{ $leaderboard->user->name }}</td>
                             <td>{{ $leaderboard->team_id }}</td>
-                            <td>{{ $leaderboard->department_id }}</td>
+                            <td>{{ $leaderboard->department->name }}</td>
                             <td>{{ $leaderboard->game_id }}</td>
                         </tr>
                     @empty
