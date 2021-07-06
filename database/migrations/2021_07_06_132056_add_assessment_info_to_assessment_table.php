@@ -15,6 +15,7 @@ class AddAssessmentInfoToAssessmentTable extends Migration
     {
         Schema::table('assessment', function (Blueprint $table) {
             $table->string('assessment_info')->nullable();
+            $table->string('assessment_year_month')->nullable();
         });
     }
 }

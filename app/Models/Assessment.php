@@ -49,7 +49,8 @@ class Assessment extends Model
             'user_id',
             'question_id',
             'value',
-            'assessment_info'
+            'assessment_info',
+            'assessment_year_month'
         ];
 
     public function getDescriptionForEvent(string $eventName): string

@@ -210,7 +210,7 @@ class User extends Authenticatable
         return $query->where('type', 'user');
     }
 
-    public function department()
+    public function departments()
     {
         return $this->belongsTo(Department::class, 'department_id');
     }

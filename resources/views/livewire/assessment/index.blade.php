@@ -21,26 +21,38 @@
                         <th class="sorting">
                             Date
                         </th>
+                        <th class="sorting">
+                            Detail
+                        </th>
                     </tr>
                 </x-slot>
 
                 <x-slot name="tbody">
+
                     @forelse ($assessment as $key => $assessments)
                         <tr class="@if($loop->odd) odd @endif">
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                {{ $assessments->assessor ? ($assessments->assessor->name . ' ('. $assessments->assessor->department->name .')') : ''}}
+                                {{ $assessments->assessor ? ($assessments->assessor->name . ' ('. $assessments->assessor->department .')') : ''}}
                             </td>
                             <td>
-                                {{ $assessments->user ? ($assessments->user->name. ' ('. $assessments->user->department->name .')') : '' }}
+                                {{ $assessments->user ? ($assessments->user->name. ' ('. $assessments->user->department .')') : '' }}
                             </td>
                             <td>
-                                {{ $assessments->created_at  }}
+                                {{ $assessments->assessment_year_month  }}
+                            </td>
+                            <td>
+                                <div class="btn-list">
+                                    <button type="button" wire:click="getAssessment({{ $assessments->id }})"
+                                            class="btn btn-info btn-sm" data-toggle="modal" data-target="#infomodal"><i
+                                                class="far fa-eye"></i> View
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6">No results.</td>
+                            <td colspan="5">No results.</td>
                         </tr>
                     @endforelse
                 </x-slot>

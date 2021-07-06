@@ -44,8 +44,8 @@ class Index extends Component
         {
             $query           = Assessment::latest()->whereHas('user', function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%');
-            })->select('assessor_id', 'user_id', 'created_at')->groupBy('assessor_id', 'user_id')->with('assessor',
-                'user', 'assessor.department', 'user.department');
+            })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_date')->groupBy('assessor_id', 'user_id', 'assessment_year_month')->with('assessor',
+                'user');
             $this->totalData = $query->count();
 
             return view('livewire.assessment.index', [
@@ -53,10 +53,10 @@ class Index extends Component
             ]);
         } else
         {
-            $query           = Assessment::latest()->select('assessor_id', 'user_id',
-                'created_at')->groupBy('assessor_id', 'user_id')->with('assessor', 'user', 'assessor.department',
-                'user.department');
+            $query           = Assessment::select('assessor_id', 'user_id',
+                'created_at', 'assessment_year_date')->groupBy('assessor_id', 'user_id', 'assessment_year_month')->with('assessor', 'user');
             $this->totalData = $query->count();
+
             return view('livewire.assessment.index', [
                 'assessment' => $query->paginate($this->paginate)
             ]);
