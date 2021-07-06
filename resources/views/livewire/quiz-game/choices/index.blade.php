@@ -12,10 +12,17 @@
                         <th class="sorting">
                             No
                         </th>
+                        <th class="sorting">Level</th>
+                        <th class="sorting">Category</th>
                         <th class="sorting">
                             <a href="#" wire:click.prevent="sortBy('question')">Question</a>
-
                         </th>
+                        <th class="sorting">Choice 1</th>
+                        <th class="sorting">Choice 2</th>
+                        <th class="sorting">Choice 3</th>
+                        <th class="sorting">Choice 4</th>
+                        <th class="sorting">Choice 5</th>
+                        <th class="sorting">Answer</th>
                         <th class="sorting">
                             Image
                         </th>
@@ -36,7 +43,15 @@
                     @forelse ($questionsChoices as $key => $question)
                         <tr class="@if($loop->odd) odd @endif">
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $question->question }}</td>
+                            <td>{{ $question->level }}</td>
+                            <td>{{ $question->category }}</td>
+                            <td>{{ cut_sentence($question->question) }}</td>
+                            <td>{{ $question->choice1 }}</td>
+                            <td>{{ $question->choice2 }}</td>
+                            <td>{{ $question->choice3 }}</td>
+                            <td>{{ $question->choice4 }}</td>
+                            <td>{{ $question->choice5 }}</td>
+                            <td style="text-align: center;">{{ cut_sentence($question->answer) }}</td>
                             <td> @if ($question->image)
                                     <img src="{{ asset('storage/' . $question->image) }}" width="100" height="100">
                                 @else

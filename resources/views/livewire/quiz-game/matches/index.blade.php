@@ -32,10 +32,10 @@
                             <td>{{ $question->level }}</td>
                             <td>{{ $question->category }}</td>
                             <td>{{ $question->difficulty }}</td>
-                            <td>{{ $question->question }}</td>
-                            <td>{{ $question->wrong_question }}</td>
-                            <td>{{ $question->answer }}</td>
-                            <td>{{ $question->wrong_answer }}</td>
+                            <td>{{ cut_sentence($question->question) }}</td>
+                            <td>{{ cut_sentence($question->wrong_question) }}</td>
+                            <td>{{ cut_sentence($question->answer) }}</td>
+                            <td>{{ cut_sentence($question->wrong_answer) }}</td>
                             <td>{{ date("d F Y H:i:s", strtotime($question->created_at)) }}</td>
                             <td>{{ date("d F Y H:i:s", strtotime($question->updated_at)) }}</td>
                             <td>

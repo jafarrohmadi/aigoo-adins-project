@@ -10,6 +10,14 @@ if (! function_exists('me')) {
     }
 }
 
+if (! function_exists('cut_sentence')) {
+
+    function cut_sentence($data)
+    {
+        return str_word_count($data) > 15 ? substr($data,0,80)."..." : $data;
+    }
+}
+
 if (! function_exists('msg_success')) {
     /**
      * Flash success message.

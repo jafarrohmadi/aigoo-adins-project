@@ -35,14 +35,14 @@
                             <td>{{ $question->level }}</td>
                             <td>{{ $question->category }}</td>
                             <td>{{ $question->difficulty }}</td>
-                            <td>{{ $question->question }}</td>
+                            <td>{{ cut_sentence($question->question) }}</td>
                             <td>{{ $question->choice1 }}</td>
                             <td>{{ $question->choice2 }}</td>
                             <td>{{ $question->choice3 }}</td>
                             <td>{{ $question->choice4 }}</td>
                             <td>{{ $question->choice5 }}</td>
                             <td>{{ $question->choice6 }}</td>
-                            <td style="text-align: center;">{{ $question->answer }}</td>
+                            <td style="text-align: center;">{{ cut_sentence($question->answer) }}</td>
                             <td>{{ date("d F Y H:i:s", strtotime($question->created_at)) }}</td>
                             <td>{{ date("d F Y H:i:s", strtotime($question->updated_at)) }}</td>
                             <td>
