@@ -12,12 +12,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Team
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string|null $avatar
  * @property bool $locked
  * @property array $members
+ * @property int $department_id
  * @property Carbon $created_ad
  * @property Carbon $updated_at
  *
@@ -27,7 +28,7 @@ class Team extends Model
 {
     use LogsActivity;
 
-	protected $table = 'teams';
+    protected $table = 'teams';
 
     protected static $logFillable = true;
 
@@ -35,22 +36,26 @@ class Team extends Model
 
     public $timestamps = false;
 
-	protected $casts = [
-		'locked' => 'bool',
-		'members' => 'json'
-	];
+    protected $casts
+        = [
+            'locked'  => 'bool',
+            'members' => 'json'
+        ];
 
-	protected $dates = [
-		'created_ad'
-	];
+    protected $dates
+        = [
+            'created_ad'
+        ];
 
-	protected $fillable = [
-		'name',
-		'avatar',
-		'locked',
-		'members',
-		'created_ad'
-	];
+    protected $fillable
+        = [
+            'name',
+            'avatar',
+            'locked',
+            'members',
+            'created_ad',
+            'department_id'
+        ];
 
     public function getDescriptionForEvent(string $eventName): string
     {

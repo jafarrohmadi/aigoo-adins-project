@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 255)->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255)->nullable();
-            $table->enum('roles', ['Managerial', 'Staff']);
+            $table->enum('roles', ['Managerial', 'Staff', 'CLevel']);
             $table->integer('employee_level_id');
             $table->timestamp('password_changed_at')->nullable();
             $table->unsignedTinyInteger('active')->default(1);

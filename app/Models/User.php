@@ -80,7 +80,11 @@ class User extends Authenticatable
 		'to_be_logged_out',
 		'provider',
 		'provider_id',
-		'remember_token'
+		'remember_token',
+        'team_id',
+        'department',
+        'avatar',
+        'change_avatar'
 	];
 
 //    /**
