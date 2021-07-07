@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\v1\UserController;
 use Illuminate\Http\Request;
 
 /*
@@ -13,6 +14,47 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'auth'], function() {
+    Route::post('login', [UserController::class, 'login'])->name('login');
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        /*// Game Controller
+        Route::get('global-settings', [GameController::class, 'globalSetting']);
+        Route::get('prizes', [GameController::class, 'prizes']);
+        Route::get('schedules', [GameController::class, 'schedules']);
+        Route::get('news', [GameController::class, 'news']);
+        Route::get('documents', [GameController::class, 'documents']);
+        Route::post('save-attempt-game', [GameController::class, 'saveAttemptGame']);
+        Route::post('game-result', [GameController::class, 'gameResult']);
+
+        // Question
+        Route::get('question-game-1', [QuestionController::class, 'questionGame1']);
+        Route::get('question-game-2', [QuestionController::class, 'questionGame2']);
+        Route::get('question-game-3/{stageId}', [QuestionController::class, 'questionGame3']);
+
+        // Leader board
+        Route::get('leaderboard', [LeaderBoardController::class, 'leaderBoard']);
+
+        // Collection
+        Route::get('detail-collection', [CollectionController::class, 'detailCollection']);
+        Route::post('save-collection', [CollectionController::class, 'saveCollection']);
+        Route::get('get-all-collection', [CollectionController::class, 'getAllCollection']);
+
+        // Challenge
+        Route::get('search-challengers/{search}', [ChallengeController::class, 'searchChallengers']);
+        Route::post('claim-challenge', [ChallengeController::class, 'claimChallenge']);
+        Route::post('save-challenge', [ChallengeController::class, 'saveChallenge']);
+        Route::put('accept-challenge', [ChallengeController::class, 'acceptChallenge']);
+        Route::get('challenge-data-game', [ChallengeController::class, 'challengeDataGame']);
+*/
+        // User
+        Route::get('profile', [UserController::class, 'profile']);
+      /*  Route::get('user-prizes', [UserController::class, 'userPrizes']);
+        Route::post('update-profile', [UserController::class, 'updateProfile']);
+        Route::get('player-data', [UserController::class, 'playerData']);
+        Route::get('player-data-game/{game_id}', [UserController::class, 'playerDataGame']);*/
+
+        // Route::post('details', [UserController::class, 'details'])->name('details');
+        Route::post('logout', [UserController::class, 'logout'])->name('logout');
+    });
 });

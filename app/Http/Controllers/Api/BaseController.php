@@ -34,6 +34,6 @@ class BaseController extends Controller
             'message' => $message
         ];
 
-        return response($response, 500);
+        return response($response, 404);
     }
 }

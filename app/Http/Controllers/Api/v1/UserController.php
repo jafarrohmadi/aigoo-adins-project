@@ -32,7 +32,7 @@ class UserController extends BaseController
         return $this->returnFalse('Unauthorised');
     }
 
-    public function details()
+    public function profile()
     {
         if ($user = me())
         {
