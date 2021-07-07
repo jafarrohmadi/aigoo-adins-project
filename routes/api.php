@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\v1\UserController;
+use App\Http\Controllers\Api\v1\Setting\SettingController;
+use App\Http\Controllers\Api\v1\User\UserController;
 use Illuminate\Http\Request;
 
 /*
@@ -18,9 +19,9 @@ Route::group(['prefix' => 'auth'], function() {
     Route::post('login', [UserController::class, 'login'])->name('login');
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        /*// Game Controller
-        Route::get('global-settings', [GameController::class, 'globalSetting']);
-        Route::get('prizes', [GameController::class, 'prizes']);
+        // Game Controller
+        Route::get('global-settings', [SettingController::class, 'index']);
+        /*Route::get('prizes', [GameController::class, 'prizes']);
         Route::get('schedules', [GameController::class, 'schedules']);
         Route::get('news', [GameController::class, 'news']);
         Route::get('documents', [GameController::class, 'documents']);

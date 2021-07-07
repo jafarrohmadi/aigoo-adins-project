@@ -15,8 +15,8 @@ class TitleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'min_level' => $this->min_level,
-            'title' => $this->title
+            'min_level' => $this->value,
+            'title' => $this->name
         ];
     }
 }
