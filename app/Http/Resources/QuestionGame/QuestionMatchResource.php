@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\QuestionGame2;
+namespace App\Http\Resources\QuestionGame;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QuestionTrueFalseResource extends JsonResource
+class QuestionMatchResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,9 @@ class QuestionTrueFalseResource extends JsonResource
         return [
             'question_id' => $this->id,
             'question' => $this->question,
-            'answer' => $this->answer
+            'wrong_question' => $this->wrong_question,
+            'answer' => $this->answer,
+            'wrong_answer' => $this->wrong_answer
         ];
     }
 }

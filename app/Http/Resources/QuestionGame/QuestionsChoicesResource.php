@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\QuestionGame1;
+namespace App\Http\Resources\QuestionGame;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,7 +26,6 @@ class QuestionsChoicesResource extends JsonResource
             'choice5' => $this->choice5,
             'answer' => $this->answer,
             'image' => $this->image,
-            'question' => $this->question
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\v1\Quiz\QuizGameController;
 use App\Http\Controllers\Api\v1\Setting\SettingController;
 use App\Http\Controllers\Api\v1\User\UserController;
 use Illuminate\Http\Request;
@@ -27,11 +28,11 @@ Route::group(['prefix' => 'auth'], function() {
         Route::get('documents', [GameController::class, 'documents']);
         Route::post('save-attempt-game', [GameController::class, 'saveAttemptGame']);
         Route::post('game-result', [GameController::class, 'gameResult']);
+        */
 
         // Question
-        Route::get('question-game-1', [QuestionController::class, 'questionGame1']);
-        Route::get('question-game-2', [QuestionController::class, 'questionGame2']);
-        Route::get('question-game-3/{stageId}', [QuestionController::class, 'questionGame3']);
+        Route::get('question-game/{category}', [QuizGameController::class, 'index']);
+ /*
 
         // Leader board
         Route::get('leaderboard', [LeaderBoardController::class, 'leaderBoard']);
