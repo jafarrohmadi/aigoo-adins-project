@@ -51,9 +51,9 @@ Route::group(['prefix' => 'auth'], function() {
 */
         // User
         Route::get('profile', [UserController::class, 'profile']);
-      /*  Route::get('user-prizes', [UserController::class, 'userPrizes']);
-        Route::post('update-profile', [UserController::class, 'updateProfile']);
-        Route::get('player-data', [UserController::class, 'playerData']);
+      /*  Route::get('user-prizes', [UserController::class, 'userPrizes']); */
+        Route::put('update-profile', [UserController::class, 'updateProfile']);
+/*        Route::get('player-data', [UserController::class, 'playerData']);
         Route::get('player-data-game/{game_id}', [UserController::class, 'playerDataGame']);*/
 
         // Route::post('details', [UserController::class, 'details'])->name('details');

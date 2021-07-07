@@ -47,7 +47,7 @@ class ProfileResource extends JsonResource
                     'total_poin'         => $this->pointHistories->where('point', '>=', 0)->sum('point'),
                     'current_poin'       => $this->pointHistories->sum('point'),
                     'daily_attempt_game' => $dailyAttemp === null ? 0 : $dailyAttemp,
-                    'profile_picture'    => $this->change_avatar ?? $this->avatar
+                    'profile_picture'    => (asset('img/profile_picture').'/'). $this->change_avatar ?? $this->avatar
                 ],
                 'game_player_data' => [
                     'daily_attempt' => $dailyAttemp === null ? 0 : $dailyAttemp,
