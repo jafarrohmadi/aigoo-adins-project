@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 255)->nullable();
             $table->enum('roles', ['Managerial', 'Staff', 'CLevel']);
             $table->integer('employee_level_id');
+            $table->integer('level')->default(1);
             $table->timestamp('password_changed_at')->nullable();
             $table->unsignedTinyInteger('active')->default(1);
             $table->string('timezone', 255)->nullable();

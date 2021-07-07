@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Filters\UserFilter;
+use App\PointHistories;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +15,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class User
- * 
+ *
  * @property int $id
  * @property string $type
  * @property string $name
@@ -39,53 +41,58 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class User extends Authenticatable
 {
-	use SoftDeletes,LogsActivity, HasApiTokens;
+    use SoftDeletes, LogsActivity, HasApiTokens;
 
-	protected $table = 'users';
+    protected $table = 'users';
 
     protected static $logFillable = true;
 
     protected static $logOnlyDirty = true;
 
-    protected $casts = [
-		'employee_level_id' => 'int',
-		'active' => 'int',
-		'to_be_logged_out' => 'bool'
-	];
+    protected $casts
+        = [
+            'employee_level_id' => 'int',
+            'active'            => 'int',
+            'to_be_logged_out'  => 'bool'
+        ];
 
-	protected $dates = [
-		'email_verified_at',
-		'password_changed_at',
-		'last_login_at'
-	];
+    protected $dates
+        = [
+            'email_verified_at',
+            'password_changed_at',
+            'last_login_at'
+        ];
 
-	protected $hidden = [
-		'password',
-		'remember_token'
-	];
+    protected $hidden
+        = [
+            'password',
+            'remember_token'
+        ];
 
-	protected $fillable = [
-		'type',
-		'name',
-		'email',
-		'email_verified_at',
-		'password',
-		'roles',
-		'employee_level_id',
-		'password_changed_at',
-		'active',
-		'timezone',
-		'last_login_at',
-		'last_login_ip',
-		'to_be_logged_out',
-		'provider',
-		'provider_id',
-		'remember_token',
-        'team_id',
-        'department',
-        'avatar',
-        'change_avatar'
-	];
+    protected $fillable
+        = [
+            'type',
+            'name',
+            'email',
+            'email_verified_at',
+            'password',
+            'roles',
+            'employee_level_id',
+            'password_changed_at',
+            'active',
+            'timezone',
+            'last_login_at',
+            'last_login_ip',
+            'to_be_logged_out',
+            'provider',
+            'provider_id',
+            'remember_token',
+            'team_id',
+            'department',
+            'avatar',
+            'change_avatar',
+            'level'
+        ];
 
 //    /**
 //     * Get the user's role.
@@ -110,7 +117,7 @@ class User extends Authenticatable
     /**
      * Create a new Eloquent query builder for the model.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param \Illuminate\Database\Query\Builder $query
      * @return UserFilter
      */
     public function newEloquentBuilder($query)
@@ -125,7 +132,8 @@ class User extends Authenticatable
      */
     public function getImageFileAttribute()
     {
-        if ($this->image === null) {
+        if ($this->image === null)
+        {
             return asset('images/default-user.png');
         }
 
@@ -145,7 +153,7 @@ class User extends Authenticatable
     /**
      * Does user have permission.
      *
-     * @param  string  $permission
+     * @param string $permission
      * @return bool
      */
     public function hasPermission($permission)
@@ -158,7 +166,7 @@ class User extends Authenticatable
     /**
      * Get first user's permission.
      *
-     * @param  string  $permissionName
+     * @param string $permissionName
      * @return bool
      */
     public function getPermission($permissionName)
@@ -181,7 +189,7 @@ class User extends Authenticatable
     /**
      * Save user's password.
      *
-     * @param  string  $password
+     * @param string $password
      * @return mixed
      */
     public function savePassword($password)
@@ -192,7 +200,7 @@ class User extends Authenticatable
     /**
      * Is auth user same as compared user.
      *
-     * @param  \App\Models\User  $comparedUser
+     * @param \App\Models\User $comparedUser
      * @return bool
      */
     public function isHimself($comparedUser)
@@ -217,7 +225,24 @@ class User extends Authenticatable
 
     public function getDepartmentNameAttribute()
     {
-        return $this->department->name;
+        return $this->departments->name;
     }
+
+    /**
+     * @return HasMany
+     */
+    public function pointHistories()
+    {
+        return $this->hasMany(PointHistory::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function userCollection()
+    {
+        return $this->hasMany(UserCollection::class, 'user_id', 'id');
+    }
+
 
 }

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Request\User\LoginRequest;
+use App\Http\Resources\Profile\ProfileResource;
+use Exception;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseController
@@ -32,14 +35,16 @@ class UserController extends BaseController
         return $this->returnFalse('Unauthorised');
     }
 
+    /**
+     * @return ProfileResource|ResponseFactory|\Illuminate\Http\Response
+     */
     public function profile()
     {
-        if ($user = me())
-        {
-            return $this->returnSuccess($user);
+        try {
+            return new ProfileResource(me());
+        } catch(Exception $e) {
+            return $this->returnFalse();
         }
-
-        return $this->returnFalse('Unauthorised');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Profile;
 
+use App\Models\DailyAttempt;
 use App\ViewModels\VwLeadeboard;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,7 +18,7 @@ class ProfileResource extends JsonResource
      */
     public function toArray($request)
     {
-        $vwLeadeboardDepartment = VwLeadeboard::where('department', $this->department)->get();
+        $vwLeadeboardDepartment = VwLeadeboard::where('department_id', $this->department_id)->get();
         $rankDepartment         = $vwLeadeboardDepartment->filter(function ($value) {
             return $value->user_id === $this->id;
         })->keys()->first();
@@ -27,54 +28,32 @@ class ProfileResource extends JsonResource
             return $value->user_id === $this->id;
         })->keys()->first();
 
-        $dailyAttemp  = DB::table('daily_attemps')->whereDate('created_at', Carbon::today())->get();
-        $dailyAttemp1 = $dailyAttemp->where('game_id', 1)->where('user_id', $this->id)->pluck('attempt')->first();
-        $dailyAttemp2 = $dailyAttemp->where('game_id', 2)->where('user_id', $this->id)->pluck('attempt')->first();
-        $dailyAttemp3 = $dailyAttemp->where('game_id', 3)->where('user_id', $this->id)->pluck('attempt')->first();
-        $dailyAttemp4 = $dailyAttemp->where('game_id', 4)->where('user_id', $this->id)->pluck('attempt')->first();
+        $dailyAttemp = DailyAttempt::whereDate('created_at', Carbon::today())->where('game_id', 1)->where('user_id',
+            $this->id)->pluck('attempt')->first();
 
         return [
             'status'  => true,
             'message' => 'Success',
             'data'    => [
-                'player_data'       => [
-                    'player_id'           => $this->id,
-                    'player_name'         => $this->name,
-                    'gender'              => $this->gender,
-                    'level'               => $this->level,
-                    'department'          => $this->department,
-                    'rank_department'     => $rankDepartment + 1,
-                    'rank_all'            => $rankAll + 1,
-                    'total_score'         => $this->pointHistories->sum('score'),
-                    'total_poin'          => $this->pointHistories->where('point', '>=', 0)->sum('point'),
-                    'current_poin'        => $this->pointHistories->sum('point'),
-                    'daily_attempt_game1' => $dailyAttemp1 === null ? 0 : $dailyAttemp1,
-                    'daily_attempt_game2' => $dailyAttemp2 === null ? 0 : $dailyAttemp2,
-                    'daily_attempt_game3' => $dailyAttemp3 === null ? 0 : $dailyAttemp3,
-                    'daily_attempt_game4' => $dailyAttemp4 === null ? 0 : $dailyAttemp4,
-                    'profile_picture'     => $this->profile_picture
+                'player_data'      => [
+                    'player_id'          => $this->id,
+                    'player_name'        => $this->name,
+                    'gender'             => $this->gender,
+                    'level'              => $this->level,
+                    'department'         => $this->department,
+                    'rank_department'    => $rankDepartment + 1,
+                    'rank_all'           => $rankAll + 1,
+                    'total_score'        => $this->pointHistories->sum('score'),
+                    'total_poin'         => $this->pointHistories->where('point', '>=', 0)->sum('point'),
+                    'current_poin'       => $this->pointHistories->sum('point'),
+                    'daily_attempt_game' => $dailyAttemp === null ? 0 : $dailyAttemp,
+                    'profile_picture'    => $this->change_avatar ?? $this->avatar
                 ],
-                'game1_player_data' => [
-                    'daily_attempt' => $dailyAttemp1 === null ? 0 : $dailyAttemp1,
+                'game_player_data' => [
+                    'daily_attempt' => $dailyAttemp === null ? 0 : $dailyAttemp,
                     'total_score'   => $this->pointHistories->where('game_id', 1)->sum('score'),
                 ],
-                'game2_player_data' => [
-                    'daily_attempt'            => $dailyAttemp2 === null ? 0 : $dailyAttemp2,
-                    'accepted_challenge_count' => $this->challenges2->where('user_id2', $this->id)->whereIn('status',
-                        ['Accept', 'Finish'])->whereBetween('date', [Carbon::parse('-24 hours'), now()])->count(),
-                    'total_score'              => $this->pointHistories->where('game_id', 2)->sum('score'),
-                    'challenge_in'             => Challenges2Resource::collection($this->challenges2->where('status',
-                        'Pending')),
-                    'challenge_out'            => Challenges1Resource::collection($this->challenges1->whereNotIn('status',
-                        ['Expire'])),
-                ],
-                'game3_player_data' => [
-                    'daily_attempt' => $dailyAttemp3 === null ? 0 : $dailyAttemp3,
-                    'total_score'   => $this->pointHistories->where('game_id', 3)->sum('score'),
-                    "stages"        => [
-
-                    ]
-                ]
+                'user_collection'  => $this->userCollection->pluck('collection')
             ]
         ];
     }
