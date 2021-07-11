@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Avatar;
+namespace App\Http\Resources\Assessment;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class AvatarCollectionResource extends JsonResource
+class AssessmentCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -18,10 +18,7 @@ class AvatarCollectionResource extends JsonResource
         return [
             'status'  => true,
             'message' => 'Success',
-            'data'    => [
-                'avatar_id'       => $this->id,
-                'avatar_settings' => json_decode($this->avatar_settings),
-            ],
+            'data'    => AssessmentCollectionResource::collection($this->collection),
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\v1\Assessment\AssessmentController;
 use App\Http\Controllers\Api\v1\Avatar\AvatarController;
 use App\Http\Controllers\Api\v1\Quiz\QuizGameController;
 use App\Http\Controllers\Api\v1\Setting\SettingController;
@@ -38,5 +39,9 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     //Team
     Route::put('team', [TeamController::class, 'update']);
+
+    //Assessment
+    Route::get('assessment', [AssessmentController::class, 'index']);
+    Route::post('assessment', [AssessmentController::class, 'store']);
 });
 
