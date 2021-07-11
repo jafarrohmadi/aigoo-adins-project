@@ -65,7 +65,6 @@ class UserController extends BaseController
             return new ProfileResource(me());
         } catch (Exception $e)
         {
-            DD($e->getMessage());
             return $this->returnFalse();
         }
     }

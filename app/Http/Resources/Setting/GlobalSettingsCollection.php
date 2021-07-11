@@ -21,7 +21,6 @@ class GlobalSettingsCollection extends ResourceCollection
             'status'  => true,
             'message' => 'Success',
             'data' => [
-                'exp_table' => ExpResource::collection($this->collection->where('group_name', 'exp_table')),
                 'game_settings' => [
                     'max_daily_attempt' => $this->collection->firstWhere('group_name', 'game_settings')->value,
                 ],
