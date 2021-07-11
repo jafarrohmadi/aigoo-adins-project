@@ -24,12 +24,6 @@
                         <th class="sorting">Choice 5</th>
                         <th class="sorting">Answer</th>
                         <th class="sorting">
-                            Image
-                        </th>
-                        <th class="sorting">
-                            Difficulty
-                        </th>
-                        <th class="sorting">
                             <a href="#" wire:click.prevent="sortBy('created_at')">Created</a>
                         </th>
 
@@ -44,7 +38,7 @@
                         <tr class="@if($loop->odd) odd @endif">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $question->level }}</td>
-                            <td>{{ $question->category }}</td>
+                            <td>{{ $question->nameCategory }}</td>
                             <td>{{ cut_sentence($question->question) }}</td>
                             <td>{{ $question->choice1 }}</td>
                             <td>{{ $question->choice2 }}</td>
@@ -52,13 +46,6 @@
                             <td>{{ $question->choice4 }}</td>
                             <td>{{ $question->choice5 }}</td>
                             <td style="text-align: center;">{{ cut_sentence($question->answer) }}</td>
-                            <td> @if ($question->image)
-                                    <img src="{{ asset('storage/' . $question->image) }}" width="100" height="100">
-                                @else
-                                    <span class="tag tag-red">No Image</span>
-                                @endif
-                            </td>
-                            <td>{{ $question->difficulty }}</td>
                             <td>{{ $question->created_at->format('d/m/Y') }}</td>
 
                             <td>
@@ -111,8 +98,13 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Category <span class="text-red">*</span></label>
                                     <div class="col-md-9">
-                                        <input type="text" wire:model="category"
-                                               class="form-control @error('category') mb-4 is-invalid state-invalid @enderror">
+                                        <select wire:model="category"
+                                                class="form-control @error('category') mb-4 is-invalid state-invalid @enderror">
+                                            <option>--Select--</option>
+                                            <option value="dna">DNA</option>
+                                            <option value="core-value">Core Value</option>
+                                            <option value="create-collaboration">Create and Collaboration</option>
+                                        </select>
                                         @error('category')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
                                              role="alert">{{ $message }}</div>
@@ -213,56 +205,6 @@
                                             <option value="5">5</option>
                                         </select>
                                         @error('answer')
-                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
-                                             role="alert">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-label">Image</label>
-                                    <div class="col-md-9">
-                                        @if ($tempUrl)
-                                            @if ($errors->first('image'))
-                                                <div class="mb-4"></div>
-                                            @else
-                                                <div class="mb-4">
-                                                    <img src="{{ $tempUrl }}" width="100" height="100">
-                                                </div>
-                                            @endif
-                                        @elseif ($image)
-                                            <div class="mb-4">
-                                                <img src="{{ asset('storage/'.$image) }}" width="100" height="100">
-                                            </div>
-                                        @endif
-                                        <input type="file" wire:model="image"
-                                               class="form-control @error('image') mb-4 is-invalid state-invalid @enderror">
-                                        @error('image')
-                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
-                                             role="alert">{{ $message }}</div>
-                                        @enderror
-                                        <div class="progress" style="margin-top: 5px;">
-                                            <div wire:loading wire:target="image"
-                                                 class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
-                                                 role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                                                 aria-valuemax="100" style="width: 100%">
-                                                <span style="line-height: 20px; font-size: 14px;">Uploading...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-label">Difficulty <span
-                                                class="text-red">*</span></label>
-                                    <div class="col-md-9">
-                                        <select wire:model="difficulty"
-                                                class="form-control @error('difficulty') mb-4 is-invalid state-invalid @enderror">
-                                            <option>--Select--</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                        @error('difficulty')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
                                              role="alert">{{ $message }}</div>
                                         @enderror

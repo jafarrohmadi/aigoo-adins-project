@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Department
- * 
+ *
  * @property int $id
  * @property string $name
  * @property bool $is_active
@@ -21,22 +21,26 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class Department extends Model
 {
-	use SoftDeletes, LogsActivity;
+    use SoftDeletes, LogsActivity;
 
-	protected $table = 'departments';
+    protected $table = 'departments';
 
     protected static $logFillable = true;
 
     protected static $logOnlyDirty = true;
 
-	protected $casts = [
-		'is_active' => 'bool'
-	];
+    protected $casts
+        = [
+            'is_active' => 'bool'
+        ];
 
-	protected $fillable = [
-		'name',
-		'is_active'
-	];
+    protected $fillable
+        = [
+            'name',
+            'team_name',
+            'team_icon',
+            'is_active'
+        ];
 
     public function getDescriptionForEvent(string $eventName): string
     {

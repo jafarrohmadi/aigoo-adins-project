@@ -20,6 +20,9 @@ Route::group(['prefix' => 'auth'], function() {
     Route::post('login', [UserController::class, 'login'])->name('login');
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
+
+        //Avatar
+        Route::get('avatar', [QuizGameController::class, 'index']);
         // Game Controller
         Route::get('global-settings', [SettingController::class, 'index']);
         /*Route::get('prizes', [GameController::class, 'prizes']);

@@ -24,8 +24,6 @@ class CreateQuizChoicesTable extends Migration
             $table->string('choice5', 200);
             $table->string('question', 250);
             $table->integer('answer');
-            $table->string('image', 200)->nullable();
-            $table->integer('difficulty');
             $table->timestamps();
         });
     }

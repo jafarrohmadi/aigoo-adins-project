@@ -16,6 +16,8 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->string('name', 200);
+            $table->string('team_name', 200)->nullable();
+            $table->integer('team_icon')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();

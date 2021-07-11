@@ -64,7 +64,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
         Route::get('leaderboard', [LeaderBoardController::class, 'index'])->name('leaderboard.index');
         Route::get('department', [DepartmentController::class, 'index'])->name('department.index');
-        Route::get('team', [TeamController::class, 'index'])->name('team.index');
         Route::get('category', [CategoryController::class, 'index'])->name('category.index');
         Route::get('assessment-question', [QuestionController::class, 'index'])->name('question.index');
         Route::get('assessment', [AssessmentController::class, 'index'])->name('assessment.index');

@@ -160,12 +160,6 @@
                                     <span class="brand-text">Department</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('team.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="brand-text">Team</span>
-                                </a>
-                            </li>
 
                             <li class="nav-item">
                                 <a href="{{ route('users.index') }}" class="nav-link">

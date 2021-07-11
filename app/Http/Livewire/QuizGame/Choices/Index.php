@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\QuizGame\Choices;
 
+use App\Http\Controllers\Controller;
 use App\Models\QuizChoice;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -29,10 +30,7 @@ class Index extends Component
     public $choice4;
     public $choice5;
     public $answer;
-    public $image;
-    public $difficulty;
     public $totalData;
-    public $tempUrl;
     public $level;
     public $category;
 
@@ -61,21 +59,6 @@ class Index extends Component
     public function updatingPaginate()
     {
         $this->resetPage();
-    }
-
-    public function updatedImage()
-    {
-        $this->validate([
-            'image' => 'nullable|sometimes|image',
-        ]);
-
-        try
-        {
-            $this->tempUrl = $this->image->temporaryUrl();
-        } catch (\Exception $e)
-        {
-            $this->tempUrl = null; // placeholder image
-        }
     }
 
     public function render()
@@ -108,8 +91,6 @@ class Index extends Component
         $this->choice4    = $questionChoice->choice4;
         $this->choice5    = $questionChoice->choice5;
         $this->answer     = $questionChoice->answer;
-        $this->image      = $questionChoice->image;
-        $this->difficulty = $questionChoice->difficulty;
         $this->category   = $questionChoice->category;
         $this->level      = $questionChoice->level;
     }
@@ -120,50 +101,30 @@ class Index extends Component
         {
             $questionChoice = QuizChoice::find($this->questionId);
 
-            if ($this->image == $questionChoice->image)
-            {
-                $this->validate([
-                    'question'   => 'required',
-                    'choice1'    => 'required',
-                    'choice2'    => 'required',
-                    'choice3'    => 'required',
-                    'choice4'    => 'required',
-                    'choice5'    => 'required',
-                    'answer'     => 'required|digits_between:1,5',
-                    'difficulty' => 'required|digits_between:1,4',
-                    'category'   => 'required',
-                    'level'      => 'required'
-                ]);
-            } else
-            {
-                $this->validate([
-                    'question'   => 'required',
-                    'choice1'    => 'required',
-                    'choice2'    => 'required',
-                    'choice3'    => 'required',
-                    'choice4'    => 'required',
-                    'choice5'    => 'required',
-                    'answer'     => 'required|digits_between:1,5',
-                    'image'      => 'nullable|sometimes|image',
-                    'difficulty' => 'required|digits_between:1,4',
-                    'category'   => 'required',
-                    'level'      => 'required'
-                ]);
-            }
+
+            $this->validate([
+                'question' => 'required',
+                'choice1'  => 'required',
+                'choice2'  => 'required',
+                'choice3'  => 'required',
+                'choice4'  => 'required',
+                'choice5'  => 'required',
+                'answer'   => 'required|digits_between:1,5',
+                'category' => 'required',
+                'level'    => 'required'
+            ]);
+
 
             $result = $questionChoice->update([
-                'question'   => $this->question,
-                'choice1'    => $this->choice1,
-                'choice2'    => $this->choice2,
-                'choice3'    => $this->choice3,
-                'choice4'    => $this->choice4,
-                'choice5'    => $this->choice5,
-                'answer'     => $this->answer,
-                'image'      => $this->image == $questionChoice->image ? $this->image :
-                    $this->image->store('image/question-game1/choices', 'public'),
-                'difficulty' => $this->difficulty,
-                'category'   => $this->category,
-                'level'      => $this->level
+                'question' => $this->question,
+                'choice1'  => $this->choice1,
+                'choice2'  => $this->choice2,
+                'choice3'  => $this->choice3,
+                'choice4'  => $this->choice4,
+                'choice5'  => $this->choice5,
+                'answer'   => $this->answer,
+                'category' => $this->category,
+                'level'    => $this->level
             ]);
         }
 
@@ -178,9 +139,6 @@ class Index extends Component
                 'choice4',
                 'choice5',
                 'answer',
-                'image',
-                'difficulty',
-                'tempUrl',
                 'category',
                 'level'
             ]);
