@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\v1\Avatar\AvatarController;
 use App\Http\Controllers\Api\v1\Quiz\QuizGameController;
 use App\Http\Controllers\Api\v1\Setting\SettingController;
+use App\Http\Controllers\Api\v1\Team\TeamController;
 use App\Http\Controllers\Api\v1\User\UserController;
 use Illuminate\Http\Request;
 
@@ -33,5 +34,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     //Avatar
     Route::get('avatar', [AvatarController::class, 'index']);
     Route::put('avatar', [AvatarController::class, 'storeOrUpdate']);
+
+    //Team
+    Route::put('team', [TeamController::class, 'update']);
 });
 

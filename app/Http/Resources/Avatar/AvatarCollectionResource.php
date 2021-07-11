@@ -5,7 +5,7 @@ namespace App\Http\Resources\Avatar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AvatarCollection extends JsonResource
+class AvatarCollectionResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
