@@ -109,12 +109,12 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
+                  {{--  <li class="nav-item">
                         <a href="{{ route('category.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-list-alt elevation-3"></i>
                             <span class="brand-text">Category</span>
                         </a>
-                    </li>
+                    </li>--}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-question-circle"></i>

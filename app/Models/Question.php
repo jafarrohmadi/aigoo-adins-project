@@ -16,7 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * 
  * @property int $id
  * @property string $title
- * @property int $category_id
+ * @property string $category
  * @property string $content
  * @property string $level
  * @property Carbon|null $created_at
@@ -35,13 +35,9 @@ class Question extends Model
 
     protected static $logOnlyDirty = true;
 
-	protected $casts = [
-		'category_id' => 'int'
-	];
-
 	protected $fillable = [
 		'title',
-		'category_id',
+		'category',
 		'content',
 		'level'
 	];
@@ -51,8 +47,22 @@ class Question extends Model
         return "This Question has been {$eventName}";
     }
 
-    public function category()
+//    public function category()
+//    {
+//        return $this->belongsTo(Category::class , 'category_id');
+//    }
+
+    /**
+     * @return string
+     */
+    public function getNameCategoryAttribute(): string
     {
-        return $this->belongsTo(Category::class , 'category_id');
+        $data = [
+            'dna'                  => 'DNA',
+            'core-value'           => 'Core Value',
+            'create-collaboration' => 'Create and Collaboration',
+        ];
+
+        return $data[$this->category] ?? 'No category';
     }
 }

@@ -16,6 +16,9 @@
                             Name
                         </th>
                         <th  class="sorting">
+                            Team Name
+                        </th>
+                        <th  class="sorting">
                             Active
                         </th>
                     </tr>
@@ -27,6 +30,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 {{ $departments->name }}
+                            </td>
+                            <td>
+                                {{ $departments->team_name }}
                             </td>
                             <td>
                                 {{ $departments->is_active ? 'Ya' : 'Tidak' }}

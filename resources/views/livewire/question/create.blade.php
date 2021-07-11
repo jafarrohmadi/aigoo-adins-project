@@ -22,14 +22,14 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Category <span class="text-red">*</span></label>
                                     <div class="col-md-9">
-                                        <select wire:model="category_id"
-                                                class="form-control @error('category_id') mb-4 is-invalid state-invalid @enderror">
+                                        <select wire:model="category"
+                                                class="form-control @error('category') mb-4 is-invalid state-invalid @enderror">
                                             <option>--Select--</option>
-                                            @foreach($category as $categories)
-                                            <option value="{{$categories->id}}">{{$categories->name}}</option>
-                                            @endforeach
+                                            <option value="dna">DNA</option>
+                                            <option value="core-value">Core Value</option>
+                                            <option value="create-collaboration">Create and Collaboration</option>
                                         </select>
-                                        @error('level')
+                                        @error('category')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
                                              role="alert">{{ $message }}</div>
                                         @enderror

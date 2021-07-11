@@ -14,7 +14,7 @@ class Create extends Component
     /**
      * @var string
      */
-    public $questionId, $title, $category_id, $content, $level;
+    public $questionId, $title, $category, $content, $level;
 
 
     /**
@@ -32,14 +32,14 @@ class Create extends Component
     {
         $this->validate([
             'title'       => 'required',
-            'category_id' => 'required',
+            'category' => 'required',
             'content'     => 'required',
             'level'       => 'required',
         ]);
 
         $result = Question::create([
             'title'       => $this->title,
-            'category_id' => $this->category_id,
+            'category' => $this->category,
             'content'     => $this->content,
             'level'       => $this->level,
         ]);
@@ -48,7 +48,7 @@ class Create extends Component
         {
             $this->reset([
                 'title',
-                'category_id',
+                'category',
                 'content',
                 'level'
             ]);
