@@ -28,7 +28,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  *
  * @package App\Models
  */
-class QuizChoice extends Model
+class QuizChoice extends
+    Model
 {
     use LogsActivity;
 
@@ -41,7 +42,7 @@ class QuizChoice extends Model
     protected $casts
         = [
             'answer'     => 'int',
-            'difficulty' => 'int'
+            'difficulty' => 'int',
         ];
 
     protected $fillable
@@ -67,7 +68,12 @@ class QuizChoice extends Model
      */
     public function getNameCategoryAttribute(): string
     {
-        $data = ['dna' => 'DNA', 'core-value' => 'Core Value', 'create-collaboration' => 'Create and Collaboration'];
-        return $data[$this->category];
+        $data = [
+            'dna'                  => 'DNA',
+            'core-value'           => 'Core Value',
+            'create-collaboration' => 'Create and Collaboration',
+        ];
+
+        return $data[$this->category] ?? 'No category';
     }
 }

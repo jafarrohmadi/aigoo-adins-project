@@ -17,7 +17,6 @@ class CreateQuizCompletesTable extends Migration
             $table->integer('id', true);
             $table->enum('level', ['Staff', 'Managerial']);
             $table->string('category', 50);
-            $table->integer('difficulty')->default(1);
             $table->string('question', 200);
             $table->string('choice1', 200);
             $table->string('choice2', 200);

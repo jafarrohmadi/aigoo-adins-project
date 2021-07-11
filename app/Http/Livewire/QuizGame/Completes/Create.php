@@ -13,7 +13,7 @@ class Create extends Component
     /**
      * @var string
      */
-    public $difficulty, $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $level, $category;
+    public $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $level, $category;
 
     /**
      * @var array
@@ -32,39 +32,35 @@ class Create extends Component
     public function store()
     {
         $this->validate([
-            'difficulty' => 'required|digits_between:1,4',
-            'question'   => 'required',
-            'choice1'    => 'required',
-            'choice2'    => 'required',
-            'choice3'    => 'required',
-            'choice4'    => 'required',
-            'choice5'    => 'required',
-            'choice6'    => 'required',
-            'answer'     => 'required|array',
-            'level'      => 'required',
-            'category'   => 'required'
+            'question' => 'required',
+            'choice1'  => 'required',
+            'choice2'  => 'required',
+            'choice3'  => 'required',
+            'choice4'  => 'required',
+            'choice5'  => 'required',
+            'choice6'  => 'required',
+            'answer'   => 'required|array',
+            'level'    => 'required',
+            'category' => 'required',
         ]);
 
         sort($this->answer);
 
         $result = QuizComplete::create([
-            'difficulty' => $this->difficulty,
-            'question'   => $this->question,
-            'choice1'    => $this->choice1,
-            'choice2'    => $this->choice2,
-            'choice3'    => $this->choice3,
-            'choice4'    => $this->choice4,
-            'choice5'    => $this->choice5,
-            'choice6'    => $this->choice6,
-            'answer'     => '[' . implode(",", $this->answer) . ']',
-            'level'      => $this->level,
-            'category'   => $this->category
+            'question' => $this->question,
+            'choice1'  => $this->choice1,
+            'choice2'  => $this->choice2,
+            'choice3'  => $this->choice3,
+            'choice4'  => $this->choice4,
+            'choice5'  => $this->choice5,
+            'choice6'  => $this->choice6,
+            'answer'   => '['.implode(",", $this->answer).']',
+            'level'    => $this->level,
+            'category' => $this->category,
         ]);
 
-        if ($result)
-        {
+        if ($result) {
             $this->reset([
-                'difficulty',
                 'question',
                 'choice1',
                 'choice2',
@@ -74,11 +70,10 @@ class Create extends Component
                 'choice6',
                 'answer',
                 'level',
-                'category'
+                'category',
             ]);
             $this->emit('closeCreateModalSuccess');
-        } else
-        {
+        } else {
             $this->emit('closeCreateModalFailed');
         }
 

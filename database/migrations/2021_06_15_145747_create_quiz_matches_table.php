@@ -17,7 +17,6 @@ class CreateQuizMatchesTable extends Migration
             $table->bigIncrements('id');
             $table->enum('level', ['Staff', 'Managerial']);
             $table->string('category', 50);
-            $table->integer('difficulty')->default(1);
             $table->string('question', 200);
             $table->string('wrong_question', 200)->comment('Wrong Question');
             $table->string('answer', 200);

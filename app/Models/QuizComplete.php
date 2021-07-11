@@ -12,11 +12,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class QuizComplete
- * 
+ *
  * @property int $id
  * @property string $level
  * @property string $category
- * @property int $difficulty
  * @property string $question
  * @property string $choice1
  * @property string $choice2
@@ -30,36 +29,46 @@ use Spatie\Activitylog\Traits\LogsActivity;
  *
  * @package App\Models
  */
-class QuizComplete extends Model
+class QuizComplete extends
+    Model
 {
     use LogsActivity;
 
-	protected $table = 'quiz_completes';
+    protected $table = 'quiz_completes';
 
     protected static $logFillable = true;
-
     protected static $logOnlyDirty = true;
 
-    protected $casts = [
-		'difficulty' => 'int'
-	];
-
-	protected $fillable = [
-		'level',
-		'category',
-		'difficulty',
-		'question',
-		'choice1',
-		'choice2',
-		'choice3',
-		'choice4',
-		'choice5',
-		'choice6',
-		'answer'
-	];
+    protected $fillable
+        = [
+            'level',
+            'category',
+            'question',
+            'choice1',
+            'choice2',
+            'choice3',
+            'choice4',
+            'choice5',
+            'choice6',
+            'answer',
+        ];
 
     public function getDescriptionForEvent(string $eventName): string
     {
         return "This Quiz Complete has been {$eventName}";
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameCategoryAttribute(): string
+    {
+        $data = [
+            'dna'                  => 'DNA',
+            'core-value'           => 'Core Value',
+            'create-collaboration' => 'Create and Collaboration',
+        ];
+
+        return $data[$this->category] ?? 'No category';
     }
 }
