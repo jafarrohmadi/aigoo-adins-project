@@ -8,8 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 
-class ProfileResource extends
-    JsonResource
+class ProfileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

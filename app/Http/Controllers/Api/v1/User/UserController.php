@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\v1\User;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Request\User\LoginRequest;
 use App\Http\Resources\Profile\ProfileResource;
+use App\Http\Resources\Profile\UserCollection;
+use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
@@ -67,6 +69,23 @@ class UserController extends BaseController
         {
             return $this->returnFalse();
         }
+    }
+
+    /**
+     * @param  Request  $request
+     * @return UserCollection
+     */
+    public function getAllUser(Request $request)
+    {
+        if(isset($request->keyword)){
+            $user = User::where('id', '!=', me()->id)->where('name', 'like', "%$request->keyword%" )->inRandomOrder()->paginate($request->limit ?? 10);
+        }
+
+        if(!isset($request->keyword)){
+            $user = User::where('id', '!=', me()->id)->inRandomOrder()->paginate($request->limit ?? 10);
+        }
+
+        return new UserCollection($user);
     }
 
     /**

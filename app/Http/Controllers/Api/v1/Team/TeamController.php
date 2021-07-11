@@ -20,7 +20,7 @@ class TeamController extends BaseController
         try {
             $department = Department::find(me()->department_id);
             $department->update($request->all());
-            
+
             return new TeamCollectionResource($department);
         } catch (\Exception $exception) {
             return $this->returnFalse();

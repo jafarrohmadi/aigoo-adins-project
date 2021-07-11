@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Resources\UserPrizes;
+namespace App\Http\Resources\Profile;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserPrizesCollection extends ResourceCollection
+class UserCollection extends ResourceCollection
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -17,7 +17,7 @@ class UserPrizesCollection extends ResourceCollection
         return [
             'status'  => true,
             'message' => 'Success',
-            'data' =>  UserPrizesResource::collection($this->collection)
+            'data'    => UserCollectionResource::collection($this->collection)
         ];
     }
 }

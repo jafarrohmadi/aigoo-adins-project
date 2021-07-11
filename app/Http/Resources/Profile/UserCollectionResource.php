@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\UserPrizes;
+namespace App\Http\Resources\Profile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserPrizesResource extends JsonResource
+class UserCollectionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +15,10 @@ class UserPrizesResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'prize_id' => $this->prize_id,
-            'user_id' => $this->user_id,
-            'date' => $this->date,
-            'status' => $this->status
+            'user_id'    => $this->id,
+            'name'       => $this->name,
+            'department' => $this->department,
+            'level'      => $this->level,
         ];
     }
 }

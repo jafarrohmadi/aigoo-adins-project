@@ -23,6 +23,7 @@ Route::group(['prefix' => 'auth'], function() {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('profile', [UserController::class, 'profile']);
         Route::put('update-profile', [UserController::class, 'updateProfile']);
+        Route::get('get-user', [UserController::class, 'getAllUser']);
         Route::post('logout', [UserController::class, 'logout'])->name('logout');
     });
 });
