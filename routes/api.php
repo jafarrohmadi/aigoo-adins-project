@@ -35,7 +35,7 @@ Route::group(['prefix' => 'auth'], function() {
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('global-settings', [SettingController::class, 'index']);
     Route::get('quiz-game/{category}', [QuizGameController::class, 'index']);
-
+    Route::post('quiz-game',[QuizGameController::class, 'store']);
     //Avatar
     Route::get('avatar', [AvatarController::class, 'index']);
     Route::put('avatar', [AvatarController::class, 'storeOrUpdate']);
