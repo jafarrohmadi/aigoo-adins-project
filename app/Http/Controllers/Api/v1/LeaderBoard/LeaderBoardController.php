@@ -21,7 +21,7 @@ class LeaderBoardController extends BaseController
     {
         try {
             $leaderBoard = VwLeadeboard::with('user')
-                ->setLimit($request->get('limit'));
+                ->setLimit($request->get('limit') ?? 50);
 
             return new LeaderboardCollection($leaderBoard->get());
         } catch (Exception $e) {

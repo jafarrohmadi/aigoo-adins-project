@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\v1\LeaderBoard\LeaderBoardController;
 use App\Http\Controllers\Api\v1\Quiz\QuizGameController;
 use App\Http\Controllers\Api\v1\Setting\SettingController;
 use App\Http\Controllers\Api\v1\Team\TeamController;
+use App\Http\Controllers\Api\v1\User\UserCollectionController;
 use App\Http\Controllers\Api\v1\User\UserController;
 use Illuminate\Http\Request;
 
@@ -47,5 +48,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     //LeaderBoard
     Route::get('leaderboard', [LeaderBoardController::class, 'index']);
+
+    //User Collection
+    Route::put('user-collection', [UserCollectionController::class, 'update']);
 });
 
