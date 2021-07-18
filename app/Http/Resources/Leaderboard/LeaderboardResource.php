@@ -18,13 +18,13 @@ class LeaderboardResource extends JsonResource
     {
         return [
             'player_id' => $this->user->id,
-            'display_name' => $this->user->display_name,
+            'display_name' => $this->user->name,
             'department' => $this->user->department,
             'score' => (float)$this->total_score,
             'count' => $this->count,
             'level' => $this->user->level,
             'rank' => $this->rank,
-            'profile_picture' => $this->user->profile_picture
+            'profile_picture' => asset('img/profile_picture/' . ($this->user->change_avatar ?? $this->user->avatar))
         ];
     }
 }

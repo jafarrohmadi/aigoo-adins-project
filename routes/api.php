@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\v1\Assessment\AssessmentController;
 use App\Http\Controllers\Api\v1\Avatar\AvatarController;
+use App\Http\Controllers\Api\v1\LeaderBoard\LeaderBoardController;
 use App\Http\Controllers\Api\v1\Quiz\QuizGameController;
 use App\Http\Controllers\Api\v1\Setting\SettingController;
 use App\Http\Controllers\Api\v1\Team\TeamController;
@@ -43,5 +44,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     //Assessment
     Route::get('assessment', [AssessmentController::class, 'index']);
     Route::post('assessment', [AssessmentController::class, 'store']);
+
+    //LeaderBoard
+    Route::get('leaderboard', [LeaderBoardController::class, 'index']);
 });
 
