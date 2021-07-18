@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\v1\Assessment\AssessmentController;
 use App\Http\Controllers\Api\v1\Avatar\AvatarController;
+use App\Http\Controllers\Api\v1\DailyAttempt\DailyAttemptController;
 use App\Http\Controllers\Api\v1\LeaderBoard\LeaderBoardController;
 use App\Http\Controllers\Api\v1\Quiz\QuizGameController;
 use App\Http\Controllers\Api\v1\Setting\SettingController;
@@ -51,5 +52,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     //User Collection
     Route::put('user-collection', [UserCollectionController::class, 'update']);
+
+    //Save Daily Attempt
+    Route::post('daily-attempt', [DailyAttemptController::class, 'store']);
 });
 
