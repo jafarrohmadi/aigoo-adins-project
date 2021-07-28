@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Profile;
 
+use App\Models\UserCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
@@ -16,6 +17,22 @@ class UserDataCollection extends
      */
     public function toArray($request)
     {
+        $userCollection = UserCollection::where('user_id', me()->id)->first();
+        if (!$userCollection) {
+            $userCollection = UserCollection::create([
+                'user_id'    => me()->id,
+                'collection' => [
+                    'owned_hair'     => [],
+                    'owned_headgear' => [],
+                    'owned_top'      => [],
+                    'owned_bottom'   => [],
+                    'owned_shoe'     => [],
+                    'owned_hand'     => [],
+                    'owned_BG'       => [],
+                ],
+            ]);
+        }
+
         return [
             'status'  => true,
             'message' => 'Success',
@@ -27,7 +44,7 @@ class UserDataCollection extends
                 'coins'            => $this->pointHistories->sum('score'),
                 'points'           => $this->pointHistories->where('point', '>=', 0)->sum('point'),
                 'current_points'   => $this->pointHistories->sum('point'),
-                'avatar_user_data' => $this->avatars ? json_decode($this->avatars->avatar_settings) : '',
+                'avatar_user_data' => $this->avatars ? array_merge($this->avatars->avatar_settings , $userCollection['collection']) : '',
             ],
         ];
     }

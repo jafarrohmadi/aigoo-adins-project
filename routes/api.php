@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('quiz-game',[QuizGameController::class, 'store']);
     //Avatar
     Route::get('avatar', [AvatarController::class, 'index']);
-    Route::put('avatar', [AvatarController::class, 'storeOrUpdate']);
+    Route::post('avatar', [AvatarController::class, 'storeOrUpdate']);
 
     //Team
     Route::put('team', [TeamController::class, 'update']);
