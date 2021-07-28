@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Filters\UserFilter;
 use App\PointHistories;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -107,7 +108,7 @@ class User extends Authenticatable
     /**
      * Get the user's owner.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function owner()
     {
@@ -244,5 +245,12 @@ class User extends Authenticatable
         return $this->hasMany(UserCollection::class, 'user_id', 'id');
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function avatars()
+    {
+        return $this->belongsTo(Avatar::class, 'id','user_id');
+    }
 
 }

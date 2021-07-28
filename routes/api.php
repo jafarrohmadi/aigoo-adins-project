@@ -29,11 +29,13 @@ Route::group(['prefix' => 'auth'], function() {
         Route::put('update-profile', [UserController::class, 'updateProfile']);
         Route::get('get-user', [UserController::class, 'getAllUser']);
         Route::post('logout', [UserController::class, 'logout'])->name('logout');
+        Route::get('user-data', [UserController::class, 'getUserData']);
     });
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('global-settings', [SettingController::class, 'index']);
+    Route::get('user-quiz-data', [SettingController::class, 'userQuizData']);
     Route::get('quiz-game/{category}', [QuizGameController::class, 'index']);
     Route::post('quiz-game',[QuizGameController::class, 'store']);
     //Avatar

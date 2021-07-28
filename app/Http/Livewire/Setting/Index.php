@@ -7,8 +7,12 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    public $nameGameSetting;
-    public $valueGameSetting;
+    public $nameGameSettingCollaborate;
+    public $valueGameSettingCollaborate;
+    public $nameGameSettingDna;
+    public $valueGameSettingDna;
+    public $nameGameSettingCoreValue;
+    public $valueGameSettingCoreValue;
 
     public $titleLevel1;
     public $titleLevel2;
@@ -35,8 +39,12 @@ class Index extends Component
     public function mount()
     {
         $settingsGame           = Setting::where('group_name', 'game_settings')->get();
-        $this->nameGameSetting  = $settingsGame[0]->name;
-        $this->valueGameSetting = $settingsGame[0]->value;
+        $this->nameGameSettingDna  = $settingsGame[0]->name;
+        $this->valueGameSettingDna = $settingsGame[0]->value;
+        $this->nameGameSettingCoreValue  = $settingsGame[1]->name;
+        $this->valueGameSettingCoreValue = $settingsGame[1]->value;
+        $this->nameGameSettingCollaborate  = $settingsGame[2]->name;
+        $this->valueGameSettingCollaborate = $settingsGame[2]->value;
 
         $titleLevel = Setting::where('group_name', 'title_level')->get();
 
@@ -55,14 +63,19 @@ class Index extends Component
 
     public function updateGameSettings()
     {
-        if ($this->valueGameSetting)
+        if ($this->valueGameSettingDna)
         {
 
             $this->validate([
-                'valueGameSetting' => 'required|numeric'
+                'valueGameSettingDna' => 'required|numeric',
+                'valueGameSettingCoreValue' => 'required|numeric',
+                'valueGameSettingCollaborate' => 'required|numeric'
             ]);
 
-            Setting::where('group_name', 'game_settings')->update(['value' => $this->valueGameSetting]);
+
+            Setting::where('name', 'max_daily_attempt_dna')->update(['value' => $this->valueGameSettingDna]);
+            Setting::where('name', 'max_daily_attempt_corevalue')->update(['value' => $this->valueGameSettingCoreValue]);
+            Setting::where('name', 'max_daily_attempt_collaborate')->update(['value' => $this->valueGameSettingCollaborate]);
         }
 
         $this->emit('closeEditModalSuccess');

@@ -22,7 +22,9 @@ class GlobalSettingsCollection extends ResourceCollection
             'message' => 'Success',
             'data' => [
                 'game_settings' => [
-                    'max_daily_attempt' => $this->collection->firstWhere('group_name', 'game_settings')->value,
+                    'max_daily_attempt_dna' => $this->collection->where('name', 'max_daily_attempt_dna')->value,
+                    'max_daily_attempt_corevalue' => $this->collection->where('name', 'max_daily_attempt_corevalue')->value,
+                    'max_daily_attempt_collaborate' => $this->collection->where('name', 'max_daily_attempt_collaborate')->value,
                 ],
                 'platform' => [
                     'titles' => TitleResource::collection($this->collection->where('group_name', 'title_level'))

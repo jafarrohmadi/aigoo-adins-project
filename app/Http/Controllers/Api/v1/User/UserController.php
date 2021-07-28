@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BaseController;
 use App\Http\Request\User\LoginRequest;
 use App\Http\Resources\Profile\ProfileResource;
 use App\Http\Resources\Profile\UserCollection;
+use App\Http\Resources\Profile\UserDataCollection;
 use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -46,6 +47,17 @@ class UserController extends BaseController
         try
         {
             return new ProfileResource(me());
+        } catch (Exception $e)
+        {
+            return $this->returnFalse();
+        }
+    }
+
+    public function getUserData()
+    {
+        try
+        {
+            return new UserDataCollection(me());
         } catch (Exception $e)
         {
             return $this->returnFalse();
