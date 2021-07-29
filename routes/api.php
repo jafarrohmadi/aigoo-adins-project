@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     //Avatar
     Route::get('avatar', [AvatarController::class, 'index']);
     Route::post('avatar', [AvatarController::class, 'storeOrUpdate']);
-
+    Route::post('buy-new-avatar', [AvatarController::class, 'buyNewAvatar']);
     //Team
     Route::put('team', [TeamController::class, 'update']);
 

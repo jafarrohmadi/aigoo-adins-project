@@ -28,10 +28,10 @@ class PlayerDataResource extends JsonResource
         })->keys()->first();
 
         $dailyAttempt = DB::table('daily_attemps')->whereDate('created_at', Carbon::today())->get();
-        $dailyAttempt1 = $dailyAttempt->where('game_id', 1)->where('user_id', $this->id)->pluck('attempt')->first();
-        $dailyAttempt2 = $dailyAttempt->where('game_id', 2)->where('user_id', $this->id)->pluck('attempt')->first();
-        $dailyAttempt3 = $dailyAttempt->where('game_id', 3)->where('user_id', $this->id)->pluck('attempt')->first();
-        $dailyAttempt4 = $dailyAttempt->where('game_id', 4)->where('user_id', $this->id)->pluck('attempt')->first();
+        $dailyAttempt1 = $dailyAttempt->where('quiz_ID', 1)->where('user_id', $this->id)->pluck('attempt')->first();
+        $dailyAttempt2 = $dailyAttempt->where('quiz_ID', 2)->where('user_id', $this->id)->pluck('attempt')->first();
+        $dailyAttempt3 = $dailyAttempt->where('quiz_ID', 3)->where('user_id', $this->id)->pluck('attempt')->first();
+        $dailyAttempt4 = $dailyAttempt->where('quiz_ID', 4)->where('user_id', $this->id)->pluck('attempt')->first();
 
         return [
             'status'  => true,
@@ -44,7 +44,7 @@ class PlayerDataResource extends JsonResource
                 'department' => $this->department,
                 'rank_department' => $rankDepartment + 1,
                 'rank_all' => $rankAll + 1,
-                'total_score' => $this->pointHistories->sum('score'),
+                'total_coins' => $this->pointHistories->sum('coins'),
                 'total_poin' => $this->pointHistories->where('point', '>=', 0)->sum('point'),
                 'current_poin' => $this->pointHistories->sum('point'),
                 'daily_attempt_game1' => $dailyAttempt1 === null ? 0 : $dailyAttempt1,

@@ -20,9 +20,9 @@ class VwLeadeboard extends Model
         return $this->hasOne(Department::class, 'id', 'department_id');
     }
 
-    public function scopeFindGame($query, $game_id)
+    public function scopeFindGame($query, $quiz_ID)
     {
-        return $query->where('game_id', $game_id);
+        return $query->where('quiz_ID', $quiz_ID);
     }
 
     public function scopeSetLimit($query, $limit = 10)
@@ -32,6 +32,6 @@ class VwLeadeboard extends Model
 
     public function scopeHighestScoreFirst($query)
     {
-        return $query->orderBy('total_score', 'desc');
+        return $query->orderBy('total_coins', 'desc');
     }
 }

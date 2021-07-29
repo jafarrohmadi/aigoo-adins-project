@@ -44,11 +44,11 @@
                     @forelse ($vwLeadeboard as $key =>  $leaderboard)
                         <tr class="@if($loop->odd) odd @endif">
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $leaderboard->total_score }}</td>
+                            <td>{{ $leaderboard->total_coins }}</td>
                             <td>{{ $leaderboard->user->name }}</td>
                             <td>{{ $leaderboard->team_id }}</td>
                             <td>{{ $leaderboard->department->name }}</td>
-                            <td>{{ $leaderboard->game_id }}</td>
+                            <td>{{ $leaderboard->quiz_ID }}</td>
                         </tr>
                     @empty
                         <tr>

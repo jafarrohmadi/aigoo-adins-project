@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * Class DailyAttempt
  * @property int $user_id
- * @property int $game_id
+ * @property int $quiz_ID
  * @property int $attempt
  * @property Carbon|null $date
  * @property Carbon|null $created_at
@@ -26,5 +26,5 @@ class DailyAttempt extends Model
 
     protected static $logOnlyDirty = true;
 
-    protected $fillable = ['user_id', 'game_id', 'date', 'attempt'];
+    protected $fillable = ['user_id', 'quiz_ID', 'date', 'attempt'];
 }

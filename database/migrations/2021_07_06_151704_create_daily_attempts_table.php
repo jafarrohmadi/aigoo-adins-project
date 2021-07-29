@@ -16,7 +16,7 @@ class CreateDailyAttemptsTable extends Migration
         Schema::create('daily_attempts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('game_id');
+            $table->unsignedBigInteger('quiz_ID');
             $table->date('date');
             $table->integer('attempt');
             $table->timestamps();

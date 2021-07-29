@@ -38,13 +38,15 @@ class UserDataCollection extends
             'message' => 'Success',
             'data'    => [
                 'player_id'        => $this->id,
-                'username'         => $this->name,
+                'username'         => $this->username,
+                'name'             => $this->name,
                 'department'       => $this->department,
                 'level'            => $this->level,
-                'coins'            => $this->pointHistories->sum('score'),
+                'coins'            => $this->pointHistories->sum('coins'),
                 'points'           => $this->pointHistories->where('point', '>=', 0)->sum('point'),
                 'current_points'   => $this->pointHistories->sum('point'),
-                'avatar_user_data' => $this->avatars ? array_merge($this->avatars->avatar_settings , $userCollection['collection']) : '',
+                'avatar_user_data' => $this->avatars ?
+                    array_merge($this->avatars->avatar_settings, $userCollection['collection']) : '',
             ],
         ];
     }

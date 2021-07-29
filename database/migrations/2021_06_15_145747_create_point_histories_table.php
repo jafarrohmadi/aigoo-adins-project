@@ -16,10 +16,10 @@ class CreatePointHistoriesTable extends Migration
         Schema::create('point_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedInteger('game_id');
+            $table->unsignedInteger('quiz_ID');
             $table->unsignedInteger('team_id');
             $table->integer('point');
-            $table->integer('score');
+            $table->integer('coins');
             $table->string('info', 200);
             $table->timestamp('created_at')->useCurrent();
         });

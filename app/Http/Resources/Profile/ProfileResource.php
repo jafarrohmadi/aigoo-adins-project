@@ -8,7 +8,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 
-class ProfileResource extends JsonResource
+class ProfileResource extends
+    JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -28,7 +29,7 @@ class ProfileResource extends JsonResource
             return $value->user_id === $this->id;
         })->keys()->first();
 
-        $dailyAttemp = DailyAttempt::whereDate('created_at', Carbon::today())->where('game_id', 1)->where('user_id',
+        $dailyAttemp = DailyAttempt::whereDate('created_at', Carbon::today())->where('quiz_ID', 1)->where('user_id',
             $this->id)->pluck('attempt')->first();
 
         return [
@@ -43,15 +44,15 @@ class ProfileResource extends JsonResource
                     'department'         => $this->department,
                     'rank_department'    => $rankDepartment + 1,
                     'rank_all'           => $rankAll + 1,
-                    'total_score'        => $this->pointHistories->sum('score'),
+                    'total_coins'        => $this->pointHistories->sum('coins'),
                     'total_poin'         => $this->pointHistories->where('point', '>=', 0)->sum('point'),
-                    'current_poin'       => $this->pointHistories->sum('point'),
+                    'current_coin'      => $this->current_coin,
                     'daily_attempt_game' => $dailyAttemp === null ? 0 : $dailyAttemp,
                     'profile_picture'    => (asset('img/profile_picture').'/').$this->change_avatar ?? $this->avatar,
                 ],
                 'game_player_data' => [
                     'daily_attempt' => $dailyAttemp === null ? 0 : $dailyAttemp,
-                    'total_score'   => $this->pointHistories->where('game_id', 1)->sum('score'),
+                    'total_coins'   => $this->pointHistories->where('quiz_ID', 1)->sum('coins'),
                 ],
                 'user_collection'  => $this->userCollection->pluck('collection'),
                 'team'             => [

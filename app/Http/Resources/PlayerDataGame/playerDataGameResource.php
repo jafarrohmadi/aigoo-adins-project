@@ -26,7 +26,7 @@ class playerDataGameResource extends JsonResource
         $dailyAttempt = DB::table('daily_attemps')->whereDate('created_at', Carbon::today())->get();
 
         if ($this->resource == 1) {
-            $dailyAttempt1 = $dailyAttempt->where('game_id', 1)->where('user_id', $user->id)->pluck('attempt')->first();
+            $dailyAttempt1 = $dailyAttempt->where('quiz_ID', 1)->where('user_id', $user->id)->pluck('attempt')->first();
 
             return [
                 'status' => true,
@@ -34,12 +34,12 @@ class playerDataGameResource extends JsonResource
                 'data' => [
                     'game1_player_data' => [
                         'daily_attempt' => $dailyAttempt1 === null ? 0 : $dailyAttempt1,
-                        'total_score' => $user->pointHistories->where('game_id', 1)->sum('score'),
+                        'total_coins' => $user->pointHistories->where('quiz_ID', 1)->sum('coins'),
                     ]
                 ]
             ];
         } elseif ($this->resource == 2) {
-            $dailyAttempt2 = $dailyAttempt->where('game_id', 2)->where('user_id', $user->id)->pluck('attempt')->first();
+            $dailyAttempt2 = $dailyAttempt->where('quiz_ID', 2)->where('user_id', $user->id)->pluck('attempt')->first();
 
             return [
                 'status' => true,
@@ -48,14 +48,14 @@ class playerDataGameResource extends JsonResource
                     'game2_player_data' => [
                         'daily_attempt' => $dailyAttempt2 === null ? 0 : $dailyAttempt2,
                         'accepted_challenge_count' => Challenge::where('user_id2', $user->id)->whereIn('status', ['Accept', 'Finish'])->whereBetween('date', [Carbon::parse('-24 hours'), now()])->count(),
-                        'total_score' => $user->pointHistories->where('game_id', 2)->sum('score'),
+                        'total_coins' => $user->pointHistories->where('quiz_ID', 2)->sum('coins'),
                         'challenge_in' => Challenges2Resource::collection($user->challenges2),
                         'challenge_out' => Challenges1Resource::collection($user->challenges1),
                     ]
                 ]
             ];
         } elseif ($this->resource == 3) {
-            $dailyAttempt3 = $dailyAttempt->where('game_id', 3)->where('user_id', $user->id)->pluck('attempt')->first();
+            $dailyAttempt3 = $dailyAttempt->where('quiz_ID', 3)->where('user_id', $user->id)->pluck('attempt')->first();
 
             return [
                 'status' => true,
@@ -63,7 +63,7 @@ class playerDataGameResource extends JsonResource
                 'data' => [
                     'game3_player_data' => [
                         'daily_attempt' => $dailyAttempt3 === null ? 0 : $dailyAttempt3,
-                        'total_score' => $user->pointHistories->where('game_id', 3)->sum('score'),
+                        'total_coins' => $user->pointHistories->where('quiz_ID', 3)->sum('coins'),
                         'stages' => [
 
                         ]
@@ -71,7 +71,7 @@ class playerDataGameResource extends JsonResource
                 ]
             ];
         } else {
-            $dailyAttempt4 = $dailyAttempt->where('game_id', 4)->where('user_id', $user->id)->pluck('attempt')->first();
+            $dailyAttempt4 = $dailyAttempt->where('quiz_ID', 4)->where('user_id', $user->id)->pluck('attempt')->first();
 
             return [
                 'status' => true,
@@ -79,7 +79,7 @@ class playerDataGameResource extends JsonResource
                 'data' => [
                     'game4_player_data' => [
                         'daily_attempt' => $dailyAttempt4 == null ? 0 : $dailyAttempt4,
-                        'total_score' => $user->pointHistories->where('game_id', 4)->sum('score'),
+                        'total_coins' => $user->pointHistories->where('quiz_ID', 4)->sum('coins'),
                         'stages' => [
 
                         ]

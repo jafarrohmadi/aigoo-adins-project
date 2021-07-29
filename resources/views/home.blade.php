@@ -56,7 +56,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{$total_score_today}}</h3>
+                        <h3>{{$total_coins_today}}</h3>
 
                         <p>Total Score Today</p>
                     </div>

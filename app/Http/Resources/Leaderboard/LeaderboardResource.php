@@ -20,7 +20,7 @@ class LeaderboardResource extends JsonResource
             'player_id' => $this->user->id,
             'display_name' => $this->user->name,
             'department' => $this->user->department,
-            'score' => (float)$this->total_score,
+            'coins' => (float)$this->total_coins,
             'count' => $this->count,
             'level' => $this->user->level,
             'rank' => $this->rank,

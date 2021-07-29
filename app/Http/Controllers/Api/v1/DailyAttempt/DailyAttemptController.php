@@ -14,27 +14,27 @@ class DailyAttemptController extends
     public function store(Request $request)
     {
         $userDailyAttemps = DailyAttempt::where('user_id', me()->id)
-            ->where('game_id', $request->input('game_id'))
+            ->where('quiz_ID', $request->input('quiz_ID'))
             ->whereDate('date', Carbon::today())
             ->first();
         $maxDailyAttemps  = Setting::where('group_name', 'game_settings')->get();
         if ($userDailyAttemps) {
 
-            if (($request->game_id == 1 && $maxDailyAttemps[0]->value == $userDailyAttemps->attempt) ||
-                ($request->game_id == 2 && $maxDailyAttemps[1]->value == $userDailyAttemps->attempt) ||
-                ($request->game_id == 3 && $maxDailyAttemps[2]->value == $userDailyAttemps->attempt)) {
+            if (($request->quiz_ID == 1 && $maxDailyAttemps[0]->value == $userDailyAttemps->attempt) ||
+                ($request->quiz_ID == 2 && $maxDailyAttemps[1]->value == $userDailyAttemps->attempt) ||
+                ($request->quiz_ID == 3 && $maxDailyAttemps[2]->value == $userDailyAttemps->attempt)) {
                 return $this->returnFalse();
             }
 
             $userDailyAttemps->update(['attempt' => $userDailyAttemps['attempt'] + 1]);
             $userDailyAttempsInsert = DailyAttempt::where('user_id', me()->id)
-                ->where('game_id', $request->input('game_id'))
+                ->where('quiz_ID', $request->input('quiz_ID'))
                 ->whereDate('date', Carbon::today())
                 ->first();
         } else {
             $userDailyAttempsInsert = DailyAttempt::create([
                 'user_id' => me()->id,
-                'game_id' => $request->input('game_id') ?? 1,
+                'quiz_ID' => $request->input('quiz_ID') ?? 1,
                 'date'    => now(),
                 'attempt' => 1,
             ]);

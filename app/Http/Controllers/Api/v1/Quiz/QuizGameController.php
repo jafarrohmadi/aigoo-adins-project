@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1\Quiz;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\QuestionGame\QuestionGameCollection;
 use App\Models\PointHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,11 +28,15 @@ class QuizGameController extends
             $result          = new PointHistory();
             $result->user_id = me()->id;
             $result->team_id = me()->department_id;
-            $result->game_id = $request->get('game_id');
-            $result->score   = $request->get('score');
+            $result->quiz_ID = $request->get('quiz_ID');
+            $result->coins   = $request->get('coins');
             $result->point   = $request->get('point');
             $result->info    = ($request->has('info')) ? $request->get('info') : null;
             $result->save();
+
+            $user = User::find(me()->id);
+            $user->level = $request->level;
+            $user->save();
 
         } catch (\Exception $e) {
             DB::rollback();

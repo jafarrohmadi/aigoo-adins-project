@@ -65,7 +65,7 @@ class Index extends Component
             if ($this->filterByDepartment !== null and $this->filterByGame !== null)
             {
                 $query           = VwLeadeboard::where('name', 'like',
-                    '%' . $this->search . '%')->where('department_id', $this->filterByDepartment)->where('game_id',
+                    '%' . $this->search . '%')->where('department_id', $this->filterByDepartment)->where('quiz_ID',
                     $this->filterByGame);
                 $this->totalData = $query->count();
             } elseif ($this->filterByDepartment !== null)
@@ -75,7 +75,7 @@ class Index extends Component
                 $this->totalData = $query->count();
             } elseif ($this->filterByGame !== null)
             {
-                $query           = VwLeadeboard::where('name', 'like', '%' . $this->search . '%')->where('game_id',
+                $query           = VwLeadeboard::where('name', 'like', '%' . $this->search . '%')->where('quiz_ID',
                     $this->filterByGame);
                 $this->totalData = $query->count();
             } else
@@ -87,7 +87,7 @@ class Index extends Component
         {
             if ($this->filterByGame !== null)
             {
-                $query           = VwLeadeboard::where('division', $this->filterByDepartment)->where('game_id',
+                $query           = VwLeadeboard::where('division', $this->filterByDepartment)->where('quiz_ID',
                     $this->filterByGame);
                 $this->totalData = $query->count();
             } else
@@ -99,13 +99,13 @@ class Index extends Component
         {
             if ($this->filterByDepartment !== null)
             {
-                $query           = VwLeadeboard::where('game_id', $this->filterByGame)->where('division',
+                $query           = VwLeadeboard::where('quiz_ID', $this->filterByGame)->where('division',
                     $this->filterByDepartment);
                 $this->totalData = $query->count();
 
             } else
             {
-                $query           = VwLeadeboard::where('game_id', $this->filterByGame);
+                $query           = VwLeadeboard::where('quiz_ID', $this->filterByGame);
                 $this->totalData = $query->count();
             }
         } else

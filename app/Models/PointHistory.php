@@ -15,7 +15,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * 
  * @property int $id
  * @property int $user_id
- * @property int $game_id
+ * @property int $quiz_ID
  * @property int $team_id
  * @property int $point
  * @property int $score
@@ -36,20 +36,24 @@ class PointHistory extends Model
 
     protected $casts = [
 		'user_id' => 'int',
-		'game_id' => 'int',
+		'quiz_ID' => 'int',
 		'team_id' => 'int',
 		'point' => 'int',
-		'score' => 'int'
+		'coins' => 'int'
 	];
 
 	protected $fillable = [
 		'user_id',
-		'game_id',
+		'quiz_ID',
 		'team_id',
 		'point',
-		'score',
+		'coins',
 		'info'
 	];
+    /**
+     * @var mixed
+     */
+
 
     public function getDescriptionForEvent(string $eventName): string
     {

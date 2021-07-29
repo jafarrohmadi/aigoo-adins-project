@@ -24,7 +24,7 @@ class Chart extends Component
     public function calculateDivisionChart($points)
     {
         $divisionPoints = collect($points)->groupBy('user.department_name')->map(function($item){
-            return $item->sum('score');
+            return $item->sum('coins');
         })->sortDesc();
 
         $this->divisions = $divisionPoints->keys()->all();
@@ -36,7 +36,7 @@ class Chart extends Component
         $dailyPoints = collect($points)->groupBy(function($date){
             return Carbon::parse($date->created_at)->format('Y-m-d');
         })->map(function($item) {
-            return $item->sum('score');
+            return $item->sum('coins');
         })->toArray();
         ksort($dailyPoints);
 

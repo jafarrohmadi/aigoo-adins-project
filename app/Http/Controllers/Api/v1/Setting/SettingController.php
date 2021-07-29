@@ -29,6 +29,7 @@ class SettingController extends BaseController
         $userDailyAttemps = DailyAttempt::where('user_id', me()->id)
             ->whereDate('date', Carbon::today())
             ->get();
+
         if ($userDailyAttemps) {
             return new UserQuizDataResource($userDailyAttemps);
         } else {

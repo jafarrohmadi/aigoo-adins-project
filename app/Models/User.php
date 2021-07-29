@@ -92,7 +92,9 @@ class User extends Authenticatable
             'department',
             'avatar',
             'change_avatar',
-            'level'
+            'level',
+            'username',
+            'current_coin'
         ];
 
 //    /**
