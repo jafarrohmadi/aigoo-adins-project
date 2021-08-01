@@ -97,6 +97,17 @@ class User extends Authenticatable
             'current_coin'
         ];
 
+    /**
+     * @param $active
+     * @return string
+     */
+    public function getUserStatus($active)
+    {
+        $data = ['0' => 'unavailable', '1' => 'available' , '-1' => 'unauthorize'];
+
+        return $data[$active];
+    }
+
 //    /**
 //     * Get the user's role.
 //     *

@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     //Assessment
     Route::get('assessment', [AssessmentController::class, 'index']);
     Route::post('assessment', [AssessmentController::class, 'store']);
+    Route::get('get-assessment-user', [UserController::class, 'getAssessmentUser']);
 
     //LeaderBoard
     Route::get('leaderboard', [LeaderBoardController::class, 'index']);

@@ -87,13 +87,13 @@ class UserController extends BaseController
      * @param  Request  $request
      * @return UserCollection
      */
-    public function getAllUser(Request $request)
+    public function getAssessmentUser(Request $request)
     {
-        if(isset($request->keyword)){
-            $user = User::where('id', '!=', me()->id)->where('name', 'like', "%$request->keyword%" )->inRandomOrder()->paginate($request->limit ?? 10);
+        if(isset($request->name)){
+            $user = User::where('id', '!=', me()->id)->where('name', 'like', "%$request->name%" )->inRandomOrder()->paginate($request->limit ?? 10);
         }
 
-        if(!isset($request->keyword)){
+        if(!isset($request->name)){
             $user = User::where('id', '!=', me()->id)->inRandomOrder()->paginate($request->limit ?? 10);
         }
 

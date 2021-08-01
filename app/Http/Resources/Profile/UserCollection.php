@@ -17,7 +17,7 @@ class UserCollection extends ResourceCollection
         return [
             'status'  => true,
             'message' => 'Success',
-            'data'    => UserCollectionResource::collection($this->collection)
+            'data'    => ['user_list' => UserCollectionResource::collection($this->collection)]
         ];
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources\Profile;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserCollectionResource extends JsonResource
+class UserCollectionResource extends
+    JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +17,11 @@ class UserCollectionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'user_id'    => $this->id,
-            'name'       => $this->name,
-            'department' => $this->department,
-            'level'      => $this->level,
+            'user_ID'     => $this->id,
+            'name'        => $this->name,
+            'department'  => $this->department,
+            'status'      => (new \App\Models\User)->getUserStatus($this->active),
+            'profilePict' => (asset('img/profile_picture').'/').$this->change_avatar ?? $this->avatar,
         ];
     }
 }
