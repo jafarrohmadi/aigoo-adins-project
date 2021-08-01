@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\v1\Appreciation\AppreciationController;
 use App\Http\Controllers\Api\v1\Assessment\AssessmentController;
 use App\Http\Controllers\Api\v1\Avatar\AvatarController;
 use App\Http\Controllers\Api\v1\DailyAttempt\DailyAttemptController;
@@ -48,7 +49,11 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     //Assessment
     Route::get('assessment', [AssessmentController::class, 'index']);
     Route::post('assessment', [AssessmentController::class, 'store']);
-    Route::get('get-assessment-user', [UserController::class, 'getAssessmentUser']);
+    Route::get('get-assessment-user', [AssessmentController::class, 'getAssessmentUser']);
+
+
+    Route::get('appreciation' , [AppreciationController::class, 'index']);
+    Route::post('appreciation' , [AppreciationController::class, 'store']);
 
     //LeaderBoard
     Route::get('leaderboard', [LeaderBoardController::class, 'index']);

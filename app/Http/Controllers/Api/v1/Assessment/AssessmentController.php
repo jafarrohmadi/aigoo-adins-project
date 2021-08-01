@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api\v1\Assessment;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Assessment\AssessmentCollection;
+use App\Http\Resources\Profile\UserCollection;
 use App\Models\Assessment;
 use App\Models\Question;
+use App\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
 
 class AssessmentController extends
@@ -55,4 +58,29 @@ class AssessmentController extends
 
         return $this->returnSuccess([]);
     }
+
+    /**
+     * @param  Request  $request
+     * @return UserCollection
+     */
+    public function getAssessmentUser(Request $request)
+    {
+        $alreadyAssessment = Assessment::where(['assessor_id' => me()->id , 'assessment_year_month' => date('Y-m'),])->pluck('user_id')->toArray();
+
+        if(isset($request->name)){
+            $user = User::where('id', '!=', me()->id)->where('name', 'like', "%$request->name%" );
+        }
+
+        if(!isset($request->name)){
+            $user = User::where('id', '!=', me()->id);
+
+        }
+        if($alreadyAssessment)
+        {
+            $user = $user->whereNotIn('id', $alreadyAssessment);
+        }
+
+        return new UserCollection($user->inRandomOrder()->paginate($request->limit ?? 10));
+    }
+
 }

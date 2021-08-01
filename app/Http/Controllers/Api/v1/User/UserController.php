@@ -7,6 +7,7 @@ use App\Http\Request\User\LoginRequest;
 use App\Http\Resources\Profile\ProfileResource;
 use App\Http\Resources\Profile\UserCollection;
 use App\Http\Resources\Profile\UserDataCollection;
+use App\Models\Assessment;
 use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -81,23 +82,6 @@ class UserController extends BaseController
         {
             return $this->returnFalse();
         }
-    }
-
-    /**
-     * @param  Request  $request
-     * @return UserCollection
-     */
-    public function getAssessmentUser(Request $request)
-    {
-        if(isset($request->name)){
-            $user = User::where('id', '!=', me()->id)->where('name', 'like', "%$request->name%" )->inRandomOrder()->paginate($request->limit ?? 10);
-        }
-
-        if(!isset($request->name)){
-            $user = User::where('id', '!=', me()->id)->inRandomOrder()->paginate($request->limit ?? 10);
-        }
-
-        return new UserCollection($user);
     }
 
     /**
