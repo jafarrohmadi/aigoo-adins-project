@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -57,6 +58,14 @@ class Department extends Model
     public function leader()
     {
         return $this->belongsTo(User::class, 'team_leader');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function pointHistories()
+    {
+        return $this->hasMany(PointHistory::class, 'team_id', 'id');
     }
 
     public function getDescriptionForEvent(string $eventName): string

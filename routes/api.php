@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     //LeaderBoard
     Route::get('leaderboard', [LeaderBoardController::class, 'index']);
+    Route::get('leaderboard-data', [LeaderBoardController::class, 'leaderBoardData']);
 
     //User Collection
     Route::put('user-collection', [UserCollectionController::class, 'update']);

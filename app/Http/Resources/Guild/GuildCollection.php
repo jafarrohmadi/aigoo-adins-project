@@ -5,7 +5,7 @@ namespace App\Http\Resources\Guild;
 use App\Http\Resources\Profile\UserCollectionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GuildResource extends
+class GuildCollection extends
     JsonResource
 {
     /**

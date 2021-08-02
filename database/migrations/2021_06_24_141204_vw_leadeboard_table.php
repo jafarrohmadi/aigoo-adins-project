@@ -17,6 +17,7 @@ class VwLeadeboardTable extends Migration
         DB::statement('create view vw_leadeboard as
 select `users`.`name`                 AS `name`,
        sum(`point_histories`.`coins`) AS `total_coins`,
+              sum(`point_histories`.`point`) AS `total_points`,
        count(`point_histories`.`id`)  AS `count`,
        `point_histories`.`user_id`    AS `user_id`,
        `point_histories`.`quiz_ID`    AS `quiz_ID`,
@@ -24,8 +25,7 @@ select `users`.`name`                 AS `name`,
        `users`.`department_id`    AS `department_id`
 from (`point_histories` join `users` on ((`users`.`id` = `point_histories`.`user_id`)))
 group by `point_histories`.`user_id`
-order by `total_coins` desc, count(`point_histories`.`id`);');
-
+order by `total_points` desc, count(`point_histories`.`id`);');
 
     }
 }

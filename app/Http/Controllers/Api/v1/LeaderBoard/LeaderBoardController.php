@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\v1\LeaderBoard;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Leaderboard\LeaderboardCollection;
+use App\Http\Resources\Leaderboard\LeaderBoardDataCollection;
 use App\ViewModels\VwLeadeboard;
 use Exception;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
 
 class LeaderBoardController extends BaseController
@@ -27,5 +29,19 @@ class LeaderBoardController extends BaseController
         } catch (Exception $e) {
             return $this->returnFalse();
         }
+    }
+
+    public function leaderBoardData(Request  $request)
+    {
+        try {
+            $leaderBoard = VwLeadeboard::with('user')
+                ->setLimit($request->get('max_number') ?? 50);
+
+            return new LeaderBoardDataCollection($leaderBoard->get());
+        }catch (Exception $e)
+        {
+            return $this->returnFalse();
+        }
+
     }
 }
