@@ -39,8 +39,25 @@ class Department extends Model
             'name',
             'team_name',
             'team_icon',
-            'is_active'
+            'is_active',
+            'level',
+            'team_leader'
         ];
+
+    public function allUser()
+    {
+        return $this->hasMany(User::class , 'department_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->hasMany(User::class , 'department_id', 'id')->where('id' ,'!=', $this->team_leader);
+    }
+
+    public function leader()
+    {
+        return $this->belongsTo(User::class, 'team_leader');
+    }
 
     public function getDescriptionForEvent(string $eventName): string
     {

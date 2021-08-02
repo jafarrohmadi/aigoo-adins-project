@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\v1\Appreciation\AppreciationController;
 use App\Http\Controllers\Api\v1\Assessment\AssessmentController;
 use App\Http\Controllers\Api\v1\Avatar\AvatarController;
 use App\Http\Controllers\Api\v1\DailyAttempt\DailyAttemptController;
+use App\Http\Controllers\Api\v1\Guild\GuildController;
 use App\Http\Controllers\Api\v1\LeaderBoard\LeaderBoardController;
 use App\Http\Controllers\Api\v1\Quiz\QuizGameController;
 use App\Http\Controllers\Api\v1\Setting\SettingController;
@@ -51,9 +52,12 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('assessment', [AssessmentController::class, 'store']);
     Route::get('get-assessment-user', [AssessmentController::class, 'getAssessmentUser']);
 
-
+    //Appreciation
     Route::get('appreciation' , [AppreciationController::class, 'index']);
     Route::post('appreciation' , [AppreciationController::class, 'store']);
+
+    //guild
+    Route::get('guild' , [GuildController::class, 'index']);
 
     //LeaderBoard
     Route::get('leaderboard', [LeaderBoardController::class, 'index']);
