@@ -34,12 +34,10 @@ class LeaderBoardController extends BaseController
     public function leaderBoardData(Request  $request)
     {
         try {
-            $leaderBoard = VwLeadeboard::with('user')
-                ->setLimit($request->get('max_number') ?? 50);
-
-            return new LeaderBoardDataCollection($leaderBoard->get());
+            return new LeaderBoardDataCollection(me() , $request->max_user);
         }catch (Exception $e)
         {
+            dd($e->getMessage());
             return $this->returnFalse();
         }
 

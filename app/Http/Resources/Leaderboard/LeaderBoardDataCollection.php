@@ -48,6 +48,7 @@ class LeaderBoardDataCollection extends
         $ownPlaceGuild = Cache::remember('ownPlaceGuild'. me()->id , 300, function () use ($nationalData, $userTotalScore){
            return count($nationalData->where('total_points', '>', $userTotalScore)) + 1;
         });
+
         return [
             'status'  => true,
             'message' => 'Success',
