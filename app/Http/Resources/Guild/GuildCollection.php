@@ -24,6 +24,8 @@ class GuildCollection extends
                     'department' => $this->name,
                     'guild_name' => $this->team_name,
                     'level'      => $this->level ?? 1,
+                    'team_name'  => $this->team_name,
+                    'team_icon'  => (asset('img/profile_picture').'/').$this->team_icon,
                 ],
                 'guild_leader_data'  => new GuildUserResource($this->leader),
                 'member_list_data'   => GuildUserResource::collection($this->user),

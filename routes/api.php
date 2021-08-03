@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     //guild
     Route::get('guild' , [GuildController::class, 'index']);
+    Route::post('guild/{id}' , [GuildController::class, 'update']);
 
     //LeaderBoard
     Route::get('leaderboard', [LeaderBoardController::class, 'index']);
