@@ -41,13 +41,13 @@
                                 {{ $logs->description ?? '' }}
                             </td>
                             <td>
-                                ID  : {{ $logs->subject_id  }}
+                                ID  : {{ $logs->subject_id  ?? ''}}
                             </td>
                             <td>
-                                {{ $logs->causer->name }}
+                                {{ $logs->causer->name ?? '' }}
                             </td>
                             <td>
-                                {{ $logs->changes }}
+                                {{ $logs->changes  ?? ''}}
                             </td>
                         </tr>
                     @empty

@@ -17,7 +17,7 @@ class CreateDepartmentsTable extends Migration
             $table->bigInteger('id', true);
             $table->string('name', 200);
             $table->string('team_name', 200)->nullable();
-            $table->integer('team_icon')->nullable();
+            $table->string('team_icon',200)->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();
