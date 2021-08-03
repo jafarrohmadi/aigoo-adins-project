@@ -97,10 +97,11 @@ class Index extends Component
             'titleLevel10' => 'required|numeric',
 
         ]);
+        $gameSetting = Setting::where('group_name', 'title_level')->get()->toArray();
 
         for ($i = 1; $i < 11; $i++)
         {
-            Setting::where('name', $this->{'nameTitle' . $i})->update(['value' => $this->{'titleLevel' . $i}]);
+            Setting::where('id', $gameSetting[$i - 1]['id'])->update(['value' => $this->{'titleLevel' . $i}, 'name' => $this->{'nameTitle' . $i}]);
         }
 
         $this->emit('closeEditModalSuccess');

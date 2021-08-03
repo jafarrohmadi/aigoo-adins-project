@@ -19,8 +19,12 @@
                             Team Name
                         </th>
                         <th>
+                            Team Icon
+                        </th>
+                        <th>
                             Team Leader
                         </th>
+
                         <th  class="sorting">
                             Active
                         </th>
@@ -39,6 +43,9 @@
                                 {{ $departments->team_name }}
                             </td>
                             <td>
+                                {{ $departments->team_icon  ? (asset('img/profile_picture').'/').$this->team_icon: ''}}
+                            </td>
+                            <td>
                                 {{ $departments->leader->name  ?? ''}}
                             </td>
                             <td>
@@ -54,7 +61,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">No results.</td>
+                            <td colspan="7">No results.</td>
                         </tr>
                     @endforelse
                 </x-slot>

@@ -71,7 +71,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editmodal1">History assessor
+                    <h5 class="modal-title" id="editmodal1">History appreciation
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -85,10 +85,10 @@
                                     No
                                 </th>
                                 <th class="sorting">
-                                    Question
+                                    Appreciation
                                 </th>
-                                <th class="sorting">
-                                    Answer
+                                <th>
+                                    Created At
                                 </th>
                             </tr>
                         </x-slot>
@@ -99,10 +99,10 @@
                                     <tr class="@if($loop->odd) odd @endif">
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
-                                            {{ $assessments->question->content  ?? ''}}
+                                            {{ $assessments->assessment_info  ?? ''}}
                                         </td>
                                         <td>
-                                            {{ $assessments->value ?? ''}}
+                                            {{$assessments->created_at}}
                                         </td>
                                     </tr>
                                 @empty

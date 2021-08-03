@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Assessment;
+namespace App\Http\Livewire\Appreciation;
 
 
 use App\Models\Assessment;
@@ -8,8 +8,7 @@ use App\Models\Assessment;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends
-    Component
+class Index extends Component
 {
     use WithPagination;
 
@@ -46,22 +45,22 @@ class Index extends
         if ($this->search) {
             $query           = Assessment::latest()->whereHas('user', function ($q) {
                 $q->where('name', 'like', '%'.$this->search.'%');
-            })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')->where('assessment_info' , null)->groupBy('assessor_id',
+            })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')->where('assessment_info' , '!=', null)->groupBy('assessor_id',
                 'user_id', 'assessment_year_month')->with('assessor',
                 'user');
             $this->totalData = $query->count();
 
-            return view('livewire.assessment.index', [
+            return view('livewire.appreciation.index', [
                 'assessment'     => $query->paginate($this->paginate),
                 'assessmentData' => $assessmentData,
             ]);
         } else {
             $query           = Assessment::select('assessor_id', 'user_id',
-                'created_at', 'assessment_year_month')->where('assessment_info' , null)->groupBy('assessor_id', 'user_id',
-                'assessment_year_month')->with('assessor', 'user');
+                'created_at', 'assessment_year_month')->groupBy('assessor_id', 'user_id',
+                'assessment_year_month')->where('assessment_info' , '!=', null)->with('assessor', 'user');
             $this->totalData = $query->count();
 
-            return view('livewire.assessment.index', [
+            return view('livewire.appreciation.index', [
                 'assessment'     => $query->paginate($this->paginate),
                 'assessmentData' => $assessmentData,
             ]);
@@ -74,7 +73,7 @@ class Index extends
             'assessor_id'           => $assessor_id,
             'user_id'               => $user_id,
             'assessment_year_month' => $assessment_year_month,
-        ])->where('assessment_info' , null)->with('question')->get();
+        ])->where('assessment_info' , '!=', null)->with('question')->get();
 
         $this->assessmentData = $assessment;
     }

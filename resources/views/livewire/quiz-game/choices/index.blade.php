@@ -63,7 +63,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6">No results.</td>
+                            <td colspan="12">No results.</td>
                         </tr>
                     @endforelse
                 </x-slot>

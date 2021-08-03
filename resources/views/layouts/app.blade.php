@@ -138,7 +138,12 @@
                             </li>
                         </ul>
                     </li>
-
+                    <li class="nav-item">
+                        <a href="{{ route('appreciation.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-question-circle"></i>
+                            <span class="brand-text">Appreciation</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('leaderboard.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-trophy elevation-3"></i>
