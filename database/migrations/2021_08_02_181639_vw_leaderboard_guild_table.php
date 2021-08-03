@@ -18,7 +18,7 @@ class VwLeaderboardGuildTable extends
         select `point_histories`.`team_id`    AS `team_id`,
         `users`.`department_id`    AS `department_id`, 
         sum(`point_histories`.`coins`) AS `total_coins`,
-        sum(`point_histories`.`point`) AS `total_points`,
+        avg(`point_histories`.`point`) AS `total_points`,
         count(`point_histories`.`id`)  AS `count`,
         `point_histories`.`date_year_month`    AS `date`
 from (`point_histories` join `users` on ((`users`.`id` = `point_histories`.`user_id`)))
