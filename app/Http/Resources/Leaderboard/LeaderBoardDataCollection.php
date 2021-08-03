@@ -22,20 +22,21 @@ class LeaderBoardDataCollection extends
     {
         $date = $request->date ??date('Y-m');
         $limit = $request->max_user  ?? 10;
+        $page = $request->page ?? 1;
 
         $userTotalScore = Cache::remember('userTotalScore'. me()->id. $date, 300, function () use ($date) {
             return User::find(me()->id)->pointHistories->where('point', '>=', 0)->where('date_year_month' , $date)->sum('point');
         });
 
 
-        $nationalData  = Cache::remember('nationalData'. me()->id. $date . $limit, 300, function () use ($date, $limit) {
+        $nationalData  = Cache::remember('nationalData'. me()->id. $date . $page. $limit, 300, function () use ($date, $limit) {
             return VwLeadeboard::with('user', 'user.pointHistories')
                 ->where('date', $date)
                 ->orderBy('total_points', 'desc')
                 ->paginate($limit);
         });
 
-        $regionalData  = Cache::remember('regionalData'. me()->id. $date . $limit, 300, function () use ($date, $limit) {
+        $regionalData  = Cache::remember('regionalData'. me()->id. $date . $page.$limit, 300, function () use ($date, $limit) {
             return VwLeadeboard::with('user', 'user.pointHistories')
                 ->where('date', $date)
                 ->where('team_id', me()->department_id)
