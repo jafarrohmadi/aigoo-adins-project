@@ -25,16 +25,17 @@ class QuizGameController extends
     {
         try {
             DB::beginTransaction();
-            $result          = new PointHistory();
-            $result->user_id = me()->id;
-            $result->team_id = me()->department_id;
-            $result->quiz_ID = $request->get('quiz_ID');
-            $result->coins   = $request->get('coins');
-            $result->point   = $request->get('point');
-            $result->info    = ($request->has('info')) ? $request->get('info') : null;
+            $result                  = new PointHistory();
+            $result->user_id         = me()->id;
+            $result->team_id         = me()->department_id;
+            $result->quiz_ID         = $request->get('quiz_ID');
+            $result->coins           = $request->get('coins');
+            $result->point           = $request->get('point');
+            $result->info            = ($request->has('info')) ? $request->get('info') : null;
+            $result->date_year_month = date('Y-m');
             $result->save();
 
-            $user = User::find(me()->id);
+            $user        = User::find(me()->id);
             $user->level = $request->level;
             $user->save();
 

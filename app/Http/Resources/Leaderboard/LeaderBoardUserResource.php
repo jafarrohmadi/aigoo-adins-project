@@ -16,11 +16,13 @@ class LeaderBoardUserResource extends
     public function toArray($request)
     {
         $data  = $this->user;
+        $date = $request->date ?? date('Y-m');
+
         return [
             'name'        => $data->name,
             'department'  => $data->department,
             'level'       => $data->level,
-            'points'      => $data->pointHistories->where('point', '>=', 0)->sum('point'),
+            'points'      => $data->pointHistories->where('point', '>=', 0)->where('date_year_month', $date)->sum('point'),
             'profilePict' => (asset('img/profile_picture').'/').$data->change_avatar ?? $data->avatar,
         ];
     }

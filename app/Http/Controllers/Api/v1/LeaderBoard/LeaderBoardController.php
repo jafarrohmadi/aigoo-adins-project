@@ -34,10 +34,9 @@ class LeaderBoardController extends BaseController
     public function leaderBoardData(Request  $request)
     {
         try {
-            return new LeaderBoardDataCollection(me() , $request->max_user);
+            return new LeaderBoardDataCollection(me());
         }catch (Exception $e)
         {
-            dd($e->getMessage());
             return $this->returnFalse();
         }
 

@@ -21,6 +21,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $score
  * @property string $info
  * @property Carbon $created_at
+ * @property Carbon $date_year_month
  *
  * @package App\Models
  */
@@ -48,12 +49,13 @@ class PointHistory extends Model
 		'team_id',
 		'point',
 		'coins',
-		'info'
+		'info',
+        'date_year_month'
 	];
-    /**
+
+	/**
      * @var mixed
      */
-
 
     public function getDescriptionForEvent(string $eventName): string
     {

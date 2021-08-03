@@ -20,33 +20,55 @@ class LeaderBoardDataCollection extends
      */
     public function toArray($request)
     {
-        $userTotalScore = Cache::remember('userTotalScore'. me()->id, 300, function () {
-            return User::find(me()->id)->pointHistories->where('point', '>=', 0)->sum('point');
+        $date = $request->date ??date('Y-m');
+        $limit = $request->max_user  ?? 10;
+
+        $userTotalScore = Cache::remember('userTotalScore'. me()->id. $date, 300, function () use ($date) {
+            return User::find(me()->id)->pointHistories->where('point', '>=', 0)->where('date_year_month' , $date)->sum('point');
         });
 
-        $nationalData   = Cache::remember('nationalData'. me()->id, 300, function () {
-            return VwLeadeboard::with('user', 'user.pointHistories')->orderBy('total_points', 'desc')->get();
+
+        $nationalData  = Cache::remember('nationalData'. me()->id. $date . $limit, 300, function () use ($date, $limit) {
+            return VwLeadeboard::with('user', 'user.pointHistories')
+                ->where('date', $date)
+                ->orderBy('total_points', 'desc')
+                ->paginate($limit);
         });
 
-        $regionalData   = Cache::remember('regionalData'. me()->id, 300, function () use ($nationalData) {
-            return $nationalData->where('team_id', me()->department_id);
+        $regionalData  = Cache::remember('regionalData'. me()->id. $date . $limit, 300, function () use ($date, $limit) {
+            return VwLeadeboard::with('user', 'user.pointHistories')
+                ->where('date', $date)
+                ->where('team_id', me()->department_id)
+                ->orderBy('total_points', 'desc')
+                ->paginate($limit);
         });
 
-        $guildData      = Cache::remember('guildData'. me()->id, 300, function () {
-            return VwLeaderboardGuild::with('department', 'department.leader', 'department.pointHistories')->orderBy('total_points',
-                'desc')->get();
+        $guildData     = Cache::remember('guildData'. me()->id . $date , 300, function () use ($date) {
+            return VwLeaderboardGuild::with('department', 'department.leader', 'department.pointHistories')
+                ->where('date',$date)
+                ->orderBy('total_points', 'desc')
+                ->get();
         });
 
-        $ownPlaceRegional = Cache::remember('ownPlaceRegional'. me()->id, 300, function ()  use ($regionalData, $userTotalScore) {
-            return count($regionalData->where('total_points', '>', $userTotalScore)) + 1;
+        $ownPlaceRegional = Cache::remember('ownPlaceRegional'. me()->id, 300, function ()  use ($userTotalScore ,$date) {
+            return VwLeadeboard::with('user', 'user.pointHistories')
+                    ->where('team_id', me()->department_id)
+                    ->where('date',$date)
+                    ->orderBy('total_points', 'desc')
+                    ->where('total_points', '>', $userTotalScore)
+                    ->count() + 1;
         });
 
-        $ownPlaceNational = Cache::remember('ownPlaceNational'. me()->id, 300, function ()  use ($nationalData, $userTotalScore) {
-            return count($nationalData->where('total_points', '>', $userTotalScore)) + 1;
+        $ownPlaceNational = Cache::remember('ownPlaceNational'. me()->id, 300, function ()  use ($userTotalScore, $date) {
+            return VwLeadeboard::with('user', 'user.pointHistories')
+                    ->where('total_points', '>', $userTotalScore)
+                    ->where('date' ,$date)
+                    ->orderBy('total_points', 'desc')
+                    ->count() + 1;
         });
 
-        $ownPlaceGuild = Cache::remember('ownPlaceGuild'. me()->id , 300, function () use ($nationalData, $userTotalScore){
-           return count($nationalData->where('total_points', '>', $userTotalScore)) + 1;
+        $ownPlaceGuild = Cache::remember('ownPlaceGuild'. me()->id , 300, function () use ($guildData, $userTotalScore){
+           return count($guildData->where('total_points', '>', $userTotalScore)) + 1;
         });
 
         return [
