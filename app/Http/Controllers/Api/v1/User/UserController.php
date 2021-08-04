@@ -93,7 +93,7 @@ class UserController extends
                     $user->statusincompany   = $value->Status;
                     $user->save();
                 } else {
-                    if ($user->password == '') {
+                    if ($user->password == '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi') {
                         $user->password = Hash::make($request->password);
                         $user->save();
                     }
