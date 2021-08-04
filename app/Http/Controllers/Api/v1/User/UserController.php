@@ -25,7 +25,7 @@ class UserController extends BaseController
     {
         try
         {
-            if (Auth::attempt(['username' => $request->username, 'password' => $request->password]))
+            if (Auth::attempt(['email' => $request->username, 'password' => $request->password]))
             {
                 $success['token'] = me()->createToken('authToken')->plainTextToken;
 
