@@ -10,6 +10,7 @@ use App\Http\Resources\Profile\UserDataCollection;
 use App\Models\Assessment;
 use App\Models\User;
 use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -84,6 +85,31 @@ class UserController extends BaseController
         }
     }
 
+    public function addAllUser(Request $request)
+    {
+        $url = config('app.api_adins_url');
+        $key = config('app.api_adins_key');
+        $value = config('app.api_adins_value');
+
+        $client = new Client(['headers' => [$key => $value]]);
+//        $request_param = [
+//            'username'    => $request->username,
+//            'password'         => $request->password,
+//        ];
+//        $request_data = json_encode($request_param);
+        $res = $client->request(
+            'GET',
+            url($url.'/api/employee'),
+            [
+                'headers' => [
+                    'Accept'     => 'application/json'
+                ],
+//                'body'   => $request_data
+            ]
+        );
+
+        return $res->getBody()->getContents();
+    }
     /**
      * @return ResponseFactory
      */

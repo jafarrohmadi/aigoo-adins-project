@@ -12,7 +12,9 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    'api_adins_url' => env('API_ADINS_URL', 'env'),
+    'api_adins_key' => env('API_ADINS_KEY', 'env'),
+    'api_adins_value' => env('API_ADINS_VALUE', 'env'),
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
