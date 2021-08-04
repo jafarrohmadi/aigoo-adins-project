@@ -92,9 +92,11 @@ class UserController extends
                     $user->worklocationname  = $value->WorkLocationName;
                     $user->statusincompany   = $value->Status;
                     $user->save();
-                }else{
-                    $user->password          = Hash::make($request->password);
-                    $user->save();
+                } else {
+                    if ($user->password == '') {
+                        $user->password = Hash::make($request->password);
+                        $user->save();
+                    }
                 }
             }
 
