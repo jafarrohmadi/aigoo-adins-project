@@ -29,31 +29,38 @@ class UserController extends
     public function login(LoginRequest $request)
     {
         try {
+
+            $userNameData = $request->username;
+            $passwordData = $request->password;
+
+            $request_param = [
+                'username' => $userNameData,
+                'password' => $passwordData,
+            ];
+
+            $request_data  = json_encode($request_param);
+
             $url        = config('app.api_adins_url');
             $key        = config('app.api_adins_key');
             $data_value = config('app.api_adins_value');
 
             $client        = new Client(['headers' => [$key => $data_value]]);
-            $request_param = [
-                'username' => $request->username,
-                'password' => $request->password,
-            ];
-            $request_data  = json_encode($request_param);
 
             $res = $client->request(
                 'POST', url($url.'/api/auth/ldap'),
                 [
                     'headers' => [
                         'Accept' => 'application/json',
+                        'Content-Type' => 'application/json'
                     ],
                     'body'    => $request_data,
                 ]
             );
 
-            $value = $res->getBody()->getContents();
+            $value = json_decode($res->getBody()->getContents());
 
             if ($value != "Wrong credentials") {
-                $value      = json_decode($value);
+
                 $department = Department::where('name', $value->Department)->first();
 
                 if (!$department) {
@@ -94,15 +101,15 @@ class UserController extends
                     $user->save();
                 } else {
                     if ($user->password == '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi') {
-                        $user->password = Hash::make($request->password);
+                        $user->password = Hash::make($passwordData);
                         $user->save();
                     }
                 }
             }
 
             if (Auth::attempt([
-                'email'    => $request->username,
-                'password' => $request->password,
+                'email'    => $userNameData,
+                'password' => $passwordData,
             ])) {
                 $success['token'] = me()->createToken('authToken')->plainTextToken;
 
