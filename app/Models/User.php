@@ -40,7 +40,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  *
  * @package App\Models
  */
-class User extends Authenticatable
+class User extends
+    Authenticatable
 {
     use SoftDeletes, LogsActivity, HasApiTokens;
 
@@ -102,6 +103,7 @@ class User extends Authenticatable
             'jobposition',
             'worklocationname',
             'statusincompany',
+            'department_id',
         ];
 
     /**
@@ -110,9 +112,10 @@ class User extends Authenticatable
      */
     public function getUserStatus($active)
     {
-        $data = ['0'  => 'unavailable',
-                 '1'  => 'available',
-                 '-1' => 'unauthorize',
+        $data = [
+            '0'  => 'unavailable',
+            '1'  => 'available',
+            '-1' => 'unauthorize',
         ];
 
         return $data[$active];
