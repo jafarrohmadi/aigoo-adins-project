@@ -37,20 +37,20 @@ class UserController extends
                 'password' => $passwordData,
             ];
 
-            $request_data  = json_encode($request_param);
+            $request_data = json_encode($request_param);
 
             $url        = config('app.api_adins_url');
             $key        = config('app.api_adins_key');
             $data_value = config('app.api_adins_value');
 
-            $client        = new Client(['headers' => [$key => $data_value]]);
+            $client = new Client(['headers' => [$key => $data_value]]);
 
             $res = $client->request(
                 'POST', url($url.'/api/auth/ldap'),
                 [
                     'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json'
+                        'Accept'       => 'application/json',
+                        'Content-Type' => 'application/json',
                     ],
                     'body'    => $request_data,
                 ]
@@ -74,37 +74,36 @@ class UserController extends
                 $user = User::where('email', $userNameData)->first();
 
                 if (!$user) {
-                    $user                    = new User();
-                    $user->type              = 'user';
-                    $user->name              = $value->EmployeeName;
-                    $user->email             = $value->Email;
-                    $user->email_verified_at = date('Y-m-d H:i:s');
-                    $user->password          = Hash::make(substr(md5(mt_rand()), 0, 7));
-                    $user->roles             = 'Staff';
-                    $user->employee_level_id = 1;
-                    $user->active            = 1;
-                    $user->team_id           = $department->id;
-                    $user->department_id     = $department->id;
-                    $user->department        = $value->Department;
-                    $user->avatar            = 'default_avatar.png';
-                    $user->level             = 1;
-                    $user->username          = $value->Email;
-                    $user->current_coin      = 0;
-                    $user->company           = $value->Company;
-                    $user->bu                = $value->BU;
-                    $user->subbu             = $value->SubBU;
-                    $user->nik               = $value->NIK;
-                    $user->jobposition       = $value->JobPosition;
-                    $user->worklocationname  = $value->WorkLocationName;
-                    $user->statusincompany   = $value->Status;
-                    $user->save();
+                    $user = new User();
                 }
+
+                $user->type              = 'user';
+                $user->name              = $value->EmployeeName;
+                $user->email             = $value->Email;
+                $user->email_verified_at = date('Y-m-d H:i:s');
+                $user->password          = Hash::make(substr(md5(mt_rand()), 0, 7));
+                $user->roles             = 'Staff';
+                $user->employee_level_id = 1;
+                $user->active            = 1;
+                $user->team_id           = $department->id;
+                $user->department_id     = $department->id;
+                $user->department        = $value->Department;
+                $user->avatar            = 'default_avatar.png';
+                $user->level             = 1;
+                $user->username          = $value->Email;
+                $user->current_coin      = 0;
+                $user->company           = $value->Company;
+                $user->bu                = $value->BU;
+                $user->subbu             = $value->SubBU;
+                $user->nik               = $value->NIK;
+                $user->jobposition       = $value->JobPosition;
+                $user->worklocationname  = $value->WorkLocationName;
+                $user->statusincompany   = $value->Status;
+                $user->save();
+
             }
 
-            if (Auth::attempt([
-                'email'    => $userNameData,
-                'password' => $passwordData,
-            ])) {
+            if (Auth::loginUsingId($user->id)) {
                 $success['token'] = me()->createToken('authToken')->plainTextToken;
 
                 return $this->returnSuccess($success);
@@ -119,8 +118,7 @@ class UserController extends
     /**
      * @return ProfileResource|ResponseFactory|\Illuminate\Http\Response
      */
-    public
-    function profile()
+    public function profile()
     {
         try {
             return new ProfileResource(me());
@@ -129,8 +127,7 @@ class UserController extends
         }
     }
 
-    public
-    function getUserData()
+    public function getUserData()
     {
         try {
             return new UserDataCollection(me());
@@ -139,8 +136,7 @@ class UserController extends
         }
     }
 
-    public
-    function updateProfile(
+    public function updateProfile(
         Request $request
     ) {
         try {
@@ -157,8 +153,7 @@ class UserController extends
         }
     }
 
-    public
-    function addAllUser(
+    public function addAllUser(
         Request $request
     ) {
         $url   = config('app.api_adins_url');
@@ -229,8 +224,7 @@ class UserController extends
     /**
      * @return ResponseFactory
      */
-    public
-    function logout()
+    public function logout()
     {
         if ($user = me()->currentAccessToken()->delete()) {
             return $this->returnSuccess('Success Logout');
