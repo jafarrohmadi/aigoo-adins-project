@@ -79,7 +79,7 @@ class UserController extends
                     $user->name              = $value->EmployeeName;
                     $user->email             = $value->Email;
                     $user->email_verified_at = date('Y-m-d H:i:s');
-                    $user->password          = Hash::make($request->password);
+                    $user->password          = Hash::make(substr(md5(mt_rand()), 0, 7));
                     $user->roles             = 'Staff';
                     $user->employee_level_id = 1;
                     $user->active            = 1;
@@ -98,11 +98,6 @@ class UserController extends
                     $user->worklocationname  = $value->WorkLocationName;
                     $user->statusincompany   = $value->Status;
                     $user->save();
-                } else {
-                    if ($user->password == '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi') {
-                        $user->password = Hash::make($passwordData);
-                        $user->save();
-                    }
                 }
             }
 
