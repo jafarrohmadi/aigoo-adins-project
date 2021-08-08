@@ -75,31 +75,42 @@ class UserController extends
 
                 if (!$user) {
                     $user = new User();
+                    $user->type              = 'user';
+                    $user->name              = $value->EmployeeName;
+                    $user->email             = $value->Email;
+                    $user->email_verified_at = date('Y-m-d H:i:s');
+                    $user->password          = Hash::make(substr(md5(mt_rand()), 0, 7));
+                    $user->roles             = 'Staff';
+                    $user->employee_level_id = 1;
+                    $user->active            = 1;
+                    $user->team_id           = $department->id;
+                    $user->department_id     = $department->id;
+                    $user->department        = $value->Department;
+                    $user->avatar            = 'default_avatar.png';
+                    $user->level             = 1;
+                    $user->username          = $value->Email;
+                    $user->current_coin      = 0;
+                    $user->company           = $value->Company;
+                    $user->bu                = $value->BU;
+                    $user->subbu             = $value->SubBU;
+                    $user->nik               = $value->NIK;
+                    $user->jobposition       = $value->JobPosition;
+                    $user->worklocationname  = $value->WorkLocationName;
+                    $user->statusincompany   = $value->Status;
+                    $user->save();
+                }else{
+                    $user->name              = $value->EmployeeName;
+                    $user->department        = $value->Department;
+                    $user->email             = $value->Email;
+                    $user->company           = $value->Company;
+                    $user->bu                = $value->BU;
+                    $user->subbu             = $value->SubBU;
+                    $user->nik               = $value->NIK;
+                    $user->jobposition       = $value->JobPosition;
+                    $user->worklocationname  = $value->WorkLocationName;
+                    $user->statusincompany   = $value->Status;
+                    $user->save();
                 }
-
-                $user->type              = 'user';
-                $user->name              = $value->EmployeeName;
-                $user->email             = $value->Email;
-                $user->email_verified_at = date('Y-m-d H:i:s');
-                $user->password          = Hash::make(substr(md5(mt_rand()), 0, 7));
-                $user->roles             = 'Staff';
-                $user->employee_level_id = 1;
-                $user->active            = 1;
-                $user->team_id           = $department->id;
-                $user->department_id     = $department->id;
-                $user->department        = $value->Department;
-                $user->avatar            = 'default_avatar.png';
-                $user->level             = 1;
-                $user->username          = $value->Email;
-                $user->current_coin      = 0;
-                $user->company           = $value->Company;
-                $user->bu                = $value->BU;
-                $user->subbu             = $value->SubBU;
-                $user->nik               = $value->NIK;
-                $user->jobposition       = $value->JobPosition;
-                $user->worklocationname  = $value->WorkLocationName;
-                $user->statusincompany   = $value->Status;
-                $user->save();
 
             }
 

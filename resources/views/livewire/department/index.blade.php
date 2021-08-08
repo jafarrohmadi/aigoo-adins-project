@@ -43,7 +43,7 @@
                                 {{ $departments->team_name }}
                             </td>
                             <td>
-                                {{ $departments->team_icon  ? (asset('img/profile_picture').'/').$this->team_icon: ''}}
+                                <img src="{{ $departments->team_icon  ? (asset('img/profile_picture').'/').$departments->team_icon: ''}}" width="100" height="100" >
                             </td>
                             <td>
                                 {{ $departments->leader->name  ?? ''}}
