@@ -22,6 +22,7 @@ class AvatarRequest extends BaseRequest
             'equiped_shoe' => 'required',
             'equiped_hand' => 'required',
             'equiped_BG' => 'required',
+            'equiped_face_acc' => 'required'
         ];
     }
 }

@@ -44,6 +44,7 @@ class AvatarController extends
             'equiped_shoe'     => $request->equiped_shoe,
             'equiped_hand'     => $request->equiped_hand,
             'equiped_BG'       => $request->equiped_BG,
+            'equiped_face_acc' => $request->equiped_face_acc
         ];
 
         try {
@@ -75,7 +76,8 @@ class AvatarController extends
                 || ($request->avatarPartID == 4 && $key == 'owned_bottom')
                 || ($request->avatarPartID == 5 && $key == 'owned_shoe')
                 || ($request->avatarPartID == 6 && $key == 'owned_hand')
-                || ($request->avatarPartID == 7 && $key == 'owned_BG')) {
+                || ($request->avatarPartID == 7 && $key == 'owned_BG')
+                || ($request->avatarPartID == 8 && $key == 'owned_face_acc')) {
                 array_push($collectionData, $request->item_ID);
             }
 

@@ -30,6 +30,7 @@ class AvatarResource extends
                     'owned_shoe'     => [],
                     'owned_hand'     => [],
                     'owned_BG'       => [],
+                    'owned_face_acc' => []
                 ],
             ]);
         }
