@@ -57,7 +57,7 @@ class ProfileResource extends
                 'user_collection'  => $this->userCollection->pluck('collection'),
                 'team'             => [
                     'team_name' => $this->departments->team_name,
-                    'team_icon' => $this->departments->team_icon,
+                    'team_icon' => (asset('img/profile_picture').'/') . $this->departments->team_icon ?? 'default_team_avatar',
                 ],
             ],
         ];

@@ -4,6 +4,7 @@ namespace App\Http\Resources\Profile;
 
 use App\Models\UserCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
+use function Symfony\Component\Translation\t;
 
 
 class UserDataCollection extends
@@ -40,6 +41,7 @@ class UserDataCollection extends
                 'player_id'        => $this->id,
                 'username'         => $this->username,
                 'name'             => $this->name,
+                'gender'           => $this->gender,
                 'department'       => $this->department,
                 'level'            => $this->level,
                 'coins'            => $this->pointHistories->sum('coins'),

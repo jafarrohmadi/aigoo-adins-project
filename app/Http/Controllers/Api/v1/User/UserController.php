@@ -29,7 +29,6 @@ class UserController extends
     public function login(LoginRequest $request)
     {
         try {
-
             $userNameData = $request->username;
             $passwordData = $request->password;
 
@@ -72,7 +71,7 @@ class UserController extends
                     $department->save();
                 }
 
-                $user = User::where('email', $request->email)->first();
+                $user = User::where('email', $userNameData)->first();
 
                 if (!$user) {
                     $user                    = new User();
