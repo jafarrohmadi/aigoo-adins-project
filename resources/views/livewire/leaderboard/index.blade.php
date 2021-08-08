@@ -11,14 +11,6 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-sm-12 col-md-3">
-                    <select wire:model="filterByGame" class="form-control form-control-md bg-primary"
-                            style="border-radius: 16px;">
-                        <option selected>Filter by Game ID</option>
-                        <option value="1" class="bg-white">1</option>
-                        <option value="2" class="bg-white">2</option>
-                    </select>
-                </div>
             </div>
             <br>
             <div class="row">
