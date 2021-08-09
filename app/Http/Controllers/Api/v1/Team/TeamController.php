@@ -19,7 +19,13 @@ class TeamController extends BaseController
     {
         try {
             $department = Department::find(me()->department_id);
-            $department->update($request->all());
+            $file = $request->file('team_icon');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename =time().'.'.$extension;
+            $file->move('img/profile_picture/', $filename);
+            $department->team_name = $request->team_name;
+            $department->team_icon = $filename;
+            $department->save();
 
             return new TeamCollectionResource($department);
         } catch (\Exception $exception) {

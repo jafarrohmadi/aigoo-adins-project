@@ -34,7 +34,7 @@ class AvatarController extends
      * @param  AvatarRequest  $request
      * @return AvatarResource|ResponseFactory|Response
      */
-    public function storeOrUpdate(AvatarRequest $request)
+    public function storeOrUpdate(Request $request)
     {
         $avatarSettings = [
             'equiped_hair'     => $request->equiped_hair,

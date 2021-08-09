@@ -20,7 +20,7 @@ class TeamCollectionResource extends JsonResource
             'message' => 'Success',
             'data'    => [
                 'team_name' => $this->team_name,
-                'team_icon' => $this->team_icon,
+                'team_icon' => (asset('img/profile_picture').'/'). $this->team_icon ?? 'default_team_avatar.png',
             ],
         ];
     }
