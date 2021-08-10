@@ -68,6 +68,7 @@ class UserController extends
                     $department->is_active = 1;
                     $department->team_name = $value->Department;
                     $department->team_icon = 'default_team_avatar.png';
+                    $department->department_code = $value->DepartmentCode;
                     $department->save();
                 }
 

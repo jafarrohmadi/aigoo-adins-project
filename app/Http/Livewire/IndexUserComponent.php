@@ -10,7 +10,7 @@ class IndexUserComponent extends Component
 {
     use HasTable, HasLivewireAuth;
 
-    public $department_id, $userId;
+    public $department_id, $userId, $supervisor_id;
     /** @var string */
     public $sortField = 'email';
 
@@ -37,13 +37,14 @@ class IndexUserComponent extends Component
     public function render()
     {
         $department = Department::all();
+        $allUser = User::select('id', 'email')->get();
         $users = User::filter([
                 'orderByField' => [$this->sortField, $this->sortDirection],
                 'search' => $this->search,
                 'roleId' => $this->roleId,
             ])->paginate($this->perPage);
 
-        return view('users.index', ['users' => $users, 'department' => $department])
+        return view('users.index', ['users' => $users, 'department' => $department, 'allUser' => $allUser])
             ->extends('layouts.app');
     }
 
@@ -72,6 +73,7 @@ class IndexUserComponent extends Component
         $user                 = User::find($id);
         $this->department_id   = $user->department_id;
         $this->userId = $user->id;
+        $this->supervisor_id = $user->supervisor_id;
     }
 
     public function update()
@@ -86,7 +88,8 @@ class IndexUserComponent extends Component
 
             $result = $user->update([
                 'department_id' => $this->department_id,
-                'team_id' => $this->department_id
+                'team_id' => $this->department_id,
+                'supervisor_id' => $this->supervisor_id
             ]);
         }
 
@@ -94,6 +97,7 @@ class IndexUserComponent extends Component
             $this->reset([
                 'department_id',
                 'userId',
+                'supervisor_id'
 
             ]);
             $this->emit('closeEditModalSuccess');

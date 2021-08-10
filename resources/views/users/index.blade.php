@@ -153,6 +153,26 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Supervisor<span
+                                                class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <select wire:model="supervisor_id"
+                                                class="form-control @error('supervisor_od') mb-4 is-invalid state-invalid @enderror">
+                                            <option>--Select--</option>
+                                            @if($allUser)
+                                                @foreach($allUser as $key => $allUsers)
+                                                    <option value="{{$allUsers->id}}">{{$allUsers->email}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('category')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

@@ -42,7 +42,8 @@ class Department extends Model
             'team_icon',
             'is_active',
             'level',
-            'team_leader'
+            'team_leader',
+            'department_code'
         ];
 
     public function allUser()
