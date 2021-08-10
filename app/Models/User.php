@@ -104,6 +104,12 @@ class User extends
             'worklocationname',
             'statusincompany',
             'department_id',
+            'supervisor_id',
+            'gender',
+            'bu_code',
+            'sub_bu_code',
+            'department_code',
+            'job_level',
         ];
 
     /**

@@ -74,7 +74,7 @@ class UserController extends
                 $user = User::where('email', $userNameData)->first();
 
                 if (!$user) {
-                    $user = new User();
+                    $user                    = new User();
                     $user->type              = 'user';
                     $user->name              = $value->EmployeeName;
                     $user->email             = $value->Email;
@@ -96,19 +96,26 @@ class UserController extends
                     $user->nik               = $value->NIK;
                     $user->jobposition       = $value->JobPosition;
                     $user->worklocationname  = $value->WorkLocationName;
-                    $user->statusincompany   = $value->Status;
+                    $user->statusincompany   = $value->Status ?? '';
+                    $user->gender            = $value->Gender == 'Male' ? 0 : 1;
                     $user->save();
-                }else{
-                    $user->name              = $value->EmployeeName;
-                    $user->department        = $value->Department;
-                    $user->email             = $value->Email;
-                    $user->company           = $value->Company;
-                    $user->bu                = $value->BU;
-                    $user->subbu             = $value->SubBU;
-                    $user->nik               = $value->NIK;
-                    $user->jobposition       = $value->JobPosition;
-                    $user->worklocationname  = $value->WorkLocationName;
-                    $user->statusincompany   = $value->Status;
+                } else {
+
+                    $user->name             = $value->EmployeeName;
+                    $user->department       = $value->Department;
+                    $user->email            = $value->Email;
+                    $user->company          = $value->Company;
+                    $user->bu               = $value->BU;
+                    $user->subbu            = $value->SubBU;
+                    $user->nik              = $value->NIK;
+                    $user->jobposition      = $value->JobPosition;
+                    $user->worklocationname = $value->WorkLocationName;
+                    $user->statusincompany  = $value->Status ?? '';
+                    $user->gender           = $value->Gender == 'Male' ? 0 : 1;
+                    $user->bu_code          = $value->BUCode ?? '';
+                    $user->sub_bu_code      = $value->SubBUCode ?? '';
+                    $user->department_code  = $value->DepartmentCode ?? '';
+                    $user->job_level        = $value->JobLevel ?? '';
                     $user->save();
                 }
 
