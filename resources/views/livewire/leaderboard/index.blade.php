@@ -27,7 +27,7 @@
                         <th class="sorting">Name</th>
                         <th class="sorting">Team</th>
                         <th class="sorting">Department</th>
-                        <th class="sorting">Game ID</th>
+                        <th class="sorting">Date</th>
                     </tr>
                 </x-slot>
                 >
@@ -35,12 +35,12 @@
 
                     @forelse ($vwLeadeboard as $key =>  $leaderboard)
                         <tr class="@if($loop->odd) odd @endif">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $leaderboard->total_coins }}</td>
-                            <td>{{ $leaderboard->user->name }}</td>
-                            <td>{{ $leaderboard->team_id }}</td>
-                            <td>{{ $leaderboard->department->name }}</td>
-                            <td>{{ $leaderboard->quiz_ID }}</td>
+                            <td>{{ $loop->iteration ?? ''}}</td>
+                            <td>{{ $leaderboard->total_coins  ?? ''}}</td>
+                            <td>{{ $leaderboard->user->name ?? '' }}</td>
+                            <td>{{ $leaderboard->team_id ?? ''}}</td>
+                            <td>{{ $leaderboard->department->name ?? '' }}</td>
+                            <td>{{ $leaderboard->date  ?? '' }}</td>
                         </tr>
                     @empty
                         <tr>
