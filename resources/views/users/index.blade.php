@@ -116,7 +116,7 @@
         </div>
     </div>
 
-    <div wire:ignore.self class="modal" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="editmodal"
+    <div wire:ignore.self class="modal" id="editmodal" role="dialog" aria-labelledby="editmodal"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -138,7 +138,7 @@
                                                 class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <select wire:model="department_id"
-                                                class="form-control @error('department_id') mb-4 is-invalid state-invalid @enderror">
+                                                class="form-control @error('department_id') mb-4 is-invalid state-invalid @enderror custom-select select2">
                                             <option>--Select--</option>
                                             @if($department)
                                                 @foreach($department as $key => $departments)
@@ -158,7 +158,7 @@
                                                 class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <select wire:model="supervisor_id"
-                                                class="form-control @error('supervisor_od') mb-4 is-invalid state-invalid @enderror">
+                                                class="form-control @error('supervisor_od') mb-4 is-invalid state-invalid @enderror custom-select select2">
                                             <option>--Select--</option>
                                             @if($allUser)
                                                 @foreach($allUser as $key => $allUsers)
@@ -189,6 +189,11 @@
 
 @section('scripts')
     <script>
+        document.addEventListener("livewire:load", function (event) {
+            window.livewire.hook('afterDomUpdate', () => {
+                $('.select2').select2();
+            });
+        });
         window.livewire.on('closeEditModalSuccess', () => {
             $('#editmodal').modal('hide');
             swal(

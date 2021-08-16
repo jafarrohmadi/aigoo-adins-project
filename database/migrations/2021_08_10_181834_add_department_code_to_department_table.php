@@ -13,7 +13,7 @@ class AddDepartmentCodeToDepartmentTable extends Migration
      */
     public function up()
     {
-        Schema::table('department', function (Blueprint $table) {
+        Schema::table('departments', function (Blueprint $table) {
             $table->string('department_code')->nullable();
         });
     }

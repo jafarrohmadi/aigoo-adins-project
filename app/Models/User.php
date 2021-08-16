@@ -51,6 +51,8 @@ class User extends
 
     protected static $logOnlyDirty = true;
 
+    public const Male = 0;
+    public const Female = 1;
     protected $casts
         = [
             'employee_level_id' => 'int',

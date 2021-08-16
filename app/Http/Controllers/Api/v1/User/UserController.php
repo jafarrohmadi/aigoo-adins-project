@@ -29,7 +29,7 @@ class UserController extends
     public function login(LoginRequest $request)
     {
         try {
-            $userNameData = $request->username;
+      /*      $userNameData = $request->username;
             $passwordData = $request->password;
 
             $request_param = [
@@ -121,7 +121,8 @@ class UserController extends
                 }
 
             }
-
+*/
+            $user = User::where('email', $request->username)->first();
             if (Auth::loginUsingId($user->id)) {
                 $success['token'] = me()->createToken('authToken')->plainTextToken;
 
@@ -155,13 +156,16 @@ class UserController extends
         }
     }
 
-    public function updateProfile(
-        Request $request
-    ) {
+    public function updateProfile(Request $request)
+    {
         try {
             $user = me();
             if ($request->has('avatar')) {
-                $user->change_avatar = $this->saveImage($request->avatar, 'profile_picture');
+                $file = $request->file('avatar');
+                $extension = $file->getClientOriginalExtension(); // getting image extension
+                $filename =time().'.'.$extension;
+                $file->move('img/profile_picture/', $filename);
+                $user->change_avatar = $filename;
             }
 
             $user->save();
@@ -172,9 +176,8 @@ class UserController extends
         }
     }
 
-    public function addAllUser(
-        Request $request
-    ) {
+    public function addAllUser(Request $request)
+    {
         $url   = config('app.api_adins_url');
         $key   = config('app.api_adins_key');
         $value = config('app.api_adins_value');

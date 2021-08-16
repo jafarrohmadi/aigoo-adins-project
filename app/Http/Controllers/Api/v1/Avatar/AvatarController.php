@@ -23,6 +23,38 @@ class AvatarController extends
     {
         $avatar = Avatar::where('user_id', me()->id)->first();
 
+        if (!$avatar) {
+            $avatar          = new Avatar();
+            $avatar->user_id = me()->id;
+            if(me()->gender == User::Male) {
+                $avatar->avatar_settings = [
+                    "equiped_hair"     => "HD-M-000",
+                    "equiped_headgear" => "",
+                    "equiped_top"      => "TP-M-000",
+                    "equiped_bottom"   => "BT-M-000",
+                    "equiped_shoe"     => "SH-M-001",
+                    "equiped_hand"     => "EC-M-001",
+                    "equiped_BG"       => "BG1",
+                    "equiped_face_acc" => "",
+                ];
+            }
+
+            if(me()->gender == User::Female) {
+                $avatar->avatar_settings = [
+                    "equiped_hair"     => "HD-F-000",
+                    "equiped_headgear" => "",
+                    "equiped_top"      => "TP-F-000",
+                    "equiped_bottom"   => "BT-F-000",
+                    "equiped_shoe"     => "SH-F-001",
+                    "equiped_hand"     => "EC-F-001",
+                    "equiped_BG"       => "BG1",
+                    "equiped_face_acc" => "",
+                ];
+            }
+
+            $avatar->save();
+        }
+
         if ($avatar) {
             return new AvatarResource($avatar);
         } else {
@@ -44,7 +76,7 @@ class AvatarController extends
             'equiped_shoe'     => $request->equiped_shoe,
             'equiped_hand'     => $request->equiped_hand,
             'equiped_BG'       => $request->equiped_BG,
-            'equiped_face_acc' => $request->equiped_face_acc
+            'equiped_face_acc' => $request->equiped_face_acc,
         ];
 
         try {
