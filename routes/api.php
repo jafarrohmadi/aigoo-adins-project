@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\v1\Appreciation\AppreciationController;
 use App\Http\Controllers\Api\v1\Assessment\AssessmentController;
 use App\Http\Controllers\Api\v1\Avatar\AvatarController;
 use App\Http\Controllers\Api\v1\DailyAttempt\DailyAttemptController;
+use App\Http\Controllers\Api\v1\Department\DepartmentController;
 use App\Http\Controllers\Api\v1\Guild\GuildController;
 use App\Http\Controllers\Api\v1\LeaderBoard\LeaderBoardController;
 use App\Http\Controllers\Api\v1\Quiz\QuizGameController;
@@ -69,5 +70,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     //Save Daily Attempt
     Route::post('daily-attempt', [DailyAttemptController::class, 'store']);
+
+    //Department
+    Route::get('department', [DepartmentController::class, 'index']);
 });
 

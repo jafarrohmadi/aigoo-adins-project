@@ -44,9 +44,9 @@ class ProfileResource extends
                     'department'         => $this->department,
                     'rank_department'    => $rankDepartment + 1,
                     'rank_all'           => $rankAll + 1,
-                    'total_coins'        => $this->pointHistories->sum('coins'),
-                    'total_poin'         => $this->pointHistories->where('point', '>=', 0)->sum('point'),
-                    'current_coin'      => $this->current_coin,
+                    'total_coins'        => $this->pointHistories->where('coins', '>=', 0)->sum('coins'),
+                    'total_poin'         => $this->pointHistories->sum('point'),
+                    'current_coin'       => $this->pointHistories->sum('coins'),
                     'daily_attempt_game' => $dailyAttemp === null ? 0 : $dailyAttemp,
                     'profile_picture'    => (asset('img/profile_picture').'/').$this->change_avatar ?? $this->avatar,
                 ],
@@ -57,7 +57,7 @@ class ProfileResource extends
                 'user_collection'  => $this->userCollection->pluck('collection'),
                 'team'             => [
                     'team_name' => $this->departments->team_name,
-                    'team_icon' => (asset('img/profile_picture').'/') . $this->departments->team_icon ?? 'default_team_avatar',
+                    'team_icon' => (asset('img/profile_picture').'/').$this->departments->team_icon ?? 'default_team_avatar',
                 ],
             ],
         ];

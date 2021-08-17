@@ -46,6 +46,7 @@ class QuizGameController extends
 
         DB::commit();
 
+
         return $this->returnSuccess($result);
     }
 }
