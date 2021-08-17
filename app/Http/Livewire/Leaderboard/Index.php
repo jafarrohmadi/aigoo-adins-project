@@ -61,12 +61,17 @@ class Index extends
                 $this->totalData = $query->count();
             }
         } else {
-            $this->totalData = VwLeadeboard::count();
+            if ($this->filterByDepartment !== null) {
+                $query           = VwLeadeboard::where('department_id', $this->filterByDepartment);
+                $this->totalData = $query->count();
+            } else {
+                $this->totalData = VwLeadeboard::count();
 
-            return view('livewire.leaderboard.index', [
-                'department'   => $this->department,
-                'vwLeadeboard' => VwLeadeboard::with('department')->paginate($this->paginate),
-            ]);
+                return view('livewire.leaderboard.index', [
+                    'department'   => $this->department,
+                    'vwLeadeboard' => VwLeadeboard::with('department')->paginate($this->paginate),
+                ]);
+            }
         }
 
         return view('livewire.leaderboard.index', [
