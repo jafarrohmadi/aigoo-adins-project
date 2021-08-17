@@ -7,7 +7,9 @@
                             style="border-radius: 16px;">
                         <option selected>Filter by Department</option>
                         @foreach($department as $key => $division)
+                            @if($division != '')
                             <option value="{{ $key }}">{{ $division }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
