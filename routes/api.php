@@ -29,7 +29,7 @@ Route::group(['prefix' => 'auth'], function() {
     Route::post('login', [UserController::class, 'login'])->name('login');
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('profile', [UserController::class, 'profile']);
-        Route::put('update-profile', [UserController::class, 'updateProfile']);
+        Route::post('update-profile', [UserController::class, 'updateProfile']);
         Route::get('get-user', [UserController::class, 'getAllUser']);
         Route::post('logout', [UserController::class, 'logout'])->name('logout');
         Route::get('user-data', [UserController::class, 'getUserData']);
@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('avatar', [AvatarController::class, 'storeOrUpdate']);
     Route::post('buy-new-avatar', [AvatarController::class, 'buyNewAvatar']);
     //Team
-    Route::put('team', [TeamController::class, 'update']);
+    Route::post('team', [TeamController::class, 'update']);
 
     //Assessment
     Route::get('assessment', [AssessmentController::class, 'index']);
@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('leaderboard-data', [LeaderBoardController::class, 'leaderBoardData']);
 
     //User Collection
-    Route::put('user-collection', [UserCollectionController::class, 'update']);
+    Route::post('user-collection', [UserCollectionController::class, 'update']);
 
     //Save Daily Attempt
     Route::post('daily-attempt', [DailyAttemptController::class, 'store']);

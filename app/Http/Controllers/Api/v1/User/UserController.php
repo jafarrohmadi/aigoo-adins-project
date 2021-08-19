@@ -161,13 +161,14 @@ class UserController extends
         try {
             $user = me();
             if ($request->has('avatar')) {
-                $user->change_avatar = $this->savePhoto($request->file('avatar'), 'profile_picture');
+                $user->change_avatar = $this->saveImage($request->avatar, 'profile_picture');
             }
 
             $user->save();
 
             return new ProfileResource(me());
         } catch (Exception $e) {
+            dd($e->getMessage());
             return $this->returnFalse();
         }
     }
