@@ -18,13 +18,9 @@ class TeamController extends BaseController
     public function update(Request $request)
     {
         try {
-            $department = Department::find(me()->department_id);
-            $file = $request->file('team_icon');
-            $extension = $file->getClientOriginalExtension(); // getting image extension
-            $filename =time().'.'.$extension;
-            $file->move('img/profile_picture/', $filename);
+            $department            = Department::find(me()->department_id);
             $department->team_name = $request->team_name;
-            $department->team_icon = $filename;
+            $department->team_icon = $this->savePhoto($request->file('team_icon'), 'profile_picture');
             $department->save();
 
             return new TeamCollectionResource($department);

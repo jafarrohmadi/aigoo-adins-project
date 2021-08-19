@@ -161,11 +161,7 @@ class UserController extends
         try {
             $user = me();
             if ($request->has('avatar')) {
-                $file = $request->file('avatar');
-                $extension = $file->getClientOriginalExtension(); // getting image extension
-                $filename =time().'.'.$extension;
-                $file->move('img/profile_picture/', $filename);
-                $user->change_avatar = $filename;
+                $user->change_avatar = $this->savePhoto($request->file('avatar'), 'profile_picture');
             }
 
             $user->save();
