@@ -20,7 +20,7 @@ class TeamController extends BaseController
         try {
             $department            = Department::find(me()->department_id);
             $department->team_name = $request->team_name;
-            $department->team_icon = $this->savePhoto($request->file('team_icon'), 'profile_picture');
+            $department->team_icon = $this->saveImage($request->team_icon, 'profile_picture');
             $department->save();
 
             return new TeamCollectionResource($department);

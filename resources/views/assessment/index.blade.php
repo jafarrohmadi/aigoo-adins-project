@@ -18,6 +18,16 @@
             </h3>
         </div>
 
-        <livewire:assessment.index/>
+        <div class="card-body">
+            <div class="card-body p-0">
+                <livewire:assessment.filter/>
+                <br>
+                <livewire:assessment.index/>
+            </div>
+        </div>
     </div><!--card-->
+@endsection
+
+@section('scripts')
+    @stack('js')
 @endsection

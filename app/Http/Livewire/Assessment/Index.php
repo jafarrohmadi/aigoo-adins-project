@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Assessment;
 
 use App\Models\Assessment;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,7 +16,7 @@ class Index extends
     use WithPagination;
 
     public int $paginate = 10;
-    public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData;
+    public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData, $date, $userData;
 
 
     protected array $updatesQueryString = ['search'];
@@ -23,6 +25,7 @@ class Index extends
         = [
             'renderOnly' => '$refresh',
             'delete'     => 'delete',
+            'updateUser',
         ];
 
     public function mount()
@@ -43,40 +46,79 @@ class Index extends
     public function render()
     {
         $assessmentData = $this->assessmentData ?? '';
+
+        $user = Cache::remember('user', '300', function () {
+            return User::get();
+        });
+
         if ($this->search) {
-            $query           = Assessment::latest()->whereHas('user', function ($q) {
+            $query = Assessment::latest()->whereHas('assessor', function ($q) {
                 $q->where('name', 'like', '%'.$this->search.'%');
-            })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')->where('assessment_info' , null)->groupBy('assessor_id',
+            })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')->where('assessment_info',
+                null)->groupBy('assessor_id',
                 'user_id', 'assessment_year_month')->with('assessor',
                 'user');
+
+            if ($this->userData != null) {
+
+                $query = $query->where('user_id', $this->userData);
+            }
+
+            if ($this->date != null) {
+                $query = $query->where('assessment_year_month', date('Y-m', strtotime($this->date)));
+            }
+
             $this->totalData = $query->count();
 
             return view('livewire.assessment.index', [
                 'assessment'     => $query->paginate($this->paginate),
                 'assessmentData' => $assessmentData,
+                'user'           => $user,
+                'date'           => $this->date,
+                'userData'       => $this->userData,
             ]);
         } else {
-            $query           = Assessment::select('assessor_id', 'user_id',
-                'created_at', 'assessment_year_month')->where('assessment_info' , null)->groupBy('assessor_id', 'user_id',
+            $query = Assessment::select('assessor_id', 'user_id',
+                'created_at', 'assessment_year_month')->where('assessment_info', null)->groupBy('assessor_id',
+                'user_id',
                 'assessment_year_month')->with('assessor', 'user');
+
+            if ($this->userData != null) {
+                $query = $query->where('user_id', $this->userData);
+            }
+
+            if ($this->date != null) {
+                $query = $query->where('assessment_year_month', date('Y-m', strtotime($this->date)));
+            }
+
             $this->totalData = $query->count();
 
             return view('livewire.assessment.index', [
                 'assessment'     => $query->paginate($this->paginate),
                 'assessmentData' => $assessmentData,
+                'user'           => $user,
+                'date'           => $this->date,
+                'userData'       => $this->userData,
+
             ]);
         }
     }
 
-    public function getAssessment($assessor_id , $user_id , $assessment_year_month)
-    {
+    public function getAssessment(
+        $assessor_id, $user_id, $assessment_year_month
+    ) {
         $assessment = Assessment::where([
             'assessor_id'           => $assessor_id,
             'user_id'               => $user_id,
             'assessment_year_month' => $assessment_year_month,
-        ])->where('assessment_info' , null)->with('question')->get();
+        ])->where('assessment_info', null)->with('question')->get();
 
         $this->assessmentData = $assessment;
+    }
+
+    public function updateUser($date, $userId) {
+        $this->userData = $userId;
+        $this->date     = $date;
     }
 
 }

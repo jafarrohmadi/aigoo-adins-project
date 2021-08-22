@@ -222,6 +222,7 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- Bootstrap4 js-->
 <script src="{{URL::asset('assets/plugins/bootstrap/popper.min.js')}}"></script>
@@ -256,6 +257,9 @@
     $('ul.nav-treeview a.nav-link').filter(function() {
         return this.href == url;
     }).parentsUntil(".sidebar-menu > .nav-treeview").siblings().removeClass('active menu-open').end().addClass('active menu-open');
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
 </script>
 @yield('scripts')
 

@@ -168,7 +168,6 @@ class UserController extends
 
             return new ProfileResource(me());
         } catch (Exception $e) {
-            dd($e->getMessage());
             return $this->returnFalse();
         }
     }
