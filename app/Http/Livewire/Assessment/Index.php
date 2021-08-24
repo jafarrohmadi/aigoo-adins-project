@@ -47,10 +47,6 @@ class Index extends
     {
         $assessmentData = $this->assessmentData ?? '';
 
-        $user = Cache::remember('user', '300', function () {
-            return User::get();
-        });
-
         if ($this->search) {
             $query = Assessment::latest()->whereHas('assessor', function ($q) {
                 $q->where('name', 'like', '%'.$this->search.'%');
@@ -73,15 +69,14 @@ class Index extends
             return view('livewire.assessment.index', [
                 'assessment'     => $query->paginate($this->paginate),
                 'assessmentData' => $assessmentData,
-                'user'           => $user,
                 'date'           => $this->date,
                 'userData'       => $this->userData,
             ]);
         } else {
-            $query = Assessment::select('assessor_id', 'user_id',
-                'created_at', 'assessment_year_month')->where('assessment_info', null)->groupBy('assessor_id',
+            $query = Assessment::select('assessor_id', 'user_id', 'question_id',
+                'created_at', 'assessment_year_month', 'value')->where('assessment_info', null)->groupBy('assessor_id',
                 'user_id',
-                'assessment_year_month')->with('assessor', 'user');
+                'assessment_year_month')->with('assessor', 'user', 'question');
 
             if ($this->userData != null) {
                 $query = $query->where('user_id', $this->userData);
@@ -93,10 +88,11 @@ class Index extends
 
             $this->totalData = $query->count();
 
+            $this->emit('updateUserData',  $query->get());
+
             return view('livewire.assessment.index', [
                 'assessment'     => $query->paginate($this->paginate),
                 'assessmentData' => $assessmentData,
-                'user'           => $user,
                 'date'           => $this->date,
                 'userData'       => $this->userData,
 

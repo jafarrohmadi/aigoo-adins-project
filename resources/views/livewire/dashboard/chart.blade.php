@@ -53,6 +53,10 @@
             let divisions = @this.divisions;
             let divisionAggregate = @this.divisionAggregate;
 
+            if(window.myChart instanceof Chart)
+            {
+                window.myChart.destroy();
+            }
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',

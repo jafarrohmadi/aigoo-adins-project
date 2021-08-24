@@ -28,6 +28,7 @@ class Chart extends Component
         })->sortDesc();
 
         $this->divisions = $divisionPoints->keys()->all();
+
         $this->divisionAggregate = $divisionPoints->values()->all();
     }
 

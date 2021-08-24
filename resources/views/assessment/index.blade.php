@@ -22,6 +22,8 @@
             <div class="card-body p-0">
                 <livewire:assessment.filter/>
                 <br>
+                <livewire:assessment.chart/>
+                <br>
                 <livewire:assessment.index/>
             </div>
         </div>
