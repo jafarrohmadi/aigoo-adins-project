@@ -74,9 +74,7 @@ class Index extends
             ]);
         } else {
             $query = Assessment::select('assessor_id', 'user_id', 'question_id',
-                'created_at', 'assessment_year_month', 'value')->where('assessment_info', null)->groupBy('assessor_id',
-                'user_id',
-                'assessment_year_month')->with('assessor', 'user', 'question');
+                'created_at', 'assessment_year_month', 'value')->where('assessment_info', null)->with('assessor', 'user', 'question');
 
             if ($this->userData != null) {
                 $query = $query->where('user_id', $this->userData);
@@ -89,6 +87,10 @@ class Index extends
             $this->totalData = $query->count();
 
             $this->emit('updateUserData',  $query->get());
+
+            $query = $query->groupBy('assessor_id',
+                'user_id',
+                'assessment_year_month');
 
             return view('livewire.assessment.index', [
                 'assessment'     => $query->paginate($this->paginate),

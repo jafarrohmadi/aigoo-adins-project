@@ -42,7 +42,7 @@ class Chart extends
         $this->label = $datum->keys()->all();
 
         $this->datas = $datum->values()->all();
-
+        $this->dispatchBrowserEvent('updateChart');
     }
 
 }

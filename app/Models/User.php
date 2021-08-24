@@ -286,4 +286,8 @@ class User extends
         return $this->belongsTo(Avatar::class, 'id', 'user_id');
     }
 
+    public function assessment()
+    {
+        return $this->hasMany(Assessment::class , 'user_id', 'id');
+    }
 }

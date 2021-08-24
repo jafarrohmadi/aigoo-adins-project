@@ -26,17 +26,21 @@
     <script src="https://cdn.amcharts.com/lib/4/themes/spiritedaway.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <script>
-        window.addEventListener("livewire:update", event => {
+        var myChart = '';
+        window.addEventListener("updateChart", event => {
             setDivisionChart();
         });
-
 
         function setDivisionChart() {
             let label = @this.label;
             let datas = @this.datas;
 
             var ctx = document.getElementById('myChart').getContext('2d');
-            var myChart = new Chart(ctx, {
+            if(myChart != '')
+            {
+                myChart.destroy();
+            }
+            myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: label,
@@ -58,18 +62,6 @@
             });
         }
 
-        var resetCanvas = function(){
-            $('#results-graph').remove(); // this is my <canvas> element
-            $('#graph-container').append('<canvas id="results-graph"><canvas>');
-            canvas = document.querySelector('#results-graph');
-            ctx = canvas.getContext('2d');
-            ctx.canvas.width = $('#graph').width(); // resize to parent width
-            ctx.canvas.height = $('#graph').height(); // resize to parent height
-            var x = canvas.width/2;
-            var y = canvas.height/2;
-            ctx.font = '10pt Verdana';
-            ctx.textAlign = 'center';
-            ctx.fillText('This text is centered on the canvas', x, y);
-        };
+
     </script>
 @endpush
