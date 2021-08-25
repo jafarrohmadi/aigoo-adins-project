@@ -23,8 +23,11 @@ class Filter extends
 
     public function render()
     {
-        $user = Cache::remember('user', '300', function () {
-            return User::has('assessment')->get();
+        $user = Cache::remember('user123', '300', function () {
+            return User::wherehas('assessment', function ($query)
+            {
+                $query->where('assessment_info', null);
+            })->get();
         });
 
         return view('livewire.assessment.filter', [
