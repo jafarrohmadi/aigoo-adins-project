@@ -14,9 +14,15 @@ class Create extends Component
     /**
      * @var string
      */
-    public $questionId, $title, $category, $content, $level;
+    public $questionId, $title, $category, $content, $level, $choice1, $choice2, $choice3, $choice4;
 
-
+    public function mount()
+    {
+        $this->choice1 = 'Tidak pernah';
+        $this->choice2 = 'Sesekali';
+        $this->choice3 = 'Kadang2';
+        $this->choice4 = 'Selalu';
+    }
     /**
      * @return Application|Factory|View
      */
@@ -31,30 +37,40 @@ class Create extends Component
     public function store()
     {
         $this->validate([
-            'title'       => 'required',
+            'title'    => 'required',
             'category' => 'required',
-            'content'     => 'required',
-            'level'       => 'required',
+            'content'  => 'required',
+            'level'    => 'required',
+            'choice1'  => 'required',
+            'choice2'  => 'required',
+            'choice3'  => 'required',
+            'choice4'  => 'required',
         ]);
 
         $result = Question::create([
-            'title'       => $this->title,
+            'title'    => $this->title,
             'category' => $this->category,
-            'content'     => $this->content,
-            'level'       => $this->level,
+            'content'  => $this->content,
+            'level'    => $this->level,
+            'choice1'  => $this->choice1,
+            'choice2'  => $this->choice2,
+            'choice3'  => $this->choice3,
+            'choice4'  => $this->choice4,
         ]);
 
-        if ($result)
-        {
+        if ($result) {
             $this->reset([
                 'title',
                 'category',
                 'content',
-                'level'
+                'level',
+                'choice1',
+                'choice2',
+                'choice3',
+                'choice4',
             ]);
             $this->emit('closeCreateModalSuccess');
-        } else
-        {
+        } else {
             $this->emit('closeCreateModalFailed');
         }
 

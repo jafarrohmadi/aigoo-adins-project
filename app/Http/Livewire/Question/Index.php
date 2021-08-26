@@ -7,12 +7,13 @@ use App\Models\Question;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends Component
+class Index extends
+    Component
 {
     use WithPagination;
 
     public int $paginate = 10;
-    public $search, $questionId, $title, $category, $content, $level;
+    public $search, $questionId, $title, $category, $content, $level, $choice1, $choice2, $choice3, $choice4;
 
     protected array $updatesQueryString = ['search'];
 
@@ -60,6 +61,10 @@ class Index extends Component
         $this->category   = $question->category;
         $this->content    = $question->content;
         $this->level      = $question->level;
+        $this->choice1    = $question->choice1;
+        $this->choice2    = $question->choice2;
+        $this->choice3    = $question->choice3;
+        $this->choice4    = $question->choice4;
     }
 
     public function update()
@@ -72,13 +77,20 @@ class Index extends Component
                 'category' => 'required',
                 'content'  => 'required',
                 'level'    => 'required',
-
+                'choice1'  => 'required',
+                'choice2'  => 'required',
+                'choice3'  => 'required',
+                'choice4'  => 'required',
             ]);
             $result = $question->update([
                 'title'    => $this->title,
                 'category' => $this->category,
                 'content'  => $this->content,
                 'level'    => $this->level,
+                'choice1'  => $this->choice1,
+                'choice2'  => $this->choice2,
+                'choice3'  => $this->choice3,
+                'choice4'  => $this->choice4,
             ]);
         }
 
@@ -88,6 +100,10 @@ class Index extends Component
                 'category',
                 'content',
                 'level',
+                'choice1',
+                'choice2',
+                'choice3',
+                'choice4',
             ]);
             $this->emit('closeEditModalSuccess');
         } else {

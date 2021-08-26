@@ -20,6 +20,10 @@ class AssessmentCollectionResource extends JsonResource
             'category'    => $this->category,
             'title'       => $this->title,
             'content'     => $this->content,
+            'score_1'     => $this->choice1,
+            'score_2'     => $this->choice2,
+            'score_3'     => $this->choice3,
+            'score_4'     => $this->choice4,
         ];
     }
 }

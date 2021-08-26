@@ -36,6 +36,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <select wire:model="level"
+                                                class="form-control @error('level') mb-4 is-invalid state-invalid @enderror">
+                                            <option>--Select--</option>
+                                            <option value="Staff">Staff</option>
+                                            <option value="Managerial">Managerial</option>
+                                        </select>
+                                        @error('level')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-md-3 form-label">Title <span class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="title"
@@ -60,15 +75,44 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Nilai 1 <span class="text-red">*</span></label>
                                     <div class="col-md-9">
-                                        <select wire:model="level"
-                                                class="form-control @error('level') mb-4 is-invalid state-invalid @enderror">
-                                            <option>--Select--</option>
-                                            <option value="Staff">Staff</option>
-                                            <option value="Managerial">Managerial</option>
-                                        </select>
-                                        @error('level')
+                                        <input type="text" wire:model="choice1"
+                                               class="form-control @error('choice1') mb-4 is-invalid state-invalid @enderror">
+                                        @error('choice1')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Nilai 2 <span class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" wire:model="choice2"
+                                               class="form-control @error('choice2') mb-4 is-invalid state-invalid @enderror">
+                                        @error('choice2')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Nilai 3 <span class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" wire:model="choice3"
+                                               class="form-control @error('choice3') mb-4 is-invalid state-invalid @enderror">
+                                        @error('choice3')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Nilai 4 <span class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" wire:model="choice4"
+                                               class="form-control @error('choice4') mb-4 is-invalid state-invalid @enderror">
+                                        @error('choice4')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
                                              role="alert">{{ $message }}</div>
                                         @enderror

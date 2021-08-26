@@ -39,8 +39,12 @@ class Question extends Model
 		'title',
 		'category',
 		'content',
-		'level'
-	];
+		'level',
+        'choice1',
+        'choice2',
+        'choice3',
+        'choice4',
+    ];
 
     public function getDescriptionForEvent(string $eventName): string
     {
