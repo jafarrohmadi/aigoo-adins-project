@@ -13,7 +13,7 @@ class Index extends
     use WithPagination;
 
     public int $paginate = 10;
-    public $search, $questionId, $title, $category, $content, $level, $choice1, $choice2, $choice3, $choice4;
+    public $search, $questionId, $title, $category, $content, $level, $choice1, $choice2, $choice3, $choice4, $point1, $point2, $point3, $point4;
 
     protected array $updatesQueryString = ['search'];
 
@@ -65,6 +65,10 @@ class Index extends
         $this->choice2    = $question->choice2;
         $this->choice3    = $question->choice3;
         $this->choice4    = $question->choice4;
+        $this->point1     = $question->point1;
+        $this->point2     = $question->point2;
+        $this->point3     = $question->point3;
+        $this->point4     = $question->point4;
     }
 
     public function update()
@@ -81,6 +85,10 @@ class Index extends
                 'choice2'  => 'required',
                 'choice3'  => 'required',
                 'choice4'  => 'required',
+                'point1'   => 'required',
+                'point2'   => 'required',
+                'point3'   => 'required',
+                'point4'   => 'required',
             ]);
             $result = $question->update([
                 'title'    => $this->title,
@@ -91,6 +99,10 @@ class Index extends
                 'choice2'  => $this->choice2,
                 'choice3'  => $this->choice3,
                 'choice4'  => $this->choice4,
+                'point1'  => $this->point1,
+                'point2'  => $this->point2,
+                'point3'  => $this->point3,
+                'point4'  => $this->point4,
             ]);
         }
 
@@ -104,6 +116,10 @@ class Index extends
                 'choice2',
                 'choice3',
                 'choice4',
+                'point1',
+                'point2',
+                'point3',
+                'point4',
             ]);
             $this->emit('closeEditModalSuccess');
         } else {

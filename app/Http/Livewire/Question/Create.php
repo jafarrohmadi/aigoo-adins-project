@@ -14,7 +14,7 @@ class Create extends Component
     /**
      * @var string
      */
-    public $questionId, $title, $category, $content, $level, $choice1, $choice2, $choice3, $choice4;
+    public $questionId, $title, $category, $content, $level, $choice1, $choice2, $choice3, $choice4, $point1, $point2, $point3, $point4;
 
     public function mount()
     {
@@ -22,6 +22,10 @@ class Create extends Component
         $this->choice2 = 'Sesekali';
         $this->choice3 = 'Kadang2';
         $this->choice4 = 'Selalu';
+        $this->point1 = 1;
+        $this->point2 = 2;
+        $this->point3 = 3;
+        $this->point4 = 4;
     }
     /**
      * @return Application|Factory|View
@@ -45,6 +49,10 @@ class Create extends Component
             'choice2'  => 'required',
             'choice3'  => 'required',
             'choice4'  => 'required',
+            'point1' => 'required',
+            'point2' => 'required',
+            'point3' => 'required',
+            'point4' => 'required',
         ]);
 
         $result = Question::create([
@@ -56,6 +64,10 @@ class Create extends Component
             'choice2'  => $this->choice2,
             'choice3'  => $this->choice3,
             'choice4'  => $this->choice4,
+            'point1'  => $this->point1,
+            'point2'  => $this->point2,
+            'point3'  => $this->point3,
+            'point4'  => $this->point4,
         ]);
 
         if ($result) {
@@ -68,6 +80,10 @@ class Create extends Component
                 'choice2',
                 'choice3',
                 'choice4',
+                'point1',
+                'point2',
+                'point3',
+                'point4',
             ]);
             $this->emit('closeCreateModalSuccess');
         } else {

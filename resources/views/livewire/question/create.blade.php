@@ -75,7 +75,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Nilai 1 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 1 <span class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice1"
                                                class="form-control @error('choice1') mb-4 is-invalid state-invalid @enderror">
@@ -86,7 +86,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Nilai 2 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Point<span class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="number" wire:model="point1" max="4" min="1"
+                                               class="form-control @error('point1') mb-4 is-invalid state-invalid @enderror">
+                                        @error('point1')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Kriteria 2 <span class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice2"
                                                class="form-control @error('choice2') mb-4 is-invalid state-invalid @enderror">
@@ -97,7 +108,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Nilai 3 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Point<span class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="number" wire:model="point2" max="4" min="1"
+                                               class="form-control @error('point2') mb-4 is-invalid state-invalid @enderror">
+                                        @error('point2')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Kriteria 3 <span class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice3"
                                                class="form-control @error('choice3') mb-4 is-invalid state-invalid @enderror">
@@ -108,11 +130,33 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Nilai 4 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Point<span class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="number" wire:model="point3" max="4" min="1"
+                                               class="form-control @error('point3') mb-4 is-invalid state-invalid @enderror">
+                                        @error('point3')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Kriteria 4 <span class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice4"
                                                class="form-control @error('choice4') mb-4 is-invalid state-invalid @enderror">
                                         @error('choice4')
+                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
+                                             role="alert">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Point<span class="text-red">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="number" wire:model="point4" max="4" min="1"
+                                               class="form-control @error('point4') mb-4 is-invalid state-invalid @enderror">
+                                        @error('point4')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
                                              role="alert">{{ $message }}</div>
                                         @enderror
