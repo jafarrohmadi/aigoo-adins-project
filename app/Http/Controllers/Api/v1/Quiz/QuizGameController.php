@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1\Quiz;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\QuestionGame\QuestionGameCollection;
 use App\Models\PointHistory;
+use App\Models\QuizResult;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +39,19 @@ class QuizGameController extends
             $user        = User::find(me()->id);
             $user->level = $request->level;
             $user->save();
+
+            if(isset($request->result))
+            {
+                foreach (json_decode($request->result) as $result)
+                {
+                    $quiz = new QuizResult();
+                    $quiz->quiz_id = $result->question_ID;
+                    $quiz->type = $result->type;
+                    $quiz->user_id = me()->id;
+                    $quiz->value = $result->value;
+	                $quiz->save();
+                }
+            }
 
         } catch (\Exception $e) {
             DB::rollback();
