@@ -19,7 +19,6 @@ class IndexUserComponent extends Component
 
     /** @var array */
     protected $queryString = [
-        'perPage',
         'sortField',
         'sortDirection',
         'search',

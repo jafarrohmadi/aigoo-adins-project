@@ -42,13 +42,13 @@ class QuizGameController extends
 
             if(isset($request->result))
             {
-                foreach (json_decode($request->result) as $result)
+                foreach (json_decode($request->result) as $quizResult)
                 {
                     $quiz = new QuizResult();
-                    $quiz->quiz_id = $result->question_ID;
-                    $quiz->type = $result->type;
+                    $quiz->quiz_id = $quizResult->question_ID;
+                    $quiz->type = $quizResult->type;
                     $quiz->user_id = me()->id;
-                    $quiz->value = $result->value;
+                    $quiz->value = $quizResult->value;
 	                $quiz->save();
                 }
             }

@@ -34,9 +34,7 @@
                                         No
                                     </th>
                                     <th class="sorting">
-                                        <a href="#" wire:click.prevent="sortBy('email')">Email</a>
-                                        <x-tables.sort-by :sortField="$sortField" :sortDirection="$sortDirection"
-                                                          field="email"/>
+                                       Email
                                     </th>
                                     <th>
                                         Name
@@ -51,9 +49,7 @@
                                         avatar
                                     </th>
                                     <th class="sorting">
-                                        <a href="#" wire:click.prevent="sortBy('created_at')">Created</a>
-                                        <x-tables.sort-by :sortField="$sortField" :sortDirection="$sortDirection"
-                                                          field="created_at"/>
+                                        Created
                                     </th>
 
                                     <th>Last Login</th>
