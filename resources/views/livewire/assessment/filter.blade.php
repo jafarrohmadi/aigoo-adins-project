@@ -6,7 +6,7 @@
 
     <div class="form-group col-md-3" wire:ignore>
         <label>User:</label>
-        <select class="select2 form-control" name="selectName" id="select2">
+        <select class="select2 form-control" name="selectName" id="select2" required>
             <option value="">Select User</option>
             @foreach($user as $users)
                 <option value="{{$users->id}}"> {{$users->name}}</option>

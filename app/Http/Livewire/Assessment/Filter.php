@@ -38,7 +38,9 @@ class Filter extends
 
     public function updateAssessmentData()
     {
-        $this->emit('updateUser', $this->selectDate, $this->selectName);
+        if($this->selectName != '') {
+            $this->emit('updateUser', $this->selectDate, $this->selectName);
+        }
     }
 
 }
