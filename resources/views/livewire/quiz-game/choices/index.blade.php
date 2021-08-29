@@ -15,7 +15,7 @@
                         <th class="sorting">Level</th>
                         <th class="sorting">Category</th>
                         <th class="sorting">
-                            <a href="#" wire:click.prevent="sortBy('question')">Question</a>
+                            Question
                         </th>
                         <th class="sorting">Choice 1</th>
                         <th class="sorting">Choice 2</th>
@@ -24,7 +24,7 @@
                         <th class="sorting">Choice 5</th>
                         <th class="sorting">Answer</th>
                         <th class="sorting">
-                            <a href="#" wire:click.prevent="sortBy('created_at')">Created</a>
+                            Created
                         </th>
 
                         <th>

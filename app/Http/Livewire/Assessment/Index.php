@@ -86,8 +86,9 @@ class Index extends
 
             $this->totalData = $query->count();
 
-            $this->emit('updateUserData',  $query->get());
-
+            if($this->totalData > 0) {
+                $this->emit('updateUserData', $query->get());
+            }
             $query = $query->groupBy('assessor_id',
                 'user_id',
                 'assessment_year_month');

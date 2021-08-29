@@ -8,7 +8,8 @@ use App\Models\Assessment;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends Component
+class Index extends
+    Component
 {
     use WithPagination;
 
@@ -43,11 +44,17 @@ class Index extends Component
     {
         $assessmentData = $this->assessmentData ?? '';
         if ($this->search) {
-            $query           = Assessment::latest()->whereHas('user', function ($q) {
-                $q->where('name', 'like', '%'.$this->search.'%');
-            })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')->where('assessment_info' , '!=', null)->groupBy('assessor_id',
-                'user_id', 'assessment_year_month')->with('assessor',
-                'user');
+            $query = Assessment::latest()->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')
+                ->where('assessment_info', '!=', null)
+                ->groupBy('assessor_id', 'user_id', 'assessment_year_month');
+
+            $query           = $query->where(function ($query) {
+                $query->whereHas('assessor', function ($q) {
+                    $q->where('name', 'like', '%'.$this->search.'%');
+                })->orWhereHas('user', function ($q) {
+                    $q->where('name', 'like', '%'.$this->search.'%');
+                });
+            });
             $this->totalData = $query->count();
 
             return view('livewire.appreciation.index', [
@@ -57,7 +64,7 @@ class Index extends Component
         } else {
             $query           = Assessment::select('assessor_id', 'user_id',
                 'created_at', 'assessment_year_month')->groupBy('assessor_id', 'user_id',
-                'assessment_year_month')->where('assessment_info' , '!=', null)->with('assessor', 'user');
+                'assessment_year_month')->where('assessment_info', '!=', null)->with('assessor', 'user');
             $this->totalData = $query->count();
 
             return view('livewire.appreciation.index', [
@@ -67,13 +74,16 @@ class Index extends Component
         }
     }
 
-    public function getAssessment($assessor_id , $user_id , $assessment_year_month)
-    {
+    public function getAssessment(
+        $assessor_id,
+        $user_id,
+        $assessment_year_month
+    ) {
         $assessment = Assessment::where([
             'assessor_id'           => $assessor_id,
             'user_id'               => $user_id,
             'assessment_year_month' => $assessment_year_month,
-        ])->where('assessment_info' , '!=', null)->with('question')->get();
+        ])->where('assessment_info', '!=', null)->with('question')->get();
 
         $this->assessmentData = $assessment;
     }

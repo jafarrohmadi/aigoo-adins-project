@@ -16,7 +16,7 @@
                             Category
                         </th>
                         <th class="sorting">
-                            <a href="#" wire:click.prevent="sortBy('title')">Title</a>
+                            Title
                         </th>
                         <th class="sorting">
                             Content
@@ -25,10 +25,10 @@
                             Level
                         </th>
                         <th class="sorting">
-                            <a href="#" wire:click.prevent="sortBy('created_at')">Created</a>
+                            Created
                         </th>
                         <th class="sorting">
-                            <a href="#" wire:click.prevent="sortBy('updated_at')">Updated</a>
+                           Updated
                         </th>
                         <th>
                             Action

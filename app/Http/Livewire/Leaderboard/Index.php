@@ -69,7 +69,7 @@ class Index extends
 
                 return view('livewire.leaderboard.index', [
                     'department'   => $this->department,
-                    'vwLeadeboard' => VwLeadeboard::with('department')->paginate($this->paginate),
+                    'vwLeadeboard' => VwLeadeboard::with('department')->orderBy('total_points', 'desc')->paginate($this->paginate),
                 ]);
             }
         }

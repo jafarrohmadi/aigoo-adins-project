@@ -10,7 +10,7 @@ class IndexUserComponent extends Component
 {
     use HasTable, HasLivewireAuth;
 
-    public $department_id, $userId, $supervisor_id;
+    public $department_id, $userId, $supervisor_id,  $paginate;
     /** @var string */
     public $sortField = 'email';
 
@@ -42,7 +42,7 @@ class IndexUserComponent extends Component
                 'orderByField' => [$this->sortField, $this->sortDirection],
                 'search' => $this->search,
                 'roleId' => $this->roleId,
-            ])->paginate($this->perPage);
+            ])->paginate($this->paginate);
 
         return view('users.index', ['users' => $users, 'department' => $department, 'allUser' => $allUser])
             ->extends('layouts.app');
@@ -54,6 +54,12 @@ class IndexUserComponent extends Component
      * @return void
      */
     public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+
+    public function updatingPaginate()
     {
         $this->resetPage();
     }

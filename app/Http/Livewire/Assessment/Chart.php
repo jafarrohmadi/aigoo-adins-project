@@ -33,16 +33,18 @@ class Chart extends
 
     public function updateUserData($assessment)
     {
-        $this->assessment = $assessment;
-        $this->name       = $assessment[0]['user']['name'];
-        $datum            = collect($this->assessment)->groupBy('question.category')->map(function ($item) {
-            return $item->avg('value');
-        })->sortDesc();
+        if($assessment) {
+            $this->assessment = $assessment;
+            $this->name       = $assessment[0]['user']['name'];
+            $datum            = collect($this->assessment)->groupBy('question.category')->map(function ($item) {
+                return $item->avg('value');
+            })->sortDesc();
 
-        $this->label = $datum->keys()->all();
+            $this->label = $datum->keys()->all();
 
-        $this->datas = $datum->values()->all();
-        $this->dispatchBrowserEvent('updateChart');
+            $this->datas = $datum->values()->all();
+            $this->dispatchBrowserEvent('updateChart');
+        }
     }
 
 }
