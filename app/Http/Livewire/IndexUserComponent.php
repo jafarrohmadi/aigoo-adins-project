@@ -10,7 +10,8 @@ class IndexUserComponent extends Component
 {
     use HasTable, HasLivewireAuth;
 
-    public $department_id, $userId, $supervisor_id,  $paginate;
+    public $paginate = 10;
+    public $department_id, $userId, $supervisor_id;
     /** @var string */
     public $sortField = 'email';
 
