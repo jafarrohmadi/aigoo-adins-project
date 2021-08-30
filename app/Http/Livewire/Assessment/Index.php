@@ -16,7 +16,7 @@ class Index extends
     use WithPagination;
 
     public int $paginate = 10;
-    public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData, $date, $userData;
+    public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData, $date, $userData, $totalData;
 
 
     protected array $updatesQueryString = ['search'];
@@ -89,6 +89,7 @@ class Index extends
             if($this->totalData > 0) {
                 $this->emit('updateUserData', $query->get());
             }
+
             $query = $query->groupBy('assessor_id',
                 'user_id',
                 'assessment_year_month');

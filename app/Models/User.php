@@ -290,4 +290,9 @@ class User extends
     {
         return $this->hasMany(Assessment::class , 'user_id', 'id');
     }
+
+    public function supervisor()
+    {
+        return $this->belongsTo(User::class , 'id', 'supervisor_id');
+    }
 }
