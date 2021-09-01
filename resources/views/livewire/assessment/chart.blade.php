@@ -2,9 +2,36 @@
     @if($assessment)
         <div class="row">
             <div class="col-12">
+
+            @if($supervisor)
+                Atasan :
+                @foreach ($supervisor as $key => $ordinate)
+                    {{$key .'(' . $ordinate . ')'}}
+                @endforeach
+            @endif
+            <br>
+            @if(count($subordinate) > 0)
+                Bawahan :
+                @foreach ($subordinate as $key => $ordinate)
+                    {{$key .'(' . array_sum($ordinate) /count($ordinate) . ')'}}
+                @endforeach
+            @endif
+
+                @if(count($otherteam) > 0)
+                    Other :
+                    @foreach ($otherteam as $key => $ordinate)
+                        {{$key .'(' . array_sum($ordinate) /count($ordinate) . ')'}}
+                    @endforeach
+                @endif
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3><center>{{$name}}</center></h3>
+                        <h3>
+                            <center>{{$name}}</center>
+                        </h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -17,7 +44,6 @@
             </div>
         </div>
     @endif
-
 </div>
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js"></script>
@@ -36,8 +62,7 @@
             let datas = @this.datas;
 
             var ctx = document.getElementById('myChart').getContext('2d');
-            if(myChart != '')
-            {
+            if (myChart != '') {
                 myChart.destroy();
             }
             myChart = new Chart(ctx, {
