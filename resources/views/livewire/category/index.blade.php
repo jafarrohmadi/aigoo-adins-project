@@ -21,7 +21,7 @@
                 <x-slot name="tbody">
                     @forelse ($category as $categories)
                         <tr class="@if($loop->odd) odd @endif">
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + ($category->firstItem() - 1)}}</td>
                             <td>{{ $categories->name }}</td>
                             <td>{{ date("d F Y H:i:s", strtotime($categories->created_at)) }}</td>
                             <td>{{ date("d F Y H:i:s", strtotime($categories->updated_at)) }}</td>

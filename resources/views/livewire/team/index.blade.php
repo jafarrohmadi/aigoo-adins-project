@@ -30,7 +30,7 @@
                 <x-slot name="tbody">
                     @forelse ($team as $key => $teams)
                         <tr class="@if($loop->odd) odd @endif">
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + ($team->firstItem() - 1) }}</td>
                             <td>
                                 {{ $teams->name }}
                             </td>

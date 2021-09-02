@@ -35,7 +35,7 @@
                 <x-slot name="tbody">
                     @forelse ($department as $key => $departments)
                         <tr class="@if($loop->odd) odd @endif">
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + ($department->firstItem() - 1)}}</td>
                             <td>
                                 {{ $departments->name }}
                             </td>

@@ -37,7 +37,7 @@
 
                     @forelse ($vwLeadeboard as $key =>  $leaderboard)
                         <tr class="@if($loop->odd) odd @endif">
-                            <td>{{ $loop->iteration ?? ''}}</td>
+                            <td>{{ $loop->iteration + ($vwLeadeboard->firstItem() - 1) }}</td>
                             <td>{{ $leaderboard->total_points  ?? ''}}</td>
                             <td>{{ $leaderboard->user->name ?? '' }}</td>
                             <td>{{ $leaderboard->team_id ?? ''}}</td>

@@ -27,7 +27,7 @@
 
                     @forelse ($questionsMatches as $question)
                         <tr class="@if($loop->odd) odd @endif">
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + ($questionsMatches->firstItem() - 1) }}</td>
                             <td>{{ $question->level }}</td>
                             <td>{{ $question->nameCategory }}</td>
                             <td>{{ cut_sentence($question->question) }}</td>

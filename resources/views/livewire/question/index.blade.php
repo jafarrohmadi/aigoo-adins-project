@@ -39,7 +39,7 @@
                 <x-slot name="tbody">
                     @forelse ($question as $key => $questions)
                         <tr class="@if($loop->odd) odd @endif">
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ($loop->iteration) + ($question->firstItem() - 1) }}</td>
                             <td>{{ $questions->nameCategory }}</td>
                             <td>{{ $questions->title }}</td>
                             <td>{{ $questions->content }}</td>
