@@ -6,12 +6,13 @@ use App\Models\Department;
 use App\Models\User;
 use Livewire\Component;
 
-class IndexUserComponent extends Component
+class IndexUserComponent extends
+    Component
 {
     use HasTable, HasLivewireAuth;
 
     public $paginate = 10;
-    public $department_id, $userId, $supervisor_id;
+    public $department_id, $userId, $supervisor_id, $filterByDepartment, $departmentData;
     /** @var string */
     public $sortField = 'email';
 
@@ -19,12 +20,27 @@ class IndexUserComponent extends Component
     public $roleId = '';
 
     /** @var array */
-    protected $queryString = [
-        'sortField',
-        'sortDirection',
-        'search',
-        'roleId',
-    ];
+    protected $queryString
+        = [
+            'sortField',
+            'sortDirection',
+            'search',
+            'roleId',
+        ];
+
+    public function mount()
+    {
+        $this->departmentData = Department::all()->pluck('name', 'id');
+    }
+
+    public function updatedFilterByDepartment($value)
+    {
+        $department = collect(Department::select('id')->get())->pluck('id')->toArray();
+
+        if (!in_array($value, $department)) {
+            $this->filterByDepartment = null;
+        }
+    }
 
     /** @var array */
     protected $listeners = ['entity-deleted' => 'render'];
@@ -37,16 +53,25 @@ class IndexUserComponent extends Component
     public function render()
     {
         $department = Department::all();
-        $allUser = User::select('id', 'email', 'name', 'department')->orderBy('department', 'ASC')
-            ->orderBy('name','ASC')->get();
+        $allUser    = User::select('id', 'email', 'name', 'department')->orderBy('department', 'ASC')
+            ->orderBy('name', 'ASC')->get();
 
         $users = User::filter([
-                'orderByField' => [$this->sortField, $this->sortDirection],
-                'search' => $this->search,
-                'roleId' => $this->roleId,
-            ])->paginate($this->paginate);
+            'orderByField'  => [
+                $this->sortField,
+                $this->sortDirection,
+            ],
+            'search'        => $this->search,
+            'roleId'        => $this->roleId,
+            'department_id' => $this->filterByDepartment,
+        ])->paginate($this->paginate);
 
-        return view('users.index', ['users' => $users, 'department' => $department, 'allUser' => $allUser])
+        return view('users.index', [
+            'users'          => $users,
+            'department'     => $department,
+            'allUser'        => $allUser,
+            'departmentData' => $this->departmentData,
+        ])
             ->extends('layouts.app');
     }
 
@@ -78,9 +103,9 @@ class IndexUserComponent extends Component
 
     public function edit($id)
     {
-        $user                 = User::find($id);
-        $this->department_id   = $user->department_id;
-        $this->userId = $user->id;
+        $user                = User::find($id);
+        $this->department_id = $user->department_id;
+        $this->userId        = $user->id;
         $this->supervisor_id = $user->supervisor_id;
     }
 
@@ -96,8 +121,8 @@ class IndexUserComponent extends Component
 
             $result = $user->update([
                 'department_id' => $this->department_id,
-                'team_id' => $this->department_id,
-                'supervisor_id' => $this->supervisor_id
+                'team_id'       => $this->department_id,
+                'supervisor_id' => $this->supervisor_id,
             ]);
         }
 
@@ -105,7 +130,7 @@ class IndexUserComponent extends Component
             $this->reset([
                 'department_id',
                 'userId',
-                'supervisor_id'
+                'supervisor_id',
 
             ]);
             $this->emit('closeEditModalSuccess');

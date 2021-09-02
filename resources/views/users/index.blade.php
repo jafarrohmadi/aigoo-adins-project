@@ -22,6 +22,20 @@
                 <div class="card-body" x-data="{showModal : false, deleteId : false}">
                     <div class="table-responsive">
                         <div class="row">
+                            <div class="col-sm-12 col-md-3">
+                                <select wire:model="filterByDepartment" class="form-control form-control-md bg-primary"
+                                        style="border-radius: 16px;">
+                                    <option selected>Filter by Department</option>
+                                    @foreach($departmentData as $key => $division)
+                                        @if($division != '')
+                                            <option value="{{ $key }}">{{ $division }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
                             <x-tables.per-page/>
 
                             <x-tables.search/>
@@ -158,7 +172,7 @@
                                             <option>--Select--</option>
                                             @if($allUser)
                                                 @foreach($allUser as $key => $allUsers)
-                                                    <option value="{{$allUsers->id}}">{{'('.$allUsers->department.') '. $allUsers->name }}</option>
+                                                    <option value="{{$allUsers->id}}">{{'['.$allUsers->department.'] '. $allUsers->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
