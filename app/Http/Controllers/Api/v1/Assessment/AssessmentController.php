@@ -13,6 +13,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class AssessmentController extends
     BaseController
@@ -33,6 +34,7 @@ class AssessmentController extends
      */
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
             $assessment = Assessment::where([
                 'assessor_id'           => me()->id,
@@ -65,9 +67,10 @@ class AssessmentController extends
             ]);
 
         } catch (\Exception $exception) {
+            DB::rollBack();
             return $this->returnFalse();
         }
-
+        DB::commit();
         return $this->returnSuccess([]);
     }
 
@@ -77,8 +80,9 @@ class AssessmentController extends
      */
     public function getAssessmentUser(Request $request)
     {
-        $alreadyAssessment = Assessment::where(['assessor_id'           => me()->id,
-                                                'assessment_year_month' => date('Y-m'),
+        $alreadyAssessment = Assessment::where([
+            'assessor_id'           => me()->id,
+            'assessment_year_month' => date('Y-m'),
         ])->pluck('user_id')->toArray();
 
         if (isset($request->name)) {
