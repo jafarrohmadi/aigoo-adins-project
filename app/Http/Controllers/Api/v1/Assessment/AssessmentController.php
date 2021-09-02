@@ -60,7 +60,7 @@ class AssessmentController extends
                 'quiz_ID'         => 0,
                 'coins'           => $request->coins,
                 'point'           => 0,
-                'info'            => 'Assessment : ' . $assessment->id,
+                'info'            => 'Assessment Data',
                 'date_year_month' => date('Y-m'),
             ]);
 
