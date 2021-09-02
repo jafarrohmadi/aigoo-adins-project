@@ -46,6 +46,7 @@ class AppreciationController extends
                 'user_id'               => $request->user_ID,
                 'assessment_year_month' => date('Y-m'),
                 'assessment_info'       => $request->message,
+                'value'                 => $request->value,
             ]);
         } catch (\Exception $exception) {
             return $this->returnFalse();
