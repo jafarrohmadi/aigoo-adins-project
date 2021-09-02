@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\Assessment\AssessmentCollection;
 use App\Http\Resources\Profile\UserCollection;
 use App\Models\Assessment;
+use App\Models\PointHistory;
 use App\Models\Question;
 use App\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -52,6 +53,17 @@ class AssessmentController extends
                     'assessment_year_month' => date('Y-m'),
                 ]);
             }
+
+            PointHistory::create([
+                'user_id'         => me()->id,
+                'team_id'         => me()->department_id,
+                'quiz_ID'         => 0,
+                'coins'           => $request->coins,
+                'point'           => 0,
+                'info'            => 'Assessment',
+                'date_year_month' => date('Y-m'),
+            ]);
+
         } catch (\Exception $exception) {
             return $this->returnFalse();
         }
@@ -65,18 +77,19 @@ class AssessmentController extends
      */
     public function getAssessmentUser(Request $request)
     {
-        $alreadyAssessment = Assessment::where(['assessor_id' => me()->id , 'assessment_year_month' => date('Y-m'),])->pluck('user_id')->toArray();
+        $alreadyAssessment = Assessment::where(['assessor_id'           => me()->id,
+                                                'assessment_year_month' => date('Y-m'),
+        ])->pluck('user_id')->toArray();
 
-        if(isset($request->name)){
-            $user = User::where('id', '!=', me()->id)->where('name', 'like', "%$request->name%" );
+        if (isset($request->name)) {
+            $user = User::where('id', '!=', me()->id)->where('name', 'like', "%$request->name%");
         }
 
-        if(!isset($request->name)){
+        if (!isset($request->name)) {
             $user = User::where('id', '!=', me()->id);
 
         }
-        if($alreadyAssessment)
-        {
+        if ($alreadyAssessment) {
             $user = $user->whereNotIn('id', $alreadyAssessment);
         }
 

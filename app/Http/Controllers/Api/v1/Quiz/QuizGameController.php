@@ -40,16 +40,14 @@ class QuizGameController extends
             $user->level = $request->level;
             $user->save();
 
-            if(isset($request->result))
-            {
-                foreach (json_decode($request->result) as $quizResult)
-                {
-                    $quiz = new QuizResult();
+            if (isset($request->result)) {
+                foreach (json_decode($request->result) as $quizResult) {
+                    $quiz          = new QuizResult();
                     $quiz->quiz_id = $quizResult->question_ID;
-                    $quiz->type = $quizResult->type;
+                    $quiz->type    = $quizResult->type;
                     $quiz->user_id = me()->id;
-                    $quiz->value = $quizResult->value;
-	                $quiz->save();
+                    $quiz->value   = $quizResult->value;
+                    $quiz->save();
                 }
             }
 
