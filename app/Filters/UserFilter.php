@@ -33,4 +33,13 @@ class UserFilter extends Filter
 
         return $this;
     }
+
+    public function department_id($departmentId)
+    {
+        $this->when($departmentId, function ($query, $departmentId) {
+            $query->where('department_id', $departmentId);
+        });
+
+        return $this;
+    }
 }
