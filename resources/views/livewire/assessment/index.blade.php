@@ -31,7 +31,7 @@
 
                     @forelse ($assessment as $key => $assessments)
                         <tr class="@if($loop->odd) odd @endif">
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration + ($assessment->firstItem() - 1)}}</td>
                             <td>
                                 {{ $assessments->assessor ? ($assessments->assessor->name . ' ('. $assessments->assessor->department .')') : ''}}
                             </td>
@@ -99,7 +99,7 @@
                                 @if($assessmentData)
                                     @forelse ($assessmentData as $key => $assessments)
                                         <tr class="@if($loop->odd) odd @endif">
-                                            <td>{{ $loop->iteration}}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 {{ $assessments->question->content  ?? ''}}
                                             </td>
