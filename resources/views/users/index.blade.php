@@ -158,7 +158,7 @@
                                             <option>--Select--</option>
                                             @if($allUser)
                                                 @foreach($allUser as $key => $allUsers)
-                                                    <option value="{{$allUsers->id}}">{{$allUsers->email}}</option>
+                                                    <option value="{{$allUsers->id}}">{{'('.$allUsers->department.') '. $allUsers->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>

@@ -18,7 +18,7 @@
             @endif
 
                 @if(count($otherteam) > 0)
-                    Other :
+                    Assessor :
                     @foreach ($otherteam as $key => $ordinate)
                         {{$key .'(' . array_sum($ordinate) /count($ordinate) . ')'}}
                     @endforeach

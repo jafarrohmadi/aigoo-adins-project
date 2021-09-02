@@ -37,7 +37,9 @@ class IndexUserComponent extends Component
     public function render()
     {
         $department = Department::all();
-        $allUser = User::select('id', 'email')->get();
+        $allUser = User::select('id', 'email', 'name', 'department')->orderBy('department', 'ASC')
+            ->orderBy('name','ASC')->get();
+
         $users = User::filter([
                 'orderByField' => [$this->sortField, $this->sortDirection],
                 'search' => $this->search,

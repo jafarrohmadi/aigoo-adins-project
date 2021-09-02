@@ -64,7 +64,7 @@
     </nav>
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4 x-cloak">
-        <a href="{{ url('/') }}" class="brand-link logo-switch">
+        <a href="{{ url('/') }}" class="brand-link logo-switch" style="background: white">
             <img src="{{asset('images/logo.png')}}" alt="Adins" class="brand-image-xl logo-xs">
             <img src="{{asset('images/logo.png')}}" alt="AdminLTE Docs Logo Large" class="brand-image-xs logo-xl"
                  style="left: 12px">
