@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Profile;
 
 use App\Models\DailyAttempt;
+use App\Models\Department;
 use App\ViewModels\VwLeadeboard;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -32,6 +33,7 @@ class ProfileResource extends
         $dailyAttemp = DailyAttempt::whereDate('created_at', Carbon::today())->where('quiz_ID', 1)->where('user_id',
             $this->id)->pluck('attempt')->first();
 
+        $departmentData = Department::where('id' , $this->department_id)->first();
         return [
             'status'  => true,
             'message' => 'Success',
@@ -49,6 +51,7 @@ class ProfileResource extends
                     'current_coin'       => $this->pointHistories->sum('coins'),
                     'daily_attempt_game' => $dailyAttemp === null ? 0 : $dailyAttemp,
                     'profile_picture'    => (asset('img/profile_picture').'/').$this->change_avatar ?? $this->avatar,
+                    'team_leader'        => $departmentData->team_leader == $this->id ? 1 : 0,
                 ],
                 'game_player_data' => [
                     'daily_attempt' => $dailyAttemp === null ? 0 : $dailyAttemp,
