@@ -87,6 +87,9 @@
                                 <th class="sorting">
                                     Appreciation
                                 </th>
+                                <th class="sorting">
+                                    Nilai
+                                </th>
                                 <th>
                                     Created At
                                 </th>
@@ -100,6 +103,9 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
                                             {{ $assessments->assessment_info  ?? ''}}
+                                        </td>
+                                        <td>
+                                            {{ $assessments->value  ?? ''}}
                                         </td>
                                         <td>
                                             {{$assessments->created_at}}
