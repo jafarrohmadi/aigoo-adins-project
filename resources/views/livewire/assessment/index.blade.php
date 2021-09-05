@@ -16,6 +16,9 @@
                             Assessor
                         </th>
                         <th class="sorting">
+                            Role
+                        </th>
+                        <th class="sorting">
                             User
                         </th>
                         <th class="sorting">
@@ -34,6 +37,23 @@
                             <td>{{ $loop->iteration + ($assessment->firstItem() - 1)}}</td>
                             <td>
                                 {{ $assessments->assessor ? ($assessments->assessor->name . ' ('. $assessments->assessor->department .')') : ''}}
+                            </td>
+                            <td>
+                                @if($assessments->assessor->id == $assessments->user->supervisor_id)
+                                    Atasan
+                                @endif
+
+                                @if($assessments->assessor->supervisor_id == $assessments->user->id)
+                                    Bawahan
+                                @endif
+
+                                @if($assessments->user->department == $assessments->assessor->department)
+                                    Satu Tim
+                                @endif
+
+                                @if($assessments->user->department != $assessments->assessor->department)
+                                    Beda Tim
+                                @endif
                             </td>
                             <td>
                                 {{ $assessments->user ? ($assessments->user->name. ' ('. $assessments->user->department .')') : '' }}

@@ -51,7 +51,7 @@ class User extends
 
     protected static $logOnlyDirty = true;
 
-    public const Male = 0;
+    public const Male   = 0;
     public const Female = 1;
     protected $casts
         = [
@@ -112,6 +112,7 @@ class User extends
             'sub_bu_code',
             'department_code',
             'job_level',
+            'admin_access',
         ];
 
     /**
@@ -288,11 +289,11 @@ class User extends
 
     public function assessment()
     {
-        return $this->hasMany(Assessment::class , 'user_id', 'id');
+        return $this->hasMany(Assessment::class, 'user_id', 'id');
     }
 
     public function supervisor()
     {
-        return $this->belongsTo(User::class , 'id', 'supervisor_id');
+        return $this->belongsTo(User::class, 'id', 'supervisor_id');
     }
 }

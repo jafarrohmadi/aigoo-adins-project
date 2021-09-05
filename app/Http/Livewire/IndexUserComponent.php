@@ -12,7 +12,7 @@ class IndexUserComponent extends
     use HasTable, HasLivewireAuth;
 
     public $paginate = 10;
-    public $department_id, $userId, $supervisor_id, $filterByDepartment, $departmentData;
+    public $department_id, $userId, $supervisor_id, $filterByDepartment, $departmentData, $admin_access;
     /** @var string */
     public $sortField = 'email';
 
@@ -107,6 +107,7 @@ class IndexUserComponent extends
         $this->department_id = $user->department_id;
         $this->userId        = $user->id;
         $this->supervisor_id = $user->supervisor_id;
+        $this->admin_access  = $user->admin_access;
     }
 
     public function update()
@@ -123,6 +124,7 @@ class IndexUserComponent extends
                 'department_id' => $this->department_id,
                 'team_id'       => $this->department_id,
                 'supervisor_id' => $this->supervisor_id,
+                'admin_access'  => $this->admin_access,
             ]);
         }
 
@@ -131,7 +133,7 @@ class IndexUserComponent extends
                 'department_id',
                 'userId',
                 'supervisor_id',
-
+                'admin_access',
             ]);
             $this->emit('closeEditModalSuccess');
         } else {

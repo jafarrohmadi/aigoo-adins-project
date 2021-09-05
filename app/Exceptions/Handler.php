@@ -72,4 +72,13 @@ class Handler extends ExceptionHandler
 
         return (new BaseController())->returnFalse();
     }
+
+    public function register()
+    {
+        $this->reportable(function (Throwable $e) {
+            if ($this->shouldReport($e) && app()->bound('sentry')) {
+                app('sentry')->captureException($e);
+            }
+        });
+    }
 }

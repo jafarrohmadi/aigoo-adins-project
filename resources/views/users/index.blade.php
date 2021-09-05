@@ -183,6 +183,14 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-label">Akses Admin</label>
+                                    <div class="col-md-9">
+                                        <input type="radio" wire:model="admin_access" value="1"> Yes
+                                        <input type="radio" wire:model="admin_access" value="0"> No
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
