@@ -109,12 +109,6 @@
                         </ul>
                     </li>
 
-                  {{--  <li class="nav-item">
-                        <a href="{{ route('category.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-list-alt elevation-3"></i>
-                            <span class="brand-text">Category</span>
-                        </a>
-                    </li>--}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-question-circle"></i>
@@ -154,7 +148,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user elevation-3"></i>
                             <p>
-                                User Management
+                                Master Data
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -167,11 +161,18 @@
                             </li>
 
                             <li class="nav-item">
+                                <a href="{{ route('category.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span class="brand-text">Category</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('users.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <span class="brand-text">Users</span>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
 

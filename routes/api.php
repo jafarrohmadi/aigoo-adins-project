@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\v1\Appreciation\AppreciationController;
 use App\Http\Controllers\Api\v1\Assessment\AssessmentController;
 use App\Http\Controllers\Api\v1\Avatar\AvatarController;
+use App\Http\Controllers\Api\v1\Category\CategoryController;
 use App\Http\Controllers\Api\v1\DailyAttempt\DailyAttemptController;
 use App\Http\Controllers\Api\v1\Department\DepartmentController;
 use App\Http\Controllers\Api\v1\Guild\GuildController;
@@ -73,5 +74,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     //Department
     Route::get('department', [DepartmentController::class, 'index']);
+
+    //Category
+    Route::get('category', [CategoryController::class, 'index']);
 });
 
