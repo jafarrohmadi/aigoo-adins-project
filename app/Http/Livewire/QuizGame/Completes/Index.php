@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\QuizGame\Completes;
 
+use App\Models\Category;
 use App\Models\QuizComplete;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,7 +12,7 @@ class Index extends Component
     use WithPagination;
 
     public int $paginate = 10;
-    public $search, $questionId, $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $totalData, $level, $category;
+    public $search, $questionId, $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $totalData, $level, $category, $categoryList;
     public array $answer = [];
 
     protected array $updatesQueryString = ['search'];
@@ -39,19 +40,17 @@ class Index extends Component
 
     public function render()
     {
+        $this->categoryList = Category::orderby('name', 'asc')->get();
+        $query           = QuizComplete::latest();
         if ($this->search) {
-            $query           = QuizComplete::latest()->where('question', 'like', '%'.$this->search.'%');
-            $this->totalData = $query->count();
-            return view('livewire.quiz-game.completes.index', [
-                'questionsCompletes' => $query->paginate($this->paginate),
-            ]);
-        } else {
-            $query           = QuizComplete::latest();
-            $this->totalData = $query->count();
-            return view('livewire.quiz-game.completes.index', [
-                'questionsCompletes' => $query->paginate($this->paginate),
-            ]);
+            $query           = $query->where('question', 'like', '%'.$this->search.'%');
+
         }
+
+        $this->totalData = $query->count();
+        return view('livewire.quiz-game.completes.index', [
+            'questionsCompletes' => $query->paginate($this->paginate),
+        ]);
     }
 
     public function getQuestionComplete($id)

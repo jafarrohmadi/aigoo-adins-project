@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\QuizGame\Choices;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\QuizChoice;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class Index extends Component
+class Index extends
+    Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -33,6 +35,7 @@ class Index extends Component
     public $totalData;
     public $level;
     public $category;
+    public $categoryList;
 
 
     /**
@@ -63,21 +66,19 @@ class Index extends Component
 
     public function render()
     {
-        if ($this->search)
-        {
-            $query           = QuizChoice::latest()->where('question', 'like', '%' . $this->search . '%');
-            $this->totalData = $query->count();
-            return view('livewire.quiz-game.choices.index', [
-                'questionsChoices' => $query->paginate($this->paginate)
-            ]);
-        } else
-        {
-            $query           = QuizChoice::latest();
-            $this->totalData = $query->count();
-            return view('livewire.quiz-game.choices.index', [
-                'questionsChoices' => $query->paginate($this->paginate)
-            ]);
+        $this->categoryList = Category::orderby('name', 'asc')->get();
+
+        $query = QuizChoice::latest();
+
+        if ($this->search) {
+            $query = $query->where('question', 'like', '%'.$this->search.'%');
         }
+
+        $this->totalData = $query->count();
+
+        return view('livewire.quiz-game.choices.index', [
+            'questionsChoices' => $query->paginate($this->paginate),
+        ]);
     }
 
     public function edit($id)
@@ -97,8 +98,7 @@ class Index extends Component
 
     public function update()
     {
-        if ($this->questionId)
-        {
+        if ($this->questionId) {
             $questionChoice = QuizChoice::find($this->questionId);
 
 
@@ -111,7 +111,7 @@ class Index extends Component
                 'choice5'  => 'required',
                 'answer'   => 'required|digits_between:1,5',
                 'category' => 'required',
-                'level'    => 'required'
+                'level'    => 'required',
             ]);
 
 
@@ -124,12 +124,11 @@ class Index extends Component
                 'choice5'  => $this->choice5,
                 'answer'   => $this->answer,
                 'category' => $this->category,
-                'level'    => $this->level
+                'level'    => $this->level,
             ]);
         }
 
-        if ($result)
-        {
+        if ($result) {
             $this->reset([
                 'questionId',
                 'question',
@@ -140,26 +139,22 @@ class Index extends Component
                 'choice5',
                 'answer',
                 'category',
-                'level'
+                'level',
             ]);
             $this->emit('closeEditModalSuccess'); // Close model to using to jquery when Success
-        } else
-        {
+        } else {
             $this->emit('closeEditModalFailed'); // Close model to using to jquery when Failed
         }
     }
 
     public function deleteQuestionChoice($id)
     {
-        if ($id)
-        {
+        if ($id) {
             $result = QuizChoice::destroy($id);
 
-            if ($result)
-            {
+            if ($result) {
                 $this->emit('displayAlertDeleteSuccess');
-            } else
-            {
+            } else {
                 $this->emit('displayAlertDeleteFailed');
             }
         }

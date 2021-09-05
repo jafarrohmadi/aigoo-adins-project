@@ -101,9 +101,9 @@
                                         <select wire:model="category"
                                                 class="form-control @error('category') mb-4 is-invalid state-invalid @enderror">
                                             <option>--Select--</option>
-                                            <option value="dna">DNA</option>
-                                            <option value="core-value">Core Value</option>
-                                            <option value="create-collaboration">Create and Collaboration</option>
+                                            @foreach($categoryList as $categories)
+                                                <option value="{{$categories->id}}"> {{$categories->name}}</option>
+                                            @endforeach
                                         </select>
                                         @error('category')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"

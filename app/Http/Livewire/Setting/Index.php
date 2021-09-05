@@ -2,17 +2,16 @@
 
 namespace App\Http\Livewire\Setting;
 
+use App\Models\Category;
 use App\Models\Setting;
 use Livewire\Component;
 
-class Index extends Component
+class Index extends
+    Component
 {
-    public $nameGameSettingCollaborate;
-    public $valueGameSettingCollaborate;
-    public $nameGameSettingDna;
-    public $valueGameSettingDna;
-    public $nameGameSettingCoreValue;
-    public $valueGameSettingCoreValue;
+    public $nameGameSetting;
+    public $valueGameSetting = [];
+    public $category;
 
     public $titleLevel1;
     public $titleLevel2;
@@ -38,21 +37,22 @@ class Index extends Component
 
     public function mount()
     {
-        $settingsGame           = Setting::where('group_name', 'game_settings')->get();
-        $this->nameGameSettingDna  = $settingsGame[0]->name;
-        $this->valueGameSettingDna = $settingsGame[0]->value;
-        $this->nameGameSettingCoreValue  = $settingsGame[1]->name;
-        $this->valueGameSettingCoreValue = $settingsGame[1]->value;
-        $this->nameGameSettingCollaborate  = $settingsGame[2]->name;
-        $this->valueGameSettingCollaborate = $settingsGame[2]->value;
+        $settingsGame = Setting::where('group_name', 'game_settings')->get();
+        $category     = Category::orderby('id', 'asc')->get();
+
+        foreach ($category as $categories) {
+            $this->nameGameSetting[$categories->id]  = strtolower(str_replace(' ','_', 'max_daily_attempt_'.$categories->name));
+            $this->valueGameSetting[$categories->id] = count($settingsGame->where('name', 'max_daily_attempt_'.$categories->id)) > 1 ? $settingsGame->where('name', 'max_daily_attempt_'.$categories->id)->first()->value : 10;
+        }
 
         $titleLevel = Setting::where('group_name', 'title_level')->get();
 
-        for ($j = 1; $j < 11; $j++)
-        {
-            $this->{'nameTitle'. $j} = $titleLevel[$j -1]->name;
-            $this->{'titleLevel'. $j} = $titleLevel[$j -1]->value;
+        for ($j = 1; $j < 11; $j++) {
+            $this->{'nameTitle'.$j}  = $titleLevel[$j - 1]->name;
+            $this->{'titleLevel'.$j} = $titleLevel[$j - 1]->value;
         }
+
+        $this->category = $category;
 
     }
 
@@ -63,20 +63,28 @@ class Index extends Component
 
     public function updateGameSettings()
     {
-        if ($this->valueGameSettingDna)
-        {
+        if ($this->valueGameSetting) {
 
             $this->validate([
-                'valueGameSettingDna' => 'required|numeric',
-                'valueGameSettingCoreValue' => 'required|numeric',
-                'valueGameSettingCollaborate' => 'required|numeric'
+                'valueGameSetting' => 'required',
             ]);
 
+            $category = Category::orderby('id', 'asc')->get();
 
-            Setting::where('name', 'max_daily_attempt_dna')->update(['value' => $this->valueGameSettingDna]);
-            Setting::where('name', 'max_daily_attempt_corevalue')->update(['value' => $this->valueGameSettingCoreValue]);
-            Setting::where('name', 'max_daily_attempt_collaborate')->update(['value' => $this->valueGameSettingCollaborate]);
+            foreach ($category as $categories) {
+
+                $settings =Setting::where('name', 'max_daily_attempt_'.$categories->id)->first();
+                if(!$settings)
+                {
+                    $settings = New Setting();
+                    $settings->name = 'max_daily_attempt_'.$categories->id;
+                }
+                $settings->value = $this->valueGameSetting[$categories->id] ?? 10;
+                $settings->group_name = 'game_settings';
+                $settings->save();
+            }
         }
+
 
         $this->emit('closeEditModalSuccess');
 
@@ -99,9 +107,11 @@ class Index extends Component
         ]);
         $gameSetting = Setting::where('group_name', 'title_level')->get()->toArray();
 
-        for ($i = 1; $i < 11; $i++)
-        {
-            Setting::where('id', $gameSetting[$i - 1]['id'])->update(['value' => $this->{'titleLevel' . $i}, 'name' => $this->{'nameTitle' . $i}]);
+        for ($i = 1; $i < 11; $i++) {
+            Setting::where('id', $gameSetting[$i - 1]['id'])->update([
+                'value' => $this->{'titleLevel'.$i},
+                'name'  => $this->{'nameTitle'.$i},
+            ]);
         }
 
         $this->emit('closeEditModalSuccess');

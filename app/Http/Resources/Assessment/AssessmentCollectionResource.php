@@ -18,7 +18,7 @@ class AssessmentCollectionResource extends
     {
         return [
             'question_id' => $this->id,
-            'category'    => $this->category,
+            'category'    => $this->nameCategory ?? $this->category,
             'title'       => $this->title,
             'content'     => $this->content,
             'criteria_1'  => $this->choice1,

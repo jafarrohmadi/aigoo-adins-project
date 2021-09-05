@@ -13,7 +13,7 @@ class Index extends
     use WithPagination;
 
     public int $paginate = 10;
-    public $search, $questionId, $title, $category, $content, $level, $choice1, $choice2, $choice3, $choice4, $point1, $point2, $point3, $point4;
+    public $search, $questionId, $category, $content, $level, $choice1, $choice2, $choice3, $choice4, $point1, $point2, $point3, $point4, $categoryList;
 
     protected array $updatesQueryString = ['search'];
 
@@ -26,6 +26,7 @@ class Index extends
     public function mount()
     {
         $this->search = request()->query('search', $this->search);
+        $this->categoryList = Category::orderby('name', 'asc')->get();
     }
 
     public function updatingSearch()
@@ -48,8 +49,10 @@ class Index extends
             $query           = Question::latest();
             $this->totalData = $query->count();
         }
+
         return view('livewire.question.index', [
             'question' => $query->paginate($this->paginate),
+            'categoryList' => $this->categoryList
         ]);
     }
 
@@ -57,7 +60,6 @@ class Index extends
     {
         $question         = Question::find($id);
         $this->questionId = $question->id;
-        $this->title      = $question->title;
         $this->category   = $question->category;
         $this->content    = $question->content;
         $this->level      = $question->level;
@@ -77,7 +79,6 @@ class Index extends
             $question = Question::find($this->questionId);
 
             $this->validate([
-                'title'    => 'required',
                 'category' => 'required',
                 'content'  => 'required',
                 'level'    => 'required',
@@ -90,8 +91,8 @@ class Index extends
                 'point3'   => 'required',
                 'point4'   => 'required',
             ]);
+
             $result = $question->update([
-                'title'    => $this->title,
                 'category' => $this->category,
                 'content'  => $this->content,
                 'level'    => $this->level,
@@ -108,7 +109,6 @@ class Index extends
 
         if ($result) {
             $this->reset([
-                'title',
                 'category',
                 'content',
                 'level',

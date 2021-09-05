@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\QuizGame\Completes;
 
+use App\Models\Category;
 use App\Models\QuizComplete;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,7 +14,7 @@ class Create extends Component
     /**
      * @var string
      */
-    public $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $level, $category;
+    public $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $level, $category, $categoryList;
 
     /**
      * @var array
@@ -25,6 +26,8 @@ class Create extends Component
      */
     public function render()
     {
+        $this->categoryList = Category::orderby('name', 'asc')->get();
+
         return view('livewire.quiz-game.completes.create');
     }
 

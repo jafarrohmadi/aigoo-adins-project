@@ -25,9 +25,9 @@
                                         <select wire:model="category"
                                                 class="form-control @error('category') mb-4 is-invalid state-invalid @enderror">
                                             <option>--Select--</option>
-                                            <option value="dna">DNA</option>
-                                            <option value="core-value">Core Value</option>
-                                            <option value="create-collaboration">Create and Collaboration</option>
+                                            @foreach($categoryList as $categories)
+                                                <option value="{{$categories->id}}"> {{$categories->name}}</option>
+                                            @endforeach
                                         </select>
                                         @error('category')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
@@ -50,17 +50,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-label">Title <span class="text-red">*</span></label>
-                                    <div class="col-md-9">
-                                        <input type="text" wire:model="title"
-                                               class="form-control @error('title') mb-4 is-invalid state-invalid @enderror">
-                                        @error('title')
-                                        <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
-                                             role="alert">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
 
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Content <span class="text-red">*</span></label>
@@ -75,7 +64,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Kriteria 1 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 1 <span
+                                                class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice1"
                                                class="form-control @error('choice1') mb-4 is-invalid state-invalid @enderror">
@@ -97,7 +87,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Kriteria 2 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 2 <span
+                                                class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice2"
                                                class="form-control @error('choice2') mb-4 is-invalid state-invalid @enderror">
@@ -119,7 +110,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Kriteria 3 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 3 <span
+                                                class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice3"
                                                class="form-control @error('choice3') mb-4 is-invalid state-invalid @enderror">
@@ -141,7 +133,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Kriteria 4 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 4 <span
+                                                class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice4"
                                                class="form-control @error('choice4') mb-4 is-invalid state-invalid @enderror">

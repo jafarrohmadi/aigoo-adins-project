@@ -68,12 +68,14 @@ class QuizChoice extends
      */
     public function getNameCategoryAttribute(): string
     {
-        $data = [
-            'dna'                  => 'DNA',
-            'core-value'           => 'Core Value',
-            'create-collaboration' => 'Create and Collaboration',
-        ];
+        return $this->categoryData ? $this->categoryData->name  : 'No category';
+    }
 
-        return $data[$this->category] ?? 'No category';
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function categoryData()
+    {
+        return $this->belongsTo(Category::class, 'category');
     }
 }

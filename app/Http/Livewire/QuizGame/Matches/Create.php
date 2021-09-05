@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\QuizGame\Matches;
 
+use App\Models\Category;
 use App\Models\QuizMatch;
 use Livewire\Component;
 
@@ -10,10 +11,11 @@ class Create extends Component
     /**
      * @var
      */
-    public $question, $wrong_question, $answer, $wrong_answer, $level, $category;
+    public $question, $wrong_question, $answer, $wrong_answer, $level, $category, $categoryList;
 
     public function render()
     {
+        $this->categoryList = Category::orderby('name', 'asc')->get();
         return view('livewire.quiz-game.matches.create');
     }
 

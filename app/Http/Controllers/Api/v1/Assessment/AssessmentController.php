@@ -85,14 +85,12 @@ class AssessmentController extends
             'assessment_year_month' => date('Y-m'),
         ])->pluck('user_id')->toArray();
 
+        $user = User::query();
+
         if (isset($request->name)) {
-            $user = User::where('id', '!=', me()->id)->where('name', 'like', "%$request->name%");
+            $user = $user->where('name', 'like', "%$request->name%");
         }
 
-        if (!isset($request->name)) {
-            $user = User::where('id', '!=', me()->id);
-
-        }
         if ($alreadyAssessment) {
             $user = $user->whereNotIn('id', $alreadyAssessment);
         }

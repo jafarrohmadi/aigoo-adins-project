@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\QuizGame\Matches;
 
+use App\Models\Category;
 use App\Models\QuizMatch;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,7 +12,7 @@ class Index extends Component
     use WithPagination;
 
     public $paginate = 10;
-    public $search, $questionId, $question, $wrong_question, $answer, $wrong_answer, $totalData, $category, $level;
+    public $search, $questionId, $question, $wrong_question, $answer, $wrong_answer, $totalData, $category, $level, $categoryList;
     protected $updatesQueryString = ['search'];
 
     protected $listeners
@@ -37,6 +38,8 @@ class Index extends Component
 
     public function render()
     {
+        $this->categoryList = Category::orderby('name', 'asc')->get();
+
         if ($this->search) {
             $query = QuizMatch::latest()->where('question', 'like', '%'.$this->search.'%');
         } else {

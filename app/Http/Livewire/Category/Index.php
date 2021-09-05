@@ -73,7 +73,6 @@ class Index extends Component
                 'name' => 'required'
             ]);
 
-
             $result = $questionComplete->update([
                 'name' => $this->name
             ]);

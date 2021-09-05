@@ -15,7 +15,6 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('title', 100);
             $table->string('category');
             $table->text('content');
             $table->enum('level', ['staff', 'managerial']);

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\QuizGame\Choices;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\QuizChoice;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -11,11 +12,12 @@ class Create extends Component
 {
     use WithFileUploads;
 
-    public $question, $choice1, $choice2, $choice3, $choice4, $choice5, $answer,  $category, $level;
+    public $question, $choice1, $choice2, $choice3, $choice4, $choice5, $answer,  $category, $level, $categoryList;
 
 
     public function render()
     {
+        $this->categoryList = Category::orderby('name', 'asc')->get();
         return view('livewire.quiz-game.choices.create');
     }
 
