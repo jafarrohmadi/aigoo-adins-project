@@ -14,7 +14,7 @@ class Index extends
     use WithPagination;
 
     public $paginate = 10;
-    public $search, $filterByDepartment, $totalData, $department;
+    public $search, $filterByDepartment, $totalData, $department, $selectDate;
     protected $updatesQueryString = ['search'];
 
     public function mount()
@@ -51,32 +51,24 @@ class Index extends
 
     public function render()
     {
+        $query = VwLeadeboard::with('department');
         if ($this->search !== null) {
-            if ($this->filterByDepartment !== null) {
-                $query           = VwLeadeboard::where('name', 'like', '%'.$this->search.'%')->where('department_id',
-                    $this->filterByDepartment);
-                $this->totalData = $query->count();
-            } else {
-                $query           = VwLeadeboard::where('name', 'like', '%'.$this->search.'%');
-                $this->totalData = $query->count();
-            }
-        } else {
-            if ($this->filterByDepartment !== null) {
-                $query           = VwLeadeboard::where('department_id', $this->filterByDepartment);
-                $this->totalData = $query->count();
-            } else {
-                $this->totalData = VwLeadeboard::count();
-
-                return view('livewire.leaderboard.index', [
-                    'department'   => $this->department,
-                    'vwLeadeboard' => VwLeadeboard::with('department')->orderBy('total_points', 'desc')->paginate($this->paginate),
-                ]);
-            }
+            $query = $query->where('name', 'like', '%'.$this->search.'%');
         }
+
+        if ($this->filterByDepartment !== null) {
+            $query = $query->where('department_id', $this->filterByDepartment);
+        }
+
+        if ($this->selectDate !== null) {
+            $query = $query->where('date', date('Y-m', strtotime($this->selectDate)));
+        }
+
+        $this->totalData = $query->count();
 
         return view('livewire.leaderboard.index', [
             'department'   => $this->department,
-            'vwLeadeboard' => $query->with('department')->orderBy('total_points', 'desc')->paginate($this->paginate),
+            'vwLeadeboard' => $query->orderBy('total_points', 'desc')->paginate($this->paginate),
         ]);
     }
 }

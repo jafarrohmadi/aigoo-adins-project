@@ -29,99 +29,99 @@ class UserController extends
     public function login(LoginRequest $request)
     {
         try {
-      /*      $userNameData = $request->username;
-            $passwordData = $request->password;
+            /*      $userNameData = $request->username;
+                  $passwordData = $request->password;
 
-            $request_param = [
-                'username' => $userNameData,
-                'password' => $passwordData,
-            ];
+                  $request_param = [
+                      'username' => $userNameData,
+                      'password' => $passwordData,
+                  ];
 
-            $request_data = json_encode($request_param);
+                  $request_data = json_encode($request_param);
 
-            $url        = config('app.api_adins_url');
-            $key        = config('app.api_adins_key');
-            $data_value = config('app.api_adins_value');
+                  $url        = config('app.api_adins_url');
+                  $key        = config('app.api_adins_key');
+                  $data_value = config('app.api_adins_value');
 
-            $client = new Client(['headers' => [$key => $data_value]]);
+                  $client = new Client(['headers' => [$key => $data_value]]);
 
-            $res = $client->request(
-                'POST', url($url.'/api/auth/ldap'),
-                [
-                    'headers' => [
-                        'Accept'       => 'application/json',
-                        'Content-Type' => 'application/json',
-                    ],
-                    'body'    => $request_data,
-                ]
-            );
+                  $res = $client->request(
+                      'POST', url($url.'/api/auth/ldap'),
+                      [
+                          'headers' => [
+                              'Accept'       => 'application/json',
+                              'Content-Type' => 'application/json',
+                          ],
+                          'body'    => $request_data,
+                      ]
+                  );
 
-            $value = json_decode($res->getBody()->getContents());
+                  $value = json_decode($res->getBody()->getContents());
 
-            if ($value != "Wrong credentials") {
+                  if ($value != "Wrong credentials") {
 
-                $department = Department::where('name', $value->Department)->first();
+                      $department = Department::where('name', $value->Department)->first();
 
-                if (!$department) {
-                    $department            = new Department();
-                    $department->name      = $value->Department;
-                    $department->is_active = 1;
-                    $department->team_name = $value->Department;
-                    $department->team_icon = 'default_team_avatar.png';
-                    $department->department_code = $value->DepartmentCode;
-                    $department->save();
-                }
+                      if (!$department) {
+                          $department            = new Department();
+                          $department->name      = $value->Department;
+                          $department->is_active = 1;
+                          $department->team_name = $value->Department;
+                          $department->team_icon = 'default_team_avatar.png';
+                          $department->department_code = $value->DepartmentCode;
+                          $department->save();
+                      }
 
-                $user = User::where('email', $userNameData)->first();
+                      $user = User::where('email', $userNameData)->first();
 
-                if (!$user) {
-                    $user                    = new User();
-                    $user->type              = 'user';
-                    $user->name              = $value->EmployeeName;
-                    $user->email             = $value->Email;
-                    $user->email_verified_at = date('Y-m-d H:i:s');
-                    $user->password          = Hash::make(substr(md5(mt_rand()), 0, 7));
-                    $user->roles             = 'Staff';
-                    $user->employee_level_id = 1;
-                    $user->active            = 1;
-                    $user->team_id           = $department->id;
-                    $user->department_id     = $department->id;
-                    $user->department        = $value->Department;
-                    $user->avatar            = 'default_avatar.png';
-                    $user->level             = 1;
-                    $user->username          = $value->Email;
-                    $user->current_coin      = 0;
-                    $user->company           = $value->Company;
-                    $user->bu                = $value->BU;
-                    $user->subbu             = $value->SubBU;
-                    $user->nik               = $value->NIK;
-                    $user->jobposition       = $value->JobPosition;
-                    $user->worklocationname  = $value->WorkLocationName;
-                    $user->statusincompany   = $value->Status ?? '';
-                    $user->gender            = $value->Gender == 'Male' ? 0 : 1;
-                    $user->save();
-                } else {
+                      if (!$user) {
+                          $user                    = new User();
+                          $user->type              = 'user';
+                          $user->name              = $value->EmployeeName;
+                          $user->email             = $value->Email;
+                          $user->email_verified_at = date('Y-m-d H:i:s');
+                          $user->password          = Hash::make(substr(md5(mt_rand()), 0, 7));
+                          $user->roles             = 'Staff';
+                          $user->employee_level_id = 1;
+                          $user->active            = 1;
+                          $user->team_id           = $department->id;
+                          $user->department_id     = $department->id;
+                          $user->department        = $value->Department;
+                          $user->avatar            = 'default_avatar.png';
+                          $user->level             = 1;
+                          $user->username          = $value->Email;
+                          $user->current_coin      = 0;
+                          $user->company           = $value->Company;
+                          $user->bu                = $value->BU;
+                          $user->subbu             = $value->SubBU;
+                          $user->nik               = $value->NIK;
+                          $user->jobposition       = $value->JobPosition;
+                          $user->worklocationname  = $value->WorkLocationName;
+                          $user->statusincompany   = $value->Status ?? '';
+                          $user->gender            = $value->Gender == 'Male' ? 0 : 1;
+                          $user->save();
+                      } else {
 
-                    $user->name             = $value->EmployeeName;
-                    $user->department       = $value->Department;
-                    $user->email            = $value->Email;
-                    $user->company          = $value->Company;
-                    $user->bu               = $value->BU;
-                    $user->subbu            = $value->SubBU;
-                    $user->nik              = $value->NIK;
-                    $user->jobposition      = $value->JobPosition;
-                    $user->worklocationname = $value->WorkLocationName;
-                    $user->statusincompany  = $value->Status ?? '';
-                    $user->gender           = $value->Gender == 'Male' ? 0 : 1;
-                    $user->bu_code          = $value->BUCode ?? '';
-                    $user->sub_bu_code      = $value->SubBUCode ?? '';
-                    $user->department_code  = $value->DepartmentCode ?? '';
-                    $user->job_level        = $value->JobLevel ?? '';
-                    $user->save();
-                }
+                          $user->name             = $value->EmployeeName;
+                          $user->department       = $value->Department;
+                          $user->email            = $value->Email;
+                          $user->company          = $value->Company;
+                          $user->bu               = $value->BU;
+                          $user->subbu            = $value->SubBU;
+                          $user->nik              = $value->NIK;
+                          $user->jobposition      = $value->JobPosition;
+                          $user->worklocationname = $value->WorkLocationName;
+                          $user->statusincompany  = $value->Status ?? '';
+                          $user->gender           = $value->Gender == 'Male' ? 0 : 1;
+                          $user->bu_code          = $value->BUCode ?? '';
+                          $user->sub_bu_code      = $value->SubBUCode ?? '';
+                          $user->department_code  = $value->DepartmentCode ?? '';
+                          $user->job_level        = $value->JobLevel ?? '';
+                          $user->save();
+                      }
 
-            }
-*/
+                  }
+      */
             $user = User::where('email', $request->username)->first();
             if (Auth::loginUsingId($user->id)) {
                 $success['token'] = me()->createToken('authToken')->plainTextToken;
@@ -199,6 +199,7 @@ class UserController extends
 
         foreach ($data as $key => $value) {
             $department = Department::where('name', $value->Department)->first();
+
             if (!$department) {
                 $department            = new Department();
                 $department->name      = $value->Department;
@@ -208,32 +209,35 @@ class UserController extends
                 $department->save();
             }
             $email = User::where('email', $value->Email)->first();
+
             if (!$email) {
-                $user                    = new User();
-                $user->type              = 'user';
-                $user->name              = $value->EmployeeName;
-                $user->email             = $value->Email;
-                $user->email_verified_at = date('Y-m-d H:i:s');
-                $user->password          = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
-                $user->roles             = 'Staff';
-                $user->employee_level_id = 1;
-                $user->active            = 1;
-                $user->team_id           = $department->id;
-                $user->department_id     = $department->id;
-                $user->department        = $value->Department;
-                $user->avatar            = 'default_avatar.png';
-                $user->level             = 1;
-                $user->username          = $value->Email;
-                $user->current_coin      = 0;
-                $user->company           = $value->Company;
-                $user->bu                = $value->BU;
-                $user->subbu             = $value->SubBU;
-                $user->nik               = $value->NIK;
-                $user->jobposition       = $value->JobPosition;
-                $user->worklocationname  = $value->WorkLocationName;
-                $user->statusincompany   = $value->Status;
-                $user->save();
+                $user = new User();
             }
+
+            $user->type              = 'user';
+            $user->name              = $value->EmployeeName;
+            $user->email             = $value->Email;
+            $user->email_verified_at = date('Y-m-d H:i:s');
+            $user->password          = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+            $user->roles             = 'Staff';
+            $user->employee_level_id = 1;
+            $user->active            = 1;
+            $user->team_id           = $department->id;
+            $user->department_id     = $department->id;
+            $user->department        = $value->Department;
+            $user->avatar            = 'default_avatar.png';
+            $user->level             = 1;
+            $user->username          = $value->Email;
+            $user->current_coin      = 0;
+            $user->company           = $value->Company;
+            $user->bu                = $value->BU;
+            $user->subbu             = $value->SubBU;
+            $user->nik               = $value->NIK;
+            $user->jobposition       = $value->JobPosition;
+            $user->worklocationname  = $value->WorkLocationName;
+            $user->statusincompany   = $value->Status;
+            $user->save();
+
         }
 
         return $this->returnSuccess('Success');

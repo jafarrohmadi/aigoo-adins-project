@@ -5,13 +5,16 @@
                 <div class="col-sm-12 col-md-3">
                     <select wire:model="filterByDepartment" class="form-control form-control-md bg-primary"
                             style="border-radius: 16px;">
-                        <option selected>Filter by Department</option>
+                        <option selected>Filter By Department</option>
                         @foreach($department as $key => $division)
                             @if($division != '')
-                            <option value="{{ $key }}">{{ $division }}</option>
+                                <option value="{{ $key }}">{{ $division }}</option>
                             @endif
                         @endforeach
                     </select>
+                </div>
+                <div class="form-group col-md-3" wire:ignore>
+                    <input type="text"  id="datepicker" class="form-control" placeholder="Filter By Date" autocomplete="off">
                 </div>
             </div>
             <br>
@@ -59,5 +62,23 @@
 
         </div>
     </div>
+    @push('scripts')
+        <script>
+            $(function () {
+                $('#datepicker').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+                    dateFormat: 'MM yy',
+                    onClose: function (dateText, inst) {
+                        $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                        @this.set('selectDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
 
+                    }
+
+                });
+            })
+        </script>
+    @endpush
 </div>
+
