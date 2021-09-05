@@ -202,12 +202,14 @@ class UserController extends
 
             if (!$department) {
                 $department            = new Department();
-                $department->name      = $value->Department;
                 $department->is_active = 1;
+                $department->name      = $value->Department;
                 $department->team_name = $value->Department;
                 $department->team_icon = 'default_team_avatar.png';
-                $department->save();
             }
+            $department->department_code = $value->department_code;
+            $department->save();
+
             $email = User::where('email', $value->Email)->first();
 
             if (!$email) {
@@ -235,7 +237,12 @@ class UserController extends
             $user->nik               = $value->NIK;
             $user->jobposition       = $value->JobPosition;
             $user->worklocationname  = $value->WorkLocationName;
-            $user->statusincompany   = $value->Status;
+            $user->statusincompany   = $value->Status ?? 'Ga ada';
+            $user->gender            = $value->Gender == 'Male' ? 0 : 1;
+            $user->bu_code          = $value->BUCode ?? '';
+            $user->sub_bu_code      = $value->SubBUCode ?? '';
+            $user->department_code  = $value->DepartmentCode ?? '';
+            $user->job_level        = $value->JobLevel ?? '';
             $user->save();
 
         }

@@ -26,6 +26,8 @@ use Illuminate\Http\Request;
 |
 */
 
+
+Route::get('update-all-user', [UserController::class, 'addAllUser']);
 Route::group(['prefix' => 'auth'], function() {
     Route::post('login', [UserController::class, 'login'])->name('login');
     Route::group(['middleware' => 'auth:sanctum'], function () {
