@@ -8,6 +8,7 @@ use App\Http\Resources\Profile\UserCollection;
 use App\Models\Assessment;
 use App\Models\Category;
 use App\Models\Question;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
@@ -22,6 +23,12 @@ class CategoryController extends BaseController
      */
     public function index(Request $request)
     {
-        return $this->returnSuccess(Category::select('id', 'name')->get());
+        $category = Category::select('id', 'name')->get()->map(function ($query)
+        {
+            $query['max_daily_attempt_'.$query['id']] = Setting::where('name', 'max_daily_attempt_'.$query['id'])->first()->value ?? 10;
+            return $query;
+        });
+
+        return $this->returnSuccess($category);
     }
 }
