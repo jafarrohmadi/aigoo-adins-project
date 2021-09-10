@@ -25,7 +25,7 @@
                             Created
                         </th>
                         <th class="sorting">
-                           Updated
+                            Updated
                         </th>
                         <th>
                             Action
@@ -106,21 +106,34 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
-                                    <div class="col-md-9">
-                                        <select wire:model="level"
-                                                class="form-control @error('level') mb-4 is-invalid state-invalid @enderror">
-                                            <option>--Select--</option>
-                                            <option value="staff">Staff</option>
-                                            <option value="managerial">Managerial</option>
+
+                                    <div class="col-md-9" >
+                                        <select
+                                                class="form-control @error('level') mb-4 is-invalid state-invalid @enderror select2"
+                                                multiple id="select21">
+                                            <option value="Staff"
+                                                    @if(str_contains( $levelData, 'Staff')) selected @endif >Staff
+                                            </option>
+                                            <option value="Managerial"
+                                                    @if(str_contains($levelData ,'Managerial' )) selected @endif >
+                                                Managerial
+                                            </option>
+                                            <option value="BOD" @if(str_contains($levelData, 'BOD' )) selected @endif >
+                                                BOD
+                                            </option>
                                         </select>
                                         @error('level')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
                                              role="alert">{{ $message }}</div>
                                         @enderror
+
                                     </div>
+
                                 </div>
+
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Content <span class="text-red">*</span></label>
                                     <div class="col-md-9">
@@ -134,7 +147,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Kriteria 1 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 1 <span
+                                                class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice1"
                                                class="form-control @error('choice1') mb-4 is-invalid state-invalid @enderror">
@@ -156,7 +170,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Kriteria 2 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 2 <span
+                                                class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice2"
                                                class="form-control @error('choice2') mb-4 is-invalid state-invalid @enderror">
@@ -178,7 +193,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Kriteria 3 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 3 <span
+                                                class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice3"
                                                class="form-control @error('choice3') mb-4 is-invalid state-invalid @enderror">
@@ -200,7 +216,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Kriteria 4 <span class="text-red">*</span></label>
+                                    <label class="col-md-3 form-label">Kriteria 4 <span
+                                                class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" wire:model="choice4"
                                                class="form-control @error('choice4') mb-4 is-invalid state-invalid @enderror">
@@ -234,3 +251,21 @@
     </div>
 
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#select2').on('change', function (e) {
+                var data = $('#select2').select2("val");
+            @this.set('level', data);
+            });
+            
+            $('#select21').on('change', function (e) {
+                var data = $('#select21').select2("val");
+            @this.set('level', data);
+            });
+        })
+
+
+    </script>
+@endpush

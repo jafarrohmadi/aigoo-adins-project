@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('id', true);
             $table->string('category');
             $table->text('content');
-            $table->enum('level', ['staff', 'managerial']);
+            $table->string('level');
             $table->timestamps();
             $table->softDeletes();
         });

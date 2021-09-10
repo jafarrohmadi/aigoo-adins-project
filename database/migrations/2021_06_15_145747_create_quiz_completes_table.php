@@ -15,7 +15,7 @@ class CreateQuizCompletesTable extends Migration
     {
         Schema::create('quiz_completes', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->enum('level', ['Staff', 'Managerial']);
+            $table->string('level');
             $table->string('category', 50);
             $table->string('question', 200);
             $table->string('choice1', 200);

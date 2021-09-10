@@ -48,13 +48,16 @@
                                         No
                                     </th>
                                     <th class="sorting">
-                                       Email
+                                        Email
                                     </th>
                                     <th>
                                         Name
                                     </th>
                                     <th>
                                         Department
+                                    </th>
+                                    <th>
+                                        Role
                                     </th>
                                     <th>
                                         Team
@@ -83,6 +86,7 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->department }}</td>
+                                        <td>{{$user->roles}}</td>
                                         <td>{{ $user->departments->team_name }}</td>
                                         <td>{{ (asset('img/profile_picture') .'/') . $user->change_avatar ?? $user->avatar }}</td>
                                         <td>{{ $user->created_at->format('d/m/Y') }}</td>
@@ -164,17 +168,17 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-label">Supervisor<span
+                                    <label class="col-md-3 form-label">Roles<span
                                                 class="text-red">*</span></label>
                                     <div class="col-md-9">
-                                        <select wire:model="supervisor_id"
-                                                class="form-control @error('supervisor_od') mb-4 is-invalid state-invalid @enderror custom-select select2">
+                                        <select wire:model="roles"
+                                                class="form-control @error('roles') mb-4 is-invalid state-invalid @enderror custom-select select2">
                                             <option>--Select--</option>
-                                            @if($allUser)
-                                                @foreach($allUser as $key => $allUsers)
-                                                    <option value="{{$allUsers->id}}">{{'['.$allUsers->department.'] '. $allUsers->name }}</option>
-                                                @endforeach
-                                            @endif
+                                            <option value="Staff">Staff</option>
+                                            <option value="Managerial">Managerial</option>
+                                            <option value="BOD">BOD</option>
+                                            <option value="Non-Staff">Non-Staff</option>
+                                            <option value="None">None</option>
                                         </select>
                                         @error('category')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"

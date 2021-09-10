@@ -58,7 +58,7 @@ class Create extends
         $result = Question::create([
             'category' => $this->category,
             'content'  => $this->content,
-            'level'    => $this->level,
+            'level'    => implode(' , ',$this->level),
             'choice1'  => $this->choice1,
             'choice2'  => $this->choice2,
             'choice3'  => $this->choice3,

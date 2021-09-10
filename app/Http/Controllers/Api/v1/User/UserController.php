@@ -207,12 +207,12 @@ class UserController extends
                 $department->team_name = $value->Department;
                 $department->team_icon = 'default_team_avatar.png';
             }
-            $department->department_code = $value->department_code;
+            $department->department_code = $value->DepartmentCode;
             $department->save();
 
-            $email = User::where('email', $value->Email)->first();
+            $user = User::where('email', $value->Email)->first();
 
-            if (!$email) {
+            if (!$user) {
                 $user = new User();
             }
 

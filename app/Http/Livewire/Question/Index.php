@@ -13,7 +13,7 @@ class Index extends
     use WithPagination;
 
     public int $paginate = 10;
-    public $search, $questionId, $category, $content, $level, $choice1, $choice2, $choice3, $choice4, $point1, $point2, $point3, $point4, $categoryList;
+    public $search, $questionId, $category, $content, $level, $choice1, $choice2, $choice3, $choice4, $point1, $point2, $point3, $point4, $categoryList, $levelData;
 
     protected array $updatesQueryString = ['search'];
 
@@ -21,12 +21,14 @@ class Index extends
         = [
             'renderOnly'     => '$refresh',
             'deleteQuestion' => 'deleteQuestion',
+            'getQuestion'    => '$refresh',
         ];
 
     public function mount()
     {
-        $this->search = request()->query('search', $this->search);
+        $this->search       = request()->query('search', $this->search);
         $this->categoryList = Category::orderby('name', 'asc')->get();
+        $this->levelData = 'Staff';
     }
 
     public function updatingSearch()
@@ -51,8 +53,9 @@ class Index extends
         }
 
         return view('livewire.question.index', [
-            'question' => $query->paginate($this->paginate),
-            'categoryList' => $this->categoryList
+            'question'     => $query->paginate($this->paginate),
+            'categoryList' => $this->categoryList,
+            'levelData'    => $this->levelData,
         ]);
     }
 
@@ -62,7 +65,7 @@ class Index extends
         $this->questionId = $question->id;
         $this->category   = $question->category;
         $this->content    = $question->content;
-        $this->level      = $question->level;
+        $this->levelData  = $question->level;
         $this->choice1    = $question->choice1;
         $this->choice2    = $question->choice2;
         $this->choice3    = $question->choice3;
@@ -71,6 +74,8 @@ class Index extends
         $this->point2     = $question->point2;
         $this->point3     = $question->point3;
         $this->point4     = $question->point4;
+        $this->emit('renderOnly');
+
     }
 
     public function update()
@@ -95,15 +100,15 @@ class Index extends
             $result = $question->update([
                 'category' => $this->category,
                 'content'  => $this->content,
-                'level'    => $this->level,
+                'level'    => implode(' , ', $this->level),
                 'choice1'  => $this->choice1,
                 'choice2'  => $this->choice2,
                 'choice3'  => $this->choice3,
                 'choice4'  => $this->choice4,
-                'point1'  => $this->point1,
-                'point2'  => $this->point2,
-                'point3'  => $this->point3,
-                'point4'  => $this->point4,
+                'point1'   => $this->point1,
+                'point2'   => $this->point2,
+                'point3'   => $this->point3,
+                'point4'   => $this->point4,
             ]);
         }
 

@@ -15,7 +15,7 @@ class CreateQuizMatchesTable extends Migration
     {
         Schema::create('quiz_matches', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('level', ['Staff', 'Managerial']);
+            $table->string('level');
             $table->string('category', 50);
             $table->string('question', 200);
             $table->string('wrong_question', 200)->comment('Wrong Question');

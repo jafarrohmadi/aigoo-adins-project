@@ -12,7 +12,7 @@ class IndexUserComponent extends
     use HasTable, HasLivewireAuth;
 
     public $paginate = 10;
-    public $department_id, $userId, $supervisor_id, $filterByDepartment, $departmentData, $admin_access;
+    public $department_id, $userId, $supervisor_id, $filterByDepartment, $departmentData, $admin_access, $roles, $rolesData;
     /** @var string */
     public $sortField = 'email';
 
@@ -64,13 +64,14 @@ class IndexUserComponent extends
             'search'        => $this->search,
             'roleId'        => $this->roleId,
             'department_id' => $this->filterByDepartment,
-        ])->paginate($this->paginate);
+        ])->where('id' , '!=' ,'1')->paginate($this->paginate);
 
         return view('users.index', [
             'users'          => $users,
             'department'     => $department,
             'allUser'        => $allUser,
             'departmentData' => $this->departmentData,
+            'rolesData'      => $this->rolesData,
         ])
             ->extends('layouts.app');
     }
@@ -106,6 +107,7 @@ class IndexUserComponent extends
         $user                = User::find($id);
         $this->department_id = $user->department_id;
         $this->userId        = $user->id;
+        $this->roles         = $user->roles;
         $this->supervisor_id = $user->supervisor_id;
         $this->admin_access  = $user->admin_access;
     }
@@ -125,6 +127,7 @@ class IndexUserComponent extends
                 'team_id'       => $this->department_id,
                 'supervisor_id' => $this->supervisor_id,
                 'admin_access'  => $this->admin_access,
+                'roles'         => $this->roles,
             ]);
         }
 
