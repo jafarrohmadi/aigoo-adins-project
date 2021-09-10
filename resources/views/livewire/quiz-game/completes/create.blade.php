@@ -38,10 +38,10 @@
                                     <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
                                     <div class="col-md-9">
                                         <select wire:model="level"
-                                                class="form-control @error('answer') mb-4 is-invalid state-invalid @enderror">
-                                            <option>--Select--</option>
+                                                class="form-control @error('answer') mb-4 is-invalid state-invalid @enderror" multiple>
                                             <option value="Staff">Staff</option>
                                             <option value="Managerial">Managerial</option>
+                                            <option value="BOD">BOD</option>
                                         </select>
                                         @error('level')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"

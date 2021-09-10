@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\QuestionGame;
 
+use App\Models\Question;
 use App\Models\QuizChoice;
 use App\Models\QuizComplete;
 use App\Models\QuizMatch;
@@ -40,9 +41,9 @@ class QuestionGameCollection extends ResourceCollection
             'status'  => true,
             'message' => 'Success',
             'data' => [
-                'choose' => QuestionsChoicesResource::collection(QuizChoice::where('category',$request->category)->inRandomOrder()->limit($quizChoiceTake)->get()),
-                'complete' => QuestionCompleteResource::collection(QuizComplete::where('category',$request->category)->inRandomOrder()->limit($quizCompleteTake)->get()),
-                'matching' => QuestionMatchResource::collection(QuizMatch::where('category',$request->category)->inRandomOrder()->limit($quizMatchTake)->get())
+                'choose' => QuestionsChoicesResource::collection(QuizChoice::where('category',$request->category)->where('level','like', '%'.me()->roles.'%')->inRandomOrder()->limit($quizChoiceTake)->get()),
+                'complete' => QuestionCompleteResource::collection(QuizComplete::where('category',$request->category)->where('level','like', '%'.me()->roles.'%')->inRandomOrder()->limit($quizCompleteTake)->get()),
+                'matching' => QuestionMatchResource::collection(QuizMatch::where('category',$request->category)->where('level','like', '%'.me()->roles.'%')->inRandomOrder()->limit($quizMatchTake)->get())
             ]
         ];
     }

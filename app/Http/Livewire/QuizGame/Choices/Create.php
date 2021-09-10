@@ -37,7 +37,7 @@ class Create extends Component
 
         $result = QuizChoice::create([
             'category'   => $this->category,
-            'level'      => $this->level,
+            'level'      => implode(' , ',$this->level),
             'question'   => $this->question,
             'choice1'    => $this->choice1,
             'choice2'    => $this->choice2,

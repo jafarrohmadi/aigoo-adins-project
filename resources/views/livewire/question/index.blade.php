@@ -112,7 +112,7 @@
 
                                     <div class="col-md-9" >
                                         <select
-                                                class="form-control @error('level') mb-4 is-invalid state-invalid @enderror select2"
+                                                class="form-control @error('level') mb-4 is-invalid state-invalid @enderror"
                                                 multiple id="select21">
                                             <option value="Staff"
                                                     @if(str_contains( $levelData, 'Staff')) selected @endif >Staff
@@ -255,13 +255,9 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            $('#select2').on('change', function (e) {
-                var data = $('#select2').select2("val");
-            @this.set('level', data);
-            });
-            
+
             $('#select21').on('change', function (e) {
-                var data = $('#select21').select2("val");
+                var data = $('#select21').val();
             @this.set('level', data);
             });
         })

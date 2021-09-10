@@ -23,7 +23,7 @@ class AssessmentController extends
      */
     public function index(Request $request)
     {
-        $question = Question::paginate($request->limit ?? 10);
+        $question = Question::where('level', 'like', '%'.me()->roles.'%')->paginate($request->limit ?? 10);
 
         return new AssessmentCollection($question);
     }

@@ -35,7 +35,7 @@ class Create extends Component
             'wrong_question' => $this->wrong_question,
             'answer'         => $this->answer,
             'wrong_answer'   => $this->wrong_answer,
-            'level'          => $this->level,
+            'level'          => implode(' , ',$this->level),
             'category'       => $this->category,
         ]);
 

@@ -7,12 +7,13 @@ use App\Models\QuizComplete;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends Component
+class Index extends
+    Component
 {
     use WithPagination;
 
     public int $paginate = 10;
-    public $search, $questionId, $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $totalData, $level, $category, $categoryList;
+    public $search, $questionId, $question, $choice1, $choice2, $choice3, $choice4, $choice5, $choice6, $totalData, $level, $category, $categoryList, $levelData;
     public array $answer = [];
 
     protected array $updatesQueryString = ['search'];
@@ -21,11 +22,13 @@ class Index extends Component
         = [
             'renderOnly'             => '$refresh',
             'deleteQuestionComplete' => 'deleteQuestionComplete',
+            'getQuestionComplete'    => '$refresh',
         ];
 
     public function mount()
     {
-        $this->search = request()->query('search', $this->search);
+        $this->search    = request()->query('search', $this->search);
+        $this->levelData = 'Staff';
     }
 
     public function updatingSearch()
@@ -41,15 +44,16 @@ class Index extends Component
     public function render()
     {
         $this->categoryList = Category::orderby('name', 'asc')->get();
-        $query           = QuizComplete::latest();
+        $query              = QuizComplete::latest();
         if ($this->search) {
-            $query           = $query->where('question', 'like', '%'.$this->search.'%');
+            $query = $query->where('question', 'like', '%'.$this->search.'%');
 
         }
 
         $this->totalData = $query->count();
         return view('livewire.quiz-game.completes.index', [
             'questionsCompletes' => $query->paginate($this->paginate),
+            'levelData'          => $this->levelData,
         ]);
     }
 
@@ -67,8 +71,9 @@ class Index extends Component
         $answerRemoveCharacter = trim($questionComplete->answer, "[]");
         $answerArray           = explode(",", $answerRemoveCharacter);
         $this->answer          = $answerArray;
-        $this->level           = $questionComplete->level;
+        $this->levelData       = $questionComplete->level;
         $this->category        = $questionComplete->category;
+        $this->emit('renderOnly');
     }
 
     public function update()
@@ -100,7 +105,7 @@ class Index extends Component
                 'choice5'  => $this->choice5,
                 'choice6'  => $this->choice6,
                 'answer'   => '['.implode(",", $this->answer).']',
-                'level'    => $this->level,
+                'level'    => implode(' , ', $this->level),
                 'category' => $this->category,
             ]);
         }

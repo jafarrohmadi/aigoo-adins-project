@@ -35,7 +35,7 @@ class Index extends
     public $totalData;
     public $level;
     public $category;
-    public $categoryList;
+    public $categoryList, $levelData;
 
 
     /**
@@ -47,11 +47,13 @@ class Index extends
         = [
             'renderOnly'           => '$refresh',
             'deleteQuestionChoice' => 'deleteQuestionChoice',
+            'edit'                 => '$refresh',
         ];
 
     public function mount()
     {
-        $this->search = request()->query('search', $this->search);
+        $this->search    = request()->query('search', $this->search);
+        $this->levelData = 'Staff';
     }
 
     public function updatingSearch()
@@ -78,6 +80,7 @@ class Index extends
 
         return view('livewire.quiz-game.choices.index', [
             'questionsChoices' => $query->paginate($this->paginate),
+            'levelData'        => $this->levelData,
         ]);
     }
 
@@ -93,7 +96,8 @@ class Index extends
         $this->choice5    = $questionChoice->choice5;
         $this->answer     = $questionChoice->answer;
         $this->category   = $questionChoice->category;
-        $this->level      = $questionChoice->level;
+        $this->levelData  = $questionChoice->level;
+        $this->emit('renderOnly');
     }
 
     public function update()
@@ -124,7 +128,7 @@ class Index extends
                 'choice5'  => $this->choice5,
                 'answer'   => $this->answer,
                 'category' => $this->category,
-                'level'    => $this->level,
+                'level'    => implode(' , ', $this->level),
             ]);
         }
 

@@ -58,7 +58,7 @@ class Create extends Component
             'choice5'  => $this->choice5,
             'choice6'  => $this->choice6,
             'answer'   => '['.implode(",", $this->answer).']',
-            'level'    => $this->level,
+            'level'    => implode(' , ',$this->level),
             'category' => $this->category,
         ]);
 

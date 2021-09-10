@@ -37,13 +37,11 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
-                                    <div class="col-md-9" wire:ignore>
-                                        <select class="form-control @error('level') mb-4 is-invalid state-invalid @enderror select2" multiple id="select2">
+                                    <div class="col-md-9">
+                                        <select wire:model="level" class="form-control @error('level') mb-4 is-invalid state-invalid @enderror" multiple>
                                             <option value="Staff">Staff</option>
                                             <option value="Managerial">Managerial</option>
                                             <option value="BOD">BOD</option>
-                                            <option value="Non-staff">Non-Staff</option>
-                                            <option value="None">None</option>
                                         </select>
                                         @error('level')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
@@ -170,13 +168,13 @@
     </div>
 </div>
 
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#select2').on('change', function (e) {
-                var data = $('#select2').select2("val");
-            @this.set('level', data);
-            });
-        });
-    </script>
-    @endpush
+{{--@push('scripts')--}}
+{{--    <script>--}}
+{{--        $(document).ready(function() {--}}
+{{--            $('#select2').on('change', function (e) {--}}
+{{--                var data = $('#select2').select2("val");--}}
+{{--            @this.set('level', data);--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--    @endpush--}}

@@ -7,23 +7,26 @@ use App\Models\QuizMatch;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends Component
+class Index extends
+    Component
 {
     use WithPagination;
 
     public $paginate = 10;
-    public $search, $questionId, $question, $wrong_question, $answer, $wrong_answer, $totalData, $category, $level, $categoryList;
+    public $search, $questionId, $question, $wrong_question, $answer, $wrong_answer, $totalData, $category, $level, $categoryList, $levelData;
     protected $updatesQueryString = ['search'];
 
     protected $listeners
         = [
             'renderOnly'          => '$refresh',
             'deleteQuestionMatch' => 'deleteQuestionMatch',
+            'getQuestionMatch'    => '$refresh',
         ];
 
     public function mount()
     {
-        $this->search = request()->query('search', $this->search);
+        $this->search    = request()->query('search', $this->search);
+        $this->levelData = 'Staff';
     }
 
     public function updatingSearch()
@@ -49,6 +52,7 @@ class Index extends Component
         $this->totalData = $query->count();
         return view('livewire.quiz-game.matches.index', [
             'questionsMatches' => $query->paginate($this->paginate),
+            'levelData'        => $this->levelData,
         ]);
     }
 
@@ -61,7 +65,8 @@ class Index extends Component
         $this->answer         = $questionMatch->answer;
         $this->wrong_answer   = $questionMatch->wrong_answer;
         $this->category       = $questionMatch->category;
-        $this->level          = $questionMatch->level;
+        $this->levelData      = $questionMatch->level;
+        $this->emit('renderOnly');
     }
 
     public function update()
@@ -84,7 +89,7 @@ class Index extends Component
                 'answer'         => $this->answer,
                 'wrong_answer'   => $this->wrong_answer,
                 'category'       => $this->category,
-                'level'          => $this->level,
+                'level'          => implode(' , ', $this->level),
             ]);
         }
 

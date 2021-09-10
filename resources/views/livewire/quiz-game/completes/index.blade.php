@@ -108,11 +108,19 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
                                     <div class="col-md-9">
-                                        <select wire:model="level"
-                                                class="form-control @error('answer') mb-4 is-invalid state-invalid @enderror">
-                                            <option>--Select--</option>
-                                            <option value="Staff">Staff</option>
-                                            <option value="Managerial">Managerial</option>
+                                        <select
+                                                class="form-control @error('level') mb-4 is-invalid state-invalid @enderror"
+                                                multiple id="select21">
+                                            <option value="Staff"
+                                                    @if(str_contains( $levelData, 'Staff')) selected @endif >Staff
+                                            </option>
+                                            <option value="Managerial"
+                                                    @if(str_contains($levelData ,'Managerial' )) selected @endif >
+                                                Managerial
+                                            </option>
+                                            <option value="BOD" @if(str_contains($levelData, 'BOD' )) selected @endif >
+                                                BOD
+                                            </option>
                                         </select>
                                         @error('level')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
@@ -255,3 +263,17 @@
     </div>
 
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+
+            $('#select21').on('change', function (e) {
+                var data = $('#select21').val();
+            @this.set('level', data);
+            });
+        })
+
+
+    </script>
+@endpush

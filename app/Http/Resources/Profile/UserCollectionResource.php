@@ -22,6 +22,7 @@ class UserCollectionResource extends
             'department'  => $this->department,
             'status'      => (new \App\Models\User)->getUserStatus($this->active),
             'profilePict' => (asset('img/profile_picture').'/').$this->change_avatar ?? $this->avatar,
+            'userLevel'   => $this->roles,
         ];
     }
 }

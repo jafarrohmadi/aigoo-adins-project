@@ -19,6 +19,7 @@ class LeaderBoardUserGuildResource extends
 
         return [
             'department' => $this->department->name ?? '',
+            'guild_name' => $this->department->team_name ?? '',
             'leader' => $this->department->leader->name ?? '',
             'points' => $this->department->pointHistories->where('point', '>=', 0)->where('date_year_month', $date)->avg('point'),
             'profilePict' => (asset('img/profile_picture').'/').$this->department->team_icon,
