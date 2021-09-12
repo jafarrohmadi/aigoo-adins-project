@@ -21,7 +21,7 @@ class Index extends
     /**
      * @var string
      */
-    public $search;
+    public $search, $selectDate, $endDate;
 
     /**
      * @var array|string[]
@@ -51,18 +51,26 @@ class Index extends
 
     public function render()
     {
+        $query = DailyAttempt::latest();
+
         if ($this->search) {
-            $query           = DailyAttempt::latest()->where('name', 'like', '%'.$this->search.'%');
-            $this->totalData = $query->count();
-            return view('livewire.daily-attempt.index', [
-                'daily'     => $query->paginate($this->paginate),
-            ]);
-        } else {
-            $query           = DailyAttempt::latest();
-            $this->totalData = $query->count();
-            return view('livewire.daily-attempt.index', [
-                'daily'     => $query->paginate($this->paginate),
-            ]);
+            $query->whereHas('user', function ($query) {
+                $query->where('name', 'like', '%'.$this->search.'%');
+            });
+
         }
+
+        if ($this->selectDate !== null) {
+            $query = $query->where('created_at', '>=' , date('Y-m'. '-01', strtotime($this->selectDate)));
+        }
+
+        if ($this->endDate !== null) {
+            $query = $query->where('created_at', '<=' , date('Y-m'. '-31', strtotime($this->endDate)));
+        }
+
+        $this->totalData = $query->count();
+        return view('livewire.daily-attempt.index', [
+            'daily' => $query->paginate($this->paginate),
+        ]);
     }
 }

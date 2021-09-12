@@ -14,7 +14,7 @@
         <select class="select2 form-control" name="selectName" id="select2" required>
             <option value="">Select User</option>
             @foreach($user as $users)
-                <option value="{{$users->id}}"> {{$users->name}}</option>
+                <option value="{{$users->id}}"> {{$users->name . ' ('. $users->department . ')' }}</option>
             @endforeach
         </select>
     </div>

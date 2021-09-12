@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('Activity Logs'))
+@section('title', __('Daily Attempt'))
 
 @section('page-header')
     <!--Page header-->
@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                Activity Logs
+                Daily Attempt
             </h3>
         </div>
 

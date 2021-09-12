@@ -1,5 +1,17 @@
 <div class="card-body">
     <div class="card-body p-0">
+        <div class="row">
+            <div class="form-group col-md-3" wire:ignore>
+                <label>Start Date:</label>
+                <input type="text" id="datepicker" class="form-control">
+            </div>
+
+            <div class="form-group col-md-3" wire:ignore>
+                <label>End Date:</label>
+                <input type="text" id="datepicker2" class="form-control">
+            </div>
+        </div>
+        <br>
         <div class="table-responsive">
             <div class="row">
                 <x-tables.per-page/>
@@ -22,14 +34,14 @@
                     @forelse ($daily as $dailyAttempt)
                         <tr class="@if($loop->odd) odd @endif">
                             <td>{{ $loop->iteration + ($daily->firstItem() - 1)}}</td>
-                            <td>{{ $dailyAttempt->user->name  ?? ''}}</td>
+                            <td>{{ $dailyAttempt->user ? $dailyAttempt->user->name .' (' . $dailyAttempt->user->department .')': ''}}</td>
                             <td>{{ $dailyAttempt->quiz->name ?? ''}}</td>
                             <td>{{$dailyAttempt->attempt}}</td>
                             <td>{{ date("d F Y", strtotime($dailyAttempt->date)) }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No results.</td>
+                            <td colspan="5">No results.</td>
                         </tr>
                     @endforelse
                 </x-slot>
@@ -42,3 +54,31 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(function () {
+            $('#datepicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                @this.set('selectDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                }
+            });
+
+            $('#datepicker2').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                @this.set('endDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                }
+            });
+        })
+    </script>
+@endpush

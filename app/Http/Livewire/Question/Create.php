@@ -20,8 +20,8 @@ class Create extends
     public function mount()
     {
         $this->choice1      = 'Tidak pernah';
-        $this->choice2      = 'Sesekali';
-        $this->choice3      = 'Kadang2';
+        $this->choice2      = 'Kadang kadang';
+        $this->choice3      = 'Sering kali';
         $this->choice4      = 'Selalu';
         $this->point1       = 1;
         $this->point2       = 2;
