@@ -21,7 +21,6 @@ class Index extends
         = [
             'renderOnly'     => '$refresh',
             'deleteQuestion' => 'deleteQuestion',
-            'getQuestion'    => '$refresh',
         ];
 
     public function mount()
@@ -39,6 +38,11 @@ class Index extends
     public function updatingPaginate()
     {
         $this->resetPage();
+    }
+
+    public function updating()
+    {
+        $this->emit('select2');
     }
 
     public function render()
@@ -74,8 +78,7 @@ class Index extends
         $this->point2     = $question->point2;
         $this->point3     = $question->point3;
         $this->point4     = $question->point4;
-        $this->emit('renderOnly');
-
+        $this->emit('select2');
     }
 
     public function update()

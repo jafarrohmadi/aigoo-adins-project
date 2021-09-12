@@ -110,7 +110,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
 
-                                    <div class="col-md-9" >
+                                    <div class="col-md-9">
                                         <select
                                                 class="form-control @error('level') mb-4 is-invalid state-invalid @enderror"
                                                 multiple id="select21">
@@ -255,13 +255,23 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            window.initSelectDrop = () => {
+                $('#select21').select2({
+                    allowClear: true
+                });
+            }
 
             $('#select21').on('change', function (e) {
                 var data = $('#select21').val();
             @this.set('level', data);
             });
-        })
 
+            initSelectDrop();
+
+            window.livewire.on('select2', () => {
+                initSelectDrop();
+            });
+        })
 
     </script>
 @endpush

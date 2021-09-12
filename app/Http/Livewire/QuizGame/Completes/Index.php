@@ -41,6 +41,11 @@ class Index extends
         $this->resetPage();
     }
 
+    public function updating()
+    {
+        $this->emit('select2');
+    }
+
     public function render()
     {
         $this->categoryList = Category::orderby('name', 'asc')->get();
@@ -73,7 +78,7 @@ class Index extends
         $this->answer          = $answerArray;
         $this->levelData       = $questionComplete->level;
         $this->category        = $questionComplete->category;
-        $this->emit('renderOnly');
+        $this->emit('select2');
     }
 
     public function update()

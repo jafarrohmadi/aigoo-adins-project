@@ -80,19 +80,10 @@ class AssessmentController extends
      */
     public function getAssessmentUser(Request $request)
     {
-        $alreadyAssessment = Assessment::where([
-            'assessor_id'           => me()->id,
-            'assessment_year_month' => date('Y-m'),
-        ])->pluck('user_id')->toArray();
-
-        $user = User::query();
+        $user = User::with('assessmentAssessor');
 
         if (isset($request->name)) {
             $user = $user->where('name', 'like', "%$request->name%");
-        }
-
-        if ($alreadyAssessment) {
-            $user = $user->whereNotIn('id', $alreadyAssessment);
         }
 
         return new UserCollection($user->inRandomOrder()->paginate($request->limit ?? 10));

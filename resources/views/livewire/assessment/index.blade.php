@@ -39,20 +39,24 @@
                                 {{ $assessments->assessor ? ($assessments->assessor->name . ' ('. $assessments->assessor->department .')') : ''}}
                             </td>
                             <td>
-                                @if($assessments->assessor->id == $assessments->user->supervisor_id)
-                                    Atasan
-                                @endif
+                                @if($assessments->user->id == $assessments->assessor->id)
+                                    Diri Sendiri
+                                @else
+                                    @if($assessments->assessor->id == $assessments->user->supervisor_id)
+                                        Atasan
+                                    @endif
 
-                                @if($assessments->assessor->supervisor_id == $assessments->user->id)
-                                    Bawahan
-                                @endif
+                                    @if($assessments->assessor->supervisor_id == $assessments->user->id)
+                                        Bawahan
+                                    @endif
 
-                                @if($assessments->user->department == $assessments->assessor->department)
-                                    Satu Tim
-                                @endif
+                                    @if($assessments->user->department == $assessments->assessor->department)
+                                        Satu Tim
+                                    @endif
 
-                                @if($assessments->user->department != $assessments->assessor->department)
-                                    Beda Tim
+                                    @if($assessments->user->department != $assessments->assessor->department)
+                                        Beda Tim
+                                    @endif
                                 @endif
                             </td>
                             <td>

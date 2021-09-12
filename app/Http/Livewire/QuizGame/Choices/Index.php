@@ -66,6 +66,11 @@ class Index extends
         $this->resetPage();
     }
 
+    public function updating()
+    {
+        $this->emit('select2');
+    }
+
     public function render()
     {
         $this->categoryList = Category::orderby('name', 'asc')->get();
@@ -97,7 +102,7 @@ class Index extends
         $this->answer     = $questionChoice->answer;
         $this->category   = $questionChoice->category;
         $this->levelData  = $questionChoice->level;
-        $this->emit('renderOnly');
+        $this->emit('select2');
     }
 
     public function update()

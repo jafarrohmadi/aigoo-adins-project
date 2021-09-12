@@ -267,13 +267,23 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            window.initSelectDrop = () => {
+                $('#select21').select2({
+                    allowClear: true
+                });
+            }
 
             $('#select21').on('change', function (e) {
                 var data = $('#select21').val();
             @this.set('level', data);
             });
-        })
 
+            initSelectDrop();
+
+            window.livewire.on('select2', () => {
+                initSelectDrop();
+            });
+        })
 
     </script>
 @endpush

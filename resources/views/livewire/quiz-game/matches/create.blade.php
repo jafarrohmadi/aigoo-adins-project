@@ -37,9 +37,9 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
-                                    <div class="col-md-9">
-                                        <select wire:model="level"
-                                                class="form-control @error('answer') mb-4 is-invalid state-invalid @enderror" multiple>
+                                    <div class="col-md-9" wire:ignore>
+                                        <select
+                                                class="form-control @error('answer') mb-4 is-invalid state-invalid @enderror select2" multiple id="select2">
                                             <option value="Staff">Staff</option>
                                             <option value="Managerial">Managerial</option>
                                             <option value="BOD">BOD</option>
@@ -108,3 +108,14 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#select2').on('change', function (e) {
+                var data = $('#select2').select2("val");
+            @this.set('level', data);
+            });
+        });
+    </script>
+@endpush
