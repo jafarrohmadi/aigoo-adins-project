@@ -16,7 +16,7 @@ class Index extends
     use WithPagination;
 
     public int $paginate = 10;
-    public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData, $date, $userData, $totalData;
+    public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData, $date, $userData, $totalData, $endDate;
 
 
     protected array $updatesQueryString = ['search'];
@@ -61,7 +61,11 @@ class Index extends
             }
 
             if ($this->date != null) {
-                $query = $query->where('assessment_year_month', date('Y-m', strtotime($this->date)));
+                $query = $query->where('assessment_year_month','>=', date('Y-m', strtotime($this->date)));
+            }
+
+            if ($this->endDate != null) {
+                $query = $query->where('assessment_year_month','<=', date('Y-m', strtotime($this->endDate)));
             }
 
             $this->totalData = $query->count();
@@ -81,7 +85,11 @@ class Index extends
             }
 
             if ($this->date != null) {
-                $query = $query->where('assessment_year_month', date('Y-m', strtotime($this->date)));
+                $query = $query->where('assessment_year_month','>=', date('Y-m', strtotime($this->date)));
+            }
+
+            if ($this->endDate != null) {
+                $query = $query->where('assessment_year_month','<=', date('Y-m', strtotime($this->endDate)));
             }
 
             $this->totalData = $query->count();
@@ -116,9 +124,10 @@ class Index extends
         $this->assessmentData = $assessment;
     }
 
-    public function updateUser($date, $userId) {
+    public function updateUser($date, $userId , $endDate) {
         $this->userData = $userId;
         $this->date     = $date;
+        $this->endDate  = $endDate;
     }
 
 }

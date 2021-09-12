@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\ConfirmedEmailController;
+use App\Http\Controllers\DailyAttempt\DailyAttemptController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaderBoard\LeaderBoardController;
@@ -72,5 +73,7 @@ Route::middleware(['auth'])->group(function () {
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');
 //        Route::get('roles/create', CreateRoleComponent::class)->name('roles.create');
 //        Route::get('roles/{role}/edit', EditRoleComponent::class)->name('roles.edit');
+
+        Route::get('daily-attempt', [DailyAttemptController::class, 'index']);
     });
 });

@@ -14,7 +14,7 @@ class Index extends
     use WithPagination;
 
     public $paginate = 10;
-    public $search, $filterByDepartment, $totalData, $department, $selectDate;
+    public $search, $filterByDepartment, $totalData, $department, $selectDate , $endDate;
     protected $updatesQueryString = ['search'];
 
     public function mount()
@@ -61,7 +61,11 @@ class Index extends
         }
 
         if ($this->selectDate !== null) {
-            $query = $query->where('date', date('Y-m', strtotime($this->selectDate)));
+            $query = $query->where('date', '>=' , date('Y-m', strtotime($this->selectDate)));
+        }
+
+        if ($this->endDate !== null) {
+            $query = $query->where('date', '<=' , date('Y-m', strtotime($this->endDate)));
         }
 
         $this->totalData = $query->count();

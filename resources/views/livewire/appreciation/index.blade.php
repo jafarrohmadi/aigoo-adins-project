@@ -1,5 +1,18 @@
 <div class="card-body">
     <div class="card-body p-0">
+        <div class="row">
+        <div class="form-group col-md-3" wire:ignore>
+            <label>Start Date : </label>
+            <input type="text"  id="datepicker" class="form-control" placeholder="Start Date" autocomplete="off">
+        </div>
+
+
+        <div class="form-group col-md-3" wire:ignore>
+            <label>End Date :</label>
+            <input type="text"  id="datepicker2" class="form-control" placeholder="End Date" autocomplete="off">
+        </div>
+        </div>
+        <br>
         <div class="table-responsive">
             <div class="row">
                 <x-tables.per-page/>
@@ -128,3 +141,31 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(function () {
+            $('#datepicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                @this.set('startDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                }
+            });
+
+            $('#datepicker2').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                @this.set('endDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                }
+            });
+        })
+    </script>
+@endpush

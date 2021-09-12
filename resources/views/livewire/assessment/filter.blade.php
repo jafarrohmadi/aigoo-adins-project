@@ -1,7 +1,12 @@
 <div class="row col-md-12">
     <div class="form-group col-md-3" wire:ignore>
-        <label>Date:</label>
+        <label>Start Date:</label>
         <input  type="text" id="datepicker" class="form-control">
+    </div>
+
+    <div class="form-group col-md-3" wire:ignore>
+        <label>End Date:</label>
+        <input  type="text" id="datepicker2" class="form-control">
     </div>
 
     <div class="form-group col-md-3" wire:ignore>
@@ -35,6 +40,21 @@
             $('#datepicker').on('change', function (e) {
                 var data = $('#datepicker').val();
             @this.set('selectDate', data)
+            });
+
+            $('#datepicker2').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                }
+            });
+
+            $('#datepicker2').on('change', function (e) {
+                var data = $('#datepicker').val();
+            @this.set('endDate', data)
             });
         })
 

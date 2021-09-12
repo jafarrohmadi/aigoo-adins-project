@@ -95,24 +95,38 @@ class Index extends
                 'choice5'  => 'required',
                 'choice6'  => 'required',
                 'answer'   => 'required|array',
-                'level'    => 'required',
+            //    'level'    => 'required',
                 'category' => 'required',
             ]);
 
             sort($this->answer);
 
-            $result = $questionComplete->update([
-                'question' => $this->question,
-                'choice1'  => $this->choice1,
-                'choice2'  => $this->choice2,
-                'choice3'  => $this->choice3,
-                'choice4'  => $this->choice4,
-                'choice5'  => $this->choice5,
-                'choice6'  => $this->choice6,
-                'answer'   => '['.implode(",", $this->answer).']',
-                'level'    => implode(' , ', $this->level),
-                'category' => $this->category,
-            ]);
+            if($this->level) {
+                $result = $questionComplete->update([
+                    'question' => $this->question,
+                    'choice1'  => $this->choice1,
+                    'choice2'  => $this->choice2,
+                    'choice3'  => $this->choice3,
+                    'choice4'  => $this->choice4,
+                    'choice5'  => $this->choice5,
+                    'choice6'  => $this->choice6,
+                    'answer'   => '['.implode(",", $this->answer).']',
+                    'level'    => implode(' , ', $this->level),
+                    'category' => $this->category,
+                ]);
+            }else{
+                $result = $questionComplete->update([
+                    'question' => $this->question,
+                    'choice1'  => $this->choice1,
+                    'choice2'  => $this->choice2,
+                    'choice3'  => $this->choice3,
+                    'choice4'  => $this->choice4,
+                    'choice5'  => $this->choice5,
+                    'choice6'  => $this->choice6,
+                    'answer'   => '['.implode(",", $this->answer).']',
+                    'category' => $this->category,
+                ]);
+            }
         }
 
         if ($result) {

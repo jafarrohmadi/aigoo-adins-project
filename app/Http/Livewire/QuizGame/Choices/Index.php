@@ -120,21 +120,34 @@ class Index extends
                 'choice5'  => 'required',
                 'answer'   => 'required|digits_between:1,5',
                 'category' => 'required',
-                'level'    => 'required',
+                //    'level'    => 'required',
             ]);
 
+            if ($this->level) {
+                $result = $questionChoice->update([
+                    'question' => $this->question,
+                    'choice1'  => $this->choice1,
+                    'choice2'  => $this->choice2,
+                    'choice3'  => $this->choice3,
+                    'choice4'  => $this->choice4,
+                    'choice5'  => $this->choice5,
+                    'answer'   => $this->answer,
+                    'category' => $this->category,
+                    'level'    => implode(' , ', $this->level),
+                ]);
+            } else {
+                $result = $questionChoice->update([
+                    'question' => $this->question,
+                    'choice1'  => $this->choice1,
+                    'choice2'  => $this->choice2,
+                    'choice3'  => $this->choice3,
+                    'choice4'  => $this->choice4,
+                    'choice5'  => $this->choice5,
+                    'answer'   => $this->answer,
+                    'category' => $this->category,
+                ]);
+            }
 
-            $result = $questionChoice->update([
-                'question' => $this->question,
-                'choice1'  => $this->choice1,
-                'choice2'  => $this->choice2,
-                'choice3'  => $this->choice3,
-                'choice4'  => $this->choice4,
-                'choice5'  => $this->choice5,
-                'answer'   => $this->answer,
-                'category' => $this->category,
-                'level'    => implode(' , ', $this->level),
-            ]);
         }
 
         if ($result) {

@@ -40,7 +40,7 @@ class AssessmentController extends
                 'assessor_id'           => me()->id,
                 'user_id'               => $request->user_ID,
                 'assessment_year_month' => date('Y-m'),
-            ])->first();
+            ])->where('question_id', '!=' , null)->first();
 
             if ($assessment) {
                 return $this->returnFalse('Already given an assessment this month');

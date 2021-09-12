@@ -89,7 +89,7 @@ class Index extends
             $this->validate([
                 'category' => 'required',
                 'content'  => 'required',
-                'level'    => 'required',
+                //'level'    => 'required',
                 'choice1'  => 'required',
                 'choice2'  => 'required',
                 'choice3'  => 'required',
@@ -100,19 +100,35 @@ class Index extends
                 'point4'   => 'required',
             ]);
 
-            $result = $question->update([
-                'category' => $this->category,
-                'content'  => $this->content,
-                'level'    => implode(' , ', $this->level),
-                'choice1'  => $this->choice1,
-                'choice2'  => $this->choice2,
-                'choice3'  => $this->choice3,
-                'choice4'  => $this->choice4,
-                'point1'   => $this->point1,
-                'point2'   => $this->point2,
-                'point3'   => $this->point3,
-                'point4'   => $this->point4,
-            ]);
+            if($this->level) {
+                $result = $question->update([
+                    'category' => $this->category,
+                    'content'  => $this->content,
+                    'level'    => implode(' , ', $this->level),
+                    'choice1'  => $this->choice1,
+                    'choice2'  => $this->choice2,
+                    'choice3'  => $this->choice3,
+                    'choice4'  => $this->choice4,
+                    'point1'   => $this->point1,
+                    'point2'   => $this->point2,
+                    'point3'   => $this->point3,
+                    'point4'   => $this->point4,
+                ]);
+            } else{
+                $result = $question->update([
+                    'category' => $this->category,
+                    'content'  => $this->content,
+                    'choice1'  => $this->choice1,
+                    'choice2'  => $this->choice2,
+                    'choice3'  => $this->choice3,
+                    'choice4'  => $this->choice4,
+                    'point1'   => $this->point1,
+                    'point2'   => $this->point2,
+                    'point3'   => $this->point3,
+                    'point4'   => $this->point4,
+                ]);
+            }
+
         }
 
         if ($result) {

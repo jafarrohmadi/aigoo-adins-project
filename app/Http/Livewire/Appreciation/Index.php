@@ -14,7 +14,7 @@ class Index extends
     use WithPagination;
 
     public int $paginate = 10;
-    public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData;
+    public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData, $startDate, $endDate;
 
 
     protected array $updatesQueryString = ['search'];
@@ -43,38 +43,40 @@ class Index extends
     public function render()
     {
         $assessmentData = $this->assessmentData ?? '';
-        if ($this->search) {
-            $query = Assessment::latest()->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')
-                ->where('assessment_info', '!=', null)
-                ->groupBy('assessor_id', 'user_id', 'assessment_year_month');
 
-            $query           = $query->where(function ($query) {
+        $query = Assessment::latest()->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')
+            ->where('assessment_info', '!=', null)
+            ->groupBy('assessor_id', 'user_id', 'assessment_year_month');
+
+        if ($this->search) {
+            $query = $query->where(function ($query) {
                 $query->whereHas('assessor', function ($q) {
                     $q->where('name', 'like', '%'.$this->search.'%');
                 })->orWhereHas('user', function ($q) {
                     $q->where('name', 'like', '%'.$this->search.'%');
                 });
             });
-            $this->totalData = $query->count();
-
-            return view('livewire.appreciation.index', [
-                'assessment'     => $query->paginate($this->paginate),
-                'assessmentData' => $assessmentData,
-            ]);
-        } else {
-            $query           = Assessment::select('assessor_id', 'user_id',
-                'created_at', 'assessment_year_month')->groupBy('assessor_id', 'user_id',
-                'assessment_year_month')->where('assessment_info', '!=', null)->with('assessor', 'user');
-            $this->totalData = $query->count();
-
-            return view('livewire.appreciation.index', [
-                'assessment'     => $query->paginate($this->paginate),
-                'assessmentData' => $assessmentData,
-            ]);
         }
+
+        if ($this->startDate !== null) {
+            $query = $query->where('assessment_year_month', '>=' , date('Y-m', strtotime($this->startDate)));
+        }
+
+        if ($this->endDate !== null) {
+            $query = $query->where('assessment_year_month', '<=' , date('Y-m', strtotime($this->endDate)));
+        }
+
+        $this->totalData = $query->count();
+
+        return view('livewire.appreciation.index', [
+            'assessment'     => $query->paginate($this->paginate),
+            'assessmentData' => $assessmentData,
+        ]);
+
     }
 
-    public function getAssessment(
+    public
+    function getAssessment(
         $assessor_id,
         $user_id,
         $assessment_year_month

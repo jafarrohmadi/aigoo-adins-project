@@ -3,6 +3,7 @@
         <div class="table-responsive">
             <div class="row">
                 <div class="col-sm-12 col-md-3">
+                    <label>Filter Department :</label>
                     <select wire:model="filterByDepartment" class="form-control form-control-md bg-primary"
                             style="border-radius: 16px;">
                         <option selected>Filter By Department</option>
@@ -14,7 +15,14 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3" wire:ignore>
-                    <input type="text"  id="datepicker" class="form-control" placeholder="Filter By Date" autocomplete="off">
+                    <label>Start Date : </label>
+                    <input type="text"  id="datepicker" class="form-control" placeholder="Start Date" autocomplete="off">
+                </div>
+
+
+                <div class="form-group col-md-3" wire:ignore>
+                    <label>End Date :</label>
+                    <input type="text"  id="datepicker2" class="form-control" placeholder="End Date" autocomplete="off">
                 </div>
             </div>
             <br>
@@ -73,9 +81,18 @@
                     onClose: function (dateText, inst) {
                         $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
                         @this.set('selectDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
-
                     }
+                });
 
+                $('#datepicker2').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+                    dateFormat: 'MM yy',
+                    onClose: function (dateText, inst) {
+                        $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                    @this.set('endDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                    }
                 });
             })
         </script>

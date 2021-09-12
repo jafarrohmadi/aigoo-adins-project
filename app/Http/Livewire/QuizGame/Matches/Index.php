@@ -85,17 +85,27 @@ class Index extends
                 'answer'         => 'required',
                 'wrong_answer'   => 'required',
                 'category'       => 'required',
-                'level'          => 'required',
+             //   'level'          => 'required',
             ]);
 
-            $result = $questionMatch->update([
-                'question'       => $this->question,
-                'wrong_question' => $this->wrong_question,
-                'answer'         => $this->answer,
-                'wrong_answer'   => $this->wrong_answer,
-                'category'       => $this->category,
-                'level'          => implode(' , ', $this->level),
-            ]);
+            if($this->level) {
+                $result = $questionMatch->update([
+                    'question'       => $this->question,
+                    'wrong_question' => $this->wrong_question,
+                    'answer'         => $this->answer,
+                    'wrong_answer'   => $this->wrong_answer,
+                    'category'       => $this->category,
+                    'level'          => implode(' , ', $this->level),
+                ]);
+            }else{
+                $result = $questionMatch->update([
+                    'question'       => $this->question,
+                    'wrong_question' => $this->wrong_question,
+                    'answer'         => $this->answer,
+                    'wrong_answer'   => $this->wrong_answer,
+                    'category'       => $this->category,
+                ]);
+            }
         }
 
         if ($result) {

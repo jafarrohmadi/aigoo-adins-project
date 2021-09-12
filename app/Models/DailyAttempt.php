@@ -27,4 +27,14 @@ class DailyAttempt extends Model
     protected static $logOnlyDirty = true;
 
     protected $fillable = ['user_id', 'quiz_ID', 'date', 'attempt'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class ,'user_id', 'id');
+    }
+
+    public function quiz()
+    {
+        return $this->belongsTo(Category::class , 'quiz_ID', 'id');
+    }
 }

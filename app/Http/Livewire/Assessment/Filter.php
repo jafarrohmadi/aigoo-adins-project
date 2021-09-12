@@ -13,7 +13,7 @@ class Filter extends
     use WithPagination;
 
     public int $paginate = 10;
-    public $selectDate, $selectName;
+    public $selectDate, $selectName , $endDate;
 
 
     protected $listeners
@@ -39,7 +39,7 @@ class Filter extends
     public function updateAssessmentData()
     {
         if($this->selectName != '') {
-            $this->emit('updateUser', $this->selectDate, $this->selectName);
+            $this->emit('updateUser', $this->selectDate, $this->selectName, $this->endDate);
         }
     }
 

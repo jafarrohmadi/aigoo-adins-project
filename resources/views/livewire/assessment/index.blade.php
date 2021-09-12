@@ -104,42 +104,52 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <x-tables.no-responsive-table>
-                            <x-slot name="thead_tfoot">
-                                <tr>
-                                    <th>
-                                        No
-                                    </th>
-                                    <th class="sorting">
-                                        Question
-                                    </th>
-                                    <th class="sorting">
-                                        Answer
-                                    </th>
-                                </tr>
-                            </x-slot>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-striped table-hover" role="grid">
 
-                            <x-slot name="tbody">
-                                @if($assessmentData)
-                                    @forelse ($assessmentData as $key => $assessments)
-                                        <tr class="@if($loop->odd) odd @endif">
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>
-                                                {{ $assessments->question->content  ?? ''}}
-                                            </td>
-                                            <td>
-                                                {{ $assessments->value ?? ''}}
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="3">No results.</td>
-                                        </tr>
-                                    @endforelse
-                                @endif
-                            </x-slot>
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            No
+                                        </th>
+                                        <th class="sorting">
+                                            Question
+                                        </th>
+                                        <th class="sorting">
+                                            Answer
+                                        </th>
+                                    </tr>
 
-                        </x-tables.no-responsive-table>
+                                    </thead>
+
+                                    <tbody>
+                                    @if($assessmentData)
+                                        @forelse ($assessmentData as $key => $assessments)
+                                            <tr class="@if($loop->odd) odd @endif">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td >
+                                                    {{ $assessments->question->content ?? ''}}
+                                                </td>
+                                                <td>
+                                                    {{ $assessments->value ?? ''}}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="3">No results.</td>
+                                            </tr>
+                                        @endforelse
+                                    @endif
+                                    </tbody>
+
+                                    {{--            <tfoot>--}}
+                                    {{--                {{ $thead_tfoot }}--}}
+                                    {{--            </tfoot>--}}
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
