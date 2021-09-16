@@ -7,6 +7,7 @@ use App\Http\Resources\Assessment\AssessmentCollection;
 use App\Http\Resources\Profile\UserCollection;
 use App\Models\Assessment;
 use App\Models\Category;
+use App\Models\DailyAttempt;
 use App\Models\Question;
 use App\Models\Setting;
 use App\Models\User;
@@ -26,6 +27,7 @@ class CategoryController extends BaseController
         $category = Category::select('id', 'name')->get()->map(function ($query)
         {
             $query['max_daily_attempt_'.$query['id']] = Setting::where('name', 'max_daily_attempt_'.$query['id'])->first()->value ?? 10;
+            $query['daily_attempt_'.$query['id']] = DailyAttempt::where(['user_id'=> me()->id, 'quiz_id' => $query['id'], 'date' => date('Y-m-d', strtotime(now()))])->first()->attempt ?? 0;
             return $query;
         });
 
