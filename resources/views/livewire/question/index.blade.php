@@ -110,7 +110,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-label">Level <span class="text-red">*</span></label>
 
-                                    <div class="col-md-9" wire:ignore>
+                                    <div class="col-md-9">
                                         <select
                                                 class="form-control @error('level') mb-4 is-invalid state-invalid @enderror"
                                                 multiple id="select21">
