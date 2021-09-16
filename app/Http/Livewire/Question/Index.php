@@ -21,13 +21,14 @@ class Index extends
         = [
             'renderOnly'     => '$refresh',
             'deleteQuestion' => 'deleteQuestion',
+            'getQuestion'    => '$refresh',
         ];
 
     public function mount()
     {
         $this->search       = request()->query('search', $this->search);
         $this->categoryList = Category::orderby('name', 'asc')->get();
-        $this->levelData = 'Staff';
+        $this->levelData    = 'Staff';
     }
 
     public function updatingSearch()
@@ -100,7 +101,7 @@ class Index extends
                 'point4'   => 'required',
             ]);
 
-            if($this->level) {
+            if ($this->level) {
                 $result = $question->update([
                     'category' => $this->category,
                     'content'  => $this->content,
@@ -114,7 +115,7 @@ class Index extends
                     'point3'   => $this->point3,
                     'point4'   => $this->point4,
                 ]);
-            } else{
+            } else {
                 $result = $question->update([
                     'category' => $this->category,
                     'content'  => $this->content,
