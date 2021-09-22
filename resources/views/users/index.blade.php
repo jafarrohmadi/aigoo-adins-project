@@ -177,8 +177,6 @@
                                             <option value="Staff">Staff</option>
                                             <option value="Managerial">Managerial</option>
                                             <option value="BOD">BOD</option>
-                                            <option value="Non-Staff">Non-Staff</option>
-                                            <option value="None">None</option>
                                         </select>
                                         @error('category')
                                         <div class="bg-danger-transparent-2 text-danger px-4 py-2 br-3 mb-4"
