@@ -50,22 +50,20 @@ class Index extends
         if ($this->search) {
             $query = Assessment::latest()->whereHas('assessor', function ($q) {
                 $q->where('name', 'like', '%'.$this->search.'%');
-            })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')->where('assessment_info',
-                null)->groupBy('assessor_id',
-                'user_id', 'assessment_year_month')->with('assessor',
-                'user');
+            })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month', 'created_at')
+                ->where('assessment_info',
+                null)->with('assessor', 'user');
 
             if ($this->userData != null) {
-
                 $query = $query->where('user_id', $this->userData);
             }
 
             if ($this->date != null) {
-                $query = $query->where('assessment_year_month','>=', date('Y-m', strtotime($this->date)));
+                $query = $query->where('created_at','>=', date('Y-m-d', strtotime($this->date)));
             }
 
             if ($this->endDate != null) {
-                $query = $query->where('assessment_year_month','<=', date('Y-m', strtotime($this->endDate)));
+                $query = $query->where('created_at','<=', date('Y-m-d', strtotime($this->endDate)));
             }
 
             $this->totalData = $query->count();
@@ -85,22 +83,20 @@ class Index extends
             }
 
             if ($this->date != null) {
-                $query = $query->where('assessment_year_month','>=', date('Y-m', strtotime($this->date)));
+                $query = $query->where('created_at','>=', date('Y-m-d', strtotime($this->date)));
             }
 
             if ($this->endDate != null) {
-                $query = $query->where('assessment_year_month','<=', date('Y-m', strtotime($this->endDate)));
+                $query = $query->where('created_at','<=', date('Y-m-d', strtotime($this->endDate)));
             }
 
             $this->totalData = $query->count();
 
             if($this->totalData > 0) {
                 $this->emit('updateUserData', $query->get());
+            }else{
+                $this->emit('updateUserData' , null);
             }
-
-            $query = $query->groupBy('assessor_id',
-                'user_id',
-                'assessment_year_month');
 
             return view('livewire.assessment.index', [
                 'assessment'     => $query->paginate($this->paginate),

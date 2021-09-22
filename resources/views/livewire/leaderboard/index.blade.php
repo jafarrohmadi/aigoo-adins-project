@@ -1,4 +1,9 @@
 <div class="card-body">
+    <style>
+        .ui-datepicker-calendar {
+            display: none;
+        }
+    </style>
     <div class="card-body p-0">
         <div class="table-responsive">
             <div class="row">

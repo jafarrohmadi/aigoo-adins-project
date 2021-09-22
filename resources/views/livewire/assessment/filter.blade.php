@@ -1,12 +1,12 @@
 <div class="row col-md-12">
     <div class="form-group col-md-3" wire:ignore>
         <label>Start Date:</label>
-        <input  type="text" id="datepicker" class="form-control">
+        <input  type="text" id="datepicker" class="form-control" autocomplete="off">
     </div>
 
     <div class="form-group col-md-3" wire:ignore>
         <label>End Date:</label>
-        <input  type="text" id="datepicker2" class="form-control">
+        <input  type="text" id="datepicker2" class="form-control" autocomplete="off">
     </div>
 
     <div class="form-group col-md-3" wire:ignore>
@@ -31,9 +31,9 @@
                 changeMonth: true,
                 changeYear: true,
                 showButtonPanel: true,
-                dateFormat: 'MM yy',
+                dateFormat: 'dd MM yy',
                 onClose: function (dateText, inst) {
-                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
                 }
             });
 
@@ -46,14 +46,14 @@
                 changeMonth: true,
                 changeYear: true,
                 showButtonPanel: true,
-                dateFormat: 'MM yy',
+                dateFormat: 'dd MM yy',
                 onClose: function (dateText, inst) {
-                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
                 }
             });
 
             $('#datepicker2').on('change', function (e) {
-                var data = $('#datepicker').val();
+                var data = $('#datepicker2').val();
             @this.set('endDate', data)
             });
         })

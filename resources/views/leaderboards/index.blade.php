@@ -11,6 +11,7 @@
 @endsection
 
 @section('content')
+
     <x-leaderboard.content>
         <x-slot name="header">
             @lang('Welcome :Name', ['name' => auth()->user()->name])

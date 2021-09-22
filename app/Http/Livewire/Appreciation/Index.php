@@ -44,9 +44,9 @@ class Index extends
     {
         $assessmentData = $this->assessmentData ?? '';
 
-        $query = Assessment::latest()->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month')
-            ->where('assessment_info', '!=', null)
-            ->groupBy('assessor_id', 'user_id', 'assessment_year_month');
+        $query = Assessment::latest()
+            ->where('assessment_info', '!=', null);
+//            ->groupBy('assessor_id', 'user_id', 'assessment_year_month');
 
         if ($this->search) {
             $query = $query->where(function ($query) {
@@ -59,11 +59,11 @@ class Index extends
         }
 
         if ($this->startDate !== null) {
-            $query = $query->where('assessment_year_month', '>=' , date('Y-m', strtotime($this->startDate)));
+            $query = $query->where('created_at', '>=' , date('Y-m-d', strtotime($this->startDate)));
         }
 
         if ($this->endDate !== null) {
-            $query = $query->where('assessment_year_month', '<=' , date('Y-m', strtotime($this->endDate)));
+            $query = $query->where('created_at', '<=' , date('Y-m-d', strtotime($this->endDate)));
         }
 
         $this->totalData = $query->count();
@@ -75,8 +75,7 @@ class Index extends
 
     }
 
-    public
-    function getAssessment(
+    public function getAssessment(
         $assessor_id,
         $user_id,
         $assessment_year_month

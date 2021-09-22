@@ -30,17 +30,18 @@ class Chart extends
             'datas'       => $this->datas,
             'supervisor'  => $this->supervisor,
             'subordinate' => $this->subordinate,
-            'otherteam'   => $this->otherteam
+            'otherteam'   => $this->otherteam,
         ]);
     }
 
     public function updateUserData($assessment)
     {
+        $this->assessment = '';
         if ($assessment) {
             $this->assessment = $assessment;
             $this->name       = $assessment[0]['user']['name'];
 
-            $datum            = collect($this->assessment)->groupBy('question.category')->map(function ($item) {
+            $datum = collect($this->assessment)->groupBy('question.category')->map(function ($item) {
                 return $item->avg('value');
             })->sortDesc();
 
@@ -67,10 +68,10 @@ class Chart extends
                         $countSupervisor++;
                     }
 
-                  $valueSubordinate = 0;
+                    $valueSubordinate = 0;
                     foreach ($getSubordinate as $subOrdinateData) {
                         if ($subOrdinateData->id == $assess['assessor_id']) {
-                            $valueSubordinate =  $assess['value'];
+                            $valueSubordinate = $assess['value'];
                         }
                     }
 
@@ -78,8 +79,7 @@ class Chart extends
                         $subordinate[$assess['assessor']['name']][] = $valueSubordinate;
                     }
 
-                    if(!in_array($assess['assessor_id'] , $getSupervisorSubordinateId))
-                    {
+                    if (!in_array($assess['assessor_id'], $getSupervisorSubordinateId)) {
                         $otherteam[$assess['assessor']['name']][] = $assess['value'];
                     }
 
@@ -92,7 +92,7 @@ class Chart extends
 
             $this->supervisor  = $supervisor;
             $this->subordinate = $subordinate;
-            $this->otherteam = $otherteam;
+            $this->otherteam   = $otherteam;
         }
     }
 }

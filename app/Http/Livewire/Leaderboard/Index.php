@@ -8,8 +8,7 @@ use App\ViewModels\VwLeadeboard;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends
-    Component
+class Index extends Component
 {
     use WithPagination;
 

@@ -22,11 +22,11 @@
     <link href="{{URL::asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.css')}}" rel="stylesheet"/>
     <link href="{{URL::asset('assets/plugins/sweet-alert/sweetalert.css')}}" rel="stylesheet"/>
 
-    <style>
-        .ui-datepicker-calendar {
-            display: none;
-        }
-    </style>
+{{--    <style>--}}
+{{--        .ui-datepicker-calendar {--}}
+{{--            display: none;--}}
+{{--        }--}}
+{{--    </style>--}}
     @livewireStyles
 
     @yield('styles')

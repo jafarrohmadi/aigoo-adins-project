@@ -63,7 +63,7 @@
                                 {{ $assessments->user ? ($assessments->user->name. ' ('. $assessments->user->department .')') : '' }}
                             </td>
                             <td>
-                                {{ $assessments->assessment_year_month  }}
+                                {{ date('d F Y', strtotime($assessments->created_at))  }}
                             </td>
                             <td>
                                 <div class="btn-list">
@@ -78,7 +78,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">No results.</td>
+                            <td colspan="6">No results.</td>
                         </tr>
                     @endforelse
                 </x-slot>

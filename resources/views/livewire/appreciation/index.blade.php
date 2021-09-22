@@ -3,7 +3,7 @@
         <div class="row">
         <div class="form-group col-md-3" wire:ignore>
             <label>Start Date : </label>
-            <input type="text"  id="datepicker" class="form-control" placeholder="Start Date" autocomplete="off">
+            <input type="text"  id="datepicker" class="form-control"  placeholder="Start Date"  autocomplete="off">
         </div>
 
 
@@ -35,7 +35,10 @@
                             Date
                         </th>
                         <th class="sorting">
-                            Detail
+                            Appreciation
+                        </th>
+                        <th class="sorting">
+                            Nilai
                         </th>
                     </tr>
                 </x-slot>
@@ -52,20 +55,18 @@
                                 {{ $assessments->user ? ($assessments->user->name. ' ('. $assessments->user->department .')') : '' }}
                             </td>
                             <td>
-                                {{ $assessments->assessment_year_month  }}
+                                {{ date('d F Y', strtotime($assessments->created_at))  }}
                             </td>
                             <td>
-                                <div class="btn-list">
-                                    <button type="button" wire:click="getAssessment({{ $assessments->assessor_id }} , {{$assessments->user_id}}, '{{$assessments->assessment_year_month}}')"
-                                            class="btn btn-info btn-sm" data-toggle="modal" data-target="#infomodal"><i
-                                                class="far fa-eye"></i> View
-                                    </button>
-                                </div>
+                                {{$assessments->assessment_info ?? ''}}
+                            </td>
+                            <td>
+                                {{$assessments->value ?? ''}}
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">No results.</td>
+                            <td colspan="6">No results.</td>
                         </tr>
                     @endforelse
                 </x-slot>
@@ -126,7 +127,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="3">No results.</td>
+                                        <td colspan="4">No results.</td>
                                     </tr>
                                 @endforelse
                             @endif
@@ -149,10 +150,10 @@
                 changeMonth: true,
                 changeYear: true,
                 showButtonPanel: true,
-                dateFormat: 'MM yy',
+                dateFormat: 'dd MM yy',
                 onClose: function (dateText, inst) {
-                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-                @this.set('startDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
+                @this.set('startDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
                 }
             });
 
@@ -160,10 +161,10 @@
                 changeMonth: true,
                 changeYear: true,
                 showButtonPanel: true,
-                dateFormat: 'MM yy',
+                dateFormat: 'dd MM yy',
                 onClose: function (dateText, inst) {
-                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-                @this.set('endDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
+                @this.set('endDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
                 }
             });
         })
