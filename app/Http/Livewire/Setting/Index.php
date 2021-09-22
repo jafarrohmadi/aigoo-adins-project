@@ -42,7 +42,7 @@ class Index extends
 
         foreach ($category as $categories) {
             $this->nameGameSetting[$categories->id]  = strtolower(str_replace(' ','_', 'max_daily_attempt_'.$categories->name));
-            $this->valueGameSetting[$categories->id] = count($settingsGame->where('name', 'max_daily_attempt_'.$categories->id)) > 1 ? $settingsGame->where('name', 'max_daily_attempt_'.$categories->id)->first()->value : 10;
+            $this->valueGameSetting[$categories->id] = count($settingsGame->where('name', 'max_daily_attempt_'.$categories->id)) > 0 ? $settingsGame->where('name', 'max_daily_attempt_'.$categories->id)->first()->value : 10;
         }
 
         $titleLevel = Setting::where('group_name', 'title_level')->get();
