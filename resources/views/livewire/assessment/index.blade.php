@@ -1,6 +1,14 @@
 <div>
     @if($userData != null || $date != null)
+
         <div class="table-responsive">
+            <div class="row">
+                <form class="form-horizontal" wire:submit.prevent="downloadExcel">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Download Excel</button>
+                </div>
+                </form>
+            </div>
             <div class="row">
                 <x-tables.per-page/>
 
@@ -128,7 +136,7 @@
                                         @forelse ($assessmentData as $key => $assessments)
                                             <tr class="@if($loop->odd) odd @endif">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td >
+                                                <td>
                                                     {{ $assessments->question->content ?? ''}}
                                                 </td>
                                                 <td>

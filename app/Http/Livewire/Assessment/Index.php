@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Assessment;
 
 
+use App\Exports\AssessmentExport;
 use App\Models\Assessment;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Index extends
     Component
@@ -124,6 +126,11 @@ class Index extends
         $this->userData = $userId;
         $this->date     = $date;
         $this->endDate  = $endDate;
+    }
+
+    public function downloadExcel()
+    {
+        return Excel::download(new AssessmentExport($this->assessmentData), 'assessment-'.date('Y-m-d-'.$this->userData . '-'. $this->date).'.xlsx');
     }
 
 }

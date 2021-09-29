@@ -69,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('category', [CategoryController::class, 'index'])->name('category.index');
         Route::get('assessment-question', [QuestionController::class, 'index'])->name('question.index');
         Route::get('assessment', [AssessmentController::class, 'index'])->name('assessment.index');
+        Route::get('assessment/download', [AssessmentController::class, 'export'])->name('assessment.export');
         Route::get('appreciation', [AppreciationController::class, 'index'])->name('appreciation.index');
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');
 //        Route::get('roles/create', CreateRoleComponent::class)->name('roles.create');
