@@ -68,6 +68,6 @@ class Question extends Model
      */
     public function categoryData()
     {
-        return $this->belongsTo(Category::class, 'category');
+        return $this->belongsTo(AssessmentCategory::class, 'category');
     }
 }

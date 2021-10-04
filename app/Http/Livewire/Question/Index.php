@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Question;
 
-use App\Models\Category;
+use App\Models\AssessmentCategory;
 use App\Models\Question;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,7 +27,7 @@ class Index extends
     public function mount()
     {
         $this->search       = request()->query('search', $this->search);
-        $this->categoryList = Category::orderby('name', 'asc')->get();
+        $this->categoryList = AssessmentCategory::orderby('name', 'asc')->get();
         $this->levelData    = 'Staff';
     }
 

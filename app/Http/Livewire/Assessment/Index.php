@@ -54,7 +54,7 @@ class Index extends
                 $q->where('name', 'like', '%'.$this->search.'%');
             })->select('assessor_id', 'user_id', 'created_at', 'assessment_year_month', 'created_at')
                 ->where('assessment_info',
-                null)->with('assessor', 'user');
+                null)->with('assessor', 'user')->groupBy('user_id', 'assessor_id');
 
             if ($this->userData != null) {
                 $query = $query->where('user_id', $this->userData);
@@ -78,7 +78,7 @@ class Index extends
             ]);
         } else {
             $query = Assessment::select('assessor_id', 'user_id', 'question_id',
-                'created_at', 'assessment_year_month', 'value')->where('assessment_info', null)->with('assessor', 'user', 'question');
+                'created_at', 'assessment_year_month', 'value')->where('assessment_info', null)->with('assessor', 'user', 'question')->groupBy('user_id', 'assessor_id');
 
             if ($this->userData != null) {
                 $query = $query->where('user_id', $this->userData);

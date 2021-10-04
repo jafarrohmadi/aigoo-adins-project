@@ -119,6 +119,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
+                                <a href="{{ route('assessment-category.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span class="brand-text">Assessment Category</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('question.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Assessment Question</p>
@@ -166,12 +172,6 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('category.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span class="brand-text">Category</span>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a href="{{ route('users.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>

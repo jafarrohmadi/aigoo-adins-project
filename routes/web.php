@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityLog\ActivityLogController;
 use App\Http\Controllers\Appreciation\AppreciationController;
 use App\Http\Controllers\Assessment\AssessmentController;
+use App\Http\Controllers\AssessmentCategory\AssessmentCategoryController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -71,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('assessment', [AssessmentController::class, 'index'])->name('assessment.index');
         Route::get('assessment/download', [AssessmentController::class, 'export'])->name('assessment.export');
         Route::get('appreciation', [AppreciationController::class, 'index'])->name('appreciation.index');
+        Route::get('assessment-category', [AssessmentCategoryController::class, 'index'])->name('assessment-category.index');
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');
 //        Route::get('roles/create', CreateRoleComponent::class)->name('roles.create');
 //        Route::get('roles/{role}/edit', EditRoleComponent::class)->name('roles.edit');

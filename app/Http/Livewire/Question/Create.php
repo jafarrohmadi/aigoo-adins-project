@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Question;
 
-use App\Models\Category;
+use App\Models\AssessmentCategory;
 use App\Models\Question;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -27,7 +27,7 @@ class Create extends
         $this->point2       = 2;
         $this->point3       = 3;
         $this->point4       = 4;
-        $this->categoryList = Category::orderby('name', 'asc')->get();
+        $this->categoryList = AssessmentCategory::orderby('name', 'asc')->get();
     }
 
     /**
