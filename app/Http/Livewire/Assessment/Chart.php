@@ -5,10 +5,13 @@ namespace App\Http\Livewire\Assessment;
 
 use App\Models\Assessment;
 
+use App\Models\AssessmentCategory;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Livewire\WithPagination;
+use function Clue\StreamFilter\fun;
 
 class Chart extends
     Component
@@ -45,7 +48,9 @@ class Chart extends
                 return $item->avg('value');
             })->sortDesc();
 
-            $this->label = $datum->keys()->all();
+            $this->label = collect($datum->keys()->all())->map(function ($item){
+                return AssessmentCategory::find($item)->name;
+            });
 
             $this->datas = $datum->values()->all();
             $this->dispatchBrowserEvent('updateChart');
