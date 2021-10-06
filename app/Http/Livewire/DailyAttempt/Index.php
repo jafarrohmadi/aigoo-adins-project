@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\DailyAttempt;
 
 use App\Models\DailyAttempt;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -51,7 +52,7 @@ class Index extends
 
     public function render()
     {
-        $query = DailyAttempt::latest();
+        $query = DailyAttempt::select('date', 'user_id', 'quiz_ID',DB::raw('COUNT(attempt) as attempts'))->groupBy('date', 'user_id', 'quiz_ID');
 
         if ($this->search) {
             $query->whereHas('user', function ($query) {

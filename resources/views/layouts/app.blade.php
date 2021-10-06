@@ -150,12 +150,12 @@
                             <span class="brand-text">LeaderBoard</span>
                         </a>
                     </li>
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ url('daily-attempt') }}" class="nav-link">--}}
-{{--                            <i class="nav-icon fas fa-deaf elevation-3"></i>--}}
-{{--                            <span class="brand-text">Daily Attempt</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="nav-item">
+                        <a href="{{ url('daily-attempt') }}" class="nav-link">
+                            <i class="nav-icon fas fa-deaf elevation-3"></i>
+                            <span class="brand-text">Daily Attempt</span>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user elevation-3"></i>

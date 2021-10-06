@@ -36,7 +36,7 @@
                             <td>{{ $loop->iteration + ($daily->firstItem() - 1)}}</td>
                             <td>{{ $dailyAttempt->user ? $dailyAttempt->user->name .' (' . $dailyAttempt->user->department .')': ''}}</td>
                             <td>{{ $dailyAttempt->quiz->name ?? ''}}</td>
-                            <td>{{$dailyAttempt->attempt}}</td>
+                            <td>{{$dailyAttempt->attempts}}</td>
                             <td>{{ date("d F Y", strtotime($dailyAttempt->date)) }}</td>
                         </tr>
                     @empty
