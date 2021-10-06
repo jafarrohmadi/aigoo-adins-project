@@ -19,6 +19,7 @@ class Index extends
 
     public int $paginate = 10;
     public $assessor_id, $user_id, $question_id, $search, $value, $assessmentData, $date, $userData, $totalData, $endDate;
+    public $assessmentExcel;
 
 
     protected array $updatesQueryString = ['search'];
@@ -77,8 +78,7 @@ class Index extends
                 'userData'       => $this->userData,
             ]);
         } else {
-            $query = Assessment::select('assessor_id', 'user_id', 'question_id',
-                'created_at', 'assessment_year_month', 'value')->where('assessment_info', null)->with('assessor', 'user', 'question')->groupBy('user_id', 'assessor_id');
+            $query = Assessment::where('assessment_info', null)->with('assessor', 'user', 'question')->groupBy('user_id', 'assessor_id');
 
             if ($this->userData != null) {
                 $query = $query->where('user_id', $this->userData);
@@ -96,6 +96,7 @@ class Index extends
 
             if($this->totalData > 0) {
                 $this->emit('updateUserData', $query->get());
+                $this->assessmentExcel = $query->get();
             }else{
                 $this->emit('updateUserData' , null);
             }
@@ -130,7 +131,7 @@ class Index extends
 
     public function downloadExcel()
     {
-        return Excel::download(new AssessmentExport($this->assessmentData), 'assessment-'.date('Y-m-d-'.$this->userData . '-'. $this->date).'.xlsx');
+        return Excel::download(new AssessmentExport($this->assessmentExcel), 'assessment-'.date('Y-m-d-'.$this->userData . '-'. $this->date).'.xlsx');
     }
 
 }

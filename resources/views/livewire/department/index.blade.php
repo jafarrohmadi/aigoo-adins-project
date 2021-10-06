@@ -13,16 +13,16 @@
                             No.
                         </th>
                         <th  class="sorting">
-                            Name
+                            Departement Name
                         </th>
                         <th  class="sorting">
-                            Team Name
+                            Guild Name
                         </th>
                         <th>
-                            Team Icon
+                            Guild Icon
                         </th>
                         <th>
-                            Team Leader
+                            Guild Leader
                         </th>
 
                         <th  class="sorting">

@@ -5,7 +5,7 @@
             <div class="row">
                 <form class="form-horizontal" wire:submit.prevent="downloadExcel">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Download Excel</button>
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">  <i class="fas fa-cloud-download-alt"></i> Download Report</button>
                 </div>
                 </form>
             </div>
