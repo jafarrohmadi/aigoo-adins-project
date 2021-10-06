@@ -3,12 +3,12 @@
         <div class="row">
             <div class="form-group col-md-3" wire:ignore>
                 <label>Start Date:</label>
-                <input type="text" id="datepicker" class="form-control">
+                <input type="text" id="datepicker" class="form-control" autocomplete="off">
             </div>
 
             <div class="form-group col-md-3" wire:ignore>
                 <label>End Date:</label>
-                <input type="text" id="datepicker2" class="form-control">
+                <input type="text" id="datepicker2" class="form-control" autocomplete="off">
             </div>
         </div>
         <br>
@@ -62,10 +62,10 @@
                 changeMonth: true,
                 changeYear: true,
                 showButtonPanel: true,
-                dateFormat: 'MM yy',
+                dateFormat: 'dd MM yy',
                 onClose: function (dateText, inst) {
-                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-                @this.set('selectDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
+                @this.set('selectDate', new Date(inst.selectedYear, inst.selectedMonth,  inst.selectedDay));
                 }
             });
 
@@ -73,10 +73,10 @@
                 changeMonth: true,
                 changeYear: true,
                 showButtonPanel: true,
-                dateFormat: 'MM yy',
+                dateFormat: 'dd MM yy ',
                 onClose: function (dateText, inst) {
-                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-                @this.set('endDate', new Date(inst.selectedYear, inst.selectedMonth, 2));
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth,  inst.selectedDay));
+                @this.set('endDate', new Date(inst.selectedYear, inst.selectedMonth,  inst.selectedDay));
                 }
             });
         })

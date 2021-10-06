@@ -62,11 +62,11 @@ class Index extends
         }
 
         if ($this->selectDate !== null) {
-            $query = $query->where('created_at', '>=' , date('Y-m'. '-01', strtotime($this->selectDate)));
+            $query = $query->where('created_at', '>=' , date('Y-m-d', strtotime($this->selectDate)));
         }
 
         if ($this->endDate !== null) {
-            $query = $query->where('created_at', '<=' , date('Y-m'. '-31', strtotime($this->endDate)));
+            $query = $query->where('created_at', '<=' , date('Y-m-d', strtotime($this->endDate)));
         }
 
         $this->totalData = $query->count();
