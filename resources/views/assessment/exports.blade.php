@@ -1,4 +1,4 @@
-@foreach($assessmentMonth as $assessmentMonts)
+
 <table>
     <tr>
         <td></td>
@@ -38,11 +38,13 @@
             <td> {{$key + 1}}</td>
             <td>{{ $assessments->content }}</td>
             @foreach($assessmentMonts as $dataUser)
+
                 <?php $assessmentData = \App\Models\Assessment::where([
                     'assessor_id'           => $dataUser->assessor_id,
                     'user_id'               => $dataUser->user_id,
                     'assessment_year_month' => $dataUser->assessment_year_month,
                 ])->where('assessment_info', null)->with('question')->get();?>
+
                 @foreach($assessmentData as $assessmentFinal)
                     @if($assessmentFinal->question_id == $assessments->id)
                         <td>{{ $assessmentFinal->value }} </td>
@@ -53,4 +55,3 @@
     @endforeach
     </tbody>
 </table>
-@endforeach

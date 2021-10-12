@@ -299,6 +299,8 @@ class User extends
 
     public function assessmentAssessor()
     {
-        return $this->hasMany(Assessment::class, 'assessor_id', 'id');
+        return $this->hasMany(Assessment::class, 'user_id', 'id');
     }
+
+
 }

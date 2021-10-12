@@ -49,7 +49,7 @@ class Chart extends
             })->sortDesc();
 
             $this->label = collect($datum->keys()->all())->map(function ($item){
-                return AssessmentCategory::find($item)->name;
+                return AssessmentCategory::find($item)->name ?? 'No Category';
             });
 
             $this->datas = $datum->values()->all();
