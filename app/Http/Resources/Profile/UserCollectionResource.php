@@ -4,6 +4,7 @@ namespace App\Http\Resources\Profile;
 
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserCollectionResource extends
     JsonResource
@@ -20,7 +21,7 @@ class UserCollectionResource extends
             'user_ID'     => $this->id,
             'name'        => $this->name,
             'department'  => $this->department,
-            'status'      => (new \App\Models\User)->getUserStatus($this->assessmentAssessor->where('assessment_year_month', date('Y-m'))->first() ? 0 : 1),
+            'status'      => (new \App\Models\User)->getUserStatus($this->assessmentAssessor->where('user_id', Auth::id())->where('assessment_year_month', date('Y-m'))->first() ? 0 : 1),
             'profilePict' => (asset('img/profile_picture').'/').$this->change_avatar ?? $this->avatar,
             'userLevel'   => $this->roles,
         ];
