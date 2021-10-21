@@ -122,11 +122,16 @@ class UserController extends
 
                   }
       */
-            $user = User::where('email', $request->username)->first();
-            if (Auth::loginUsingId($user->id)) {
-                $success['token'] = me()->createToken('authToken')->plainTextToken;
+            //$user = User::where('email', $request->username)->first();
 
-                return $this->returnSuccess($success);
+//            if (Auth::loginUsingId($user->id)) {
+//                $success['token'] = me()->createToken('authToken')->plainTextToken;
+//
+//                return $this->returnSuccess($success);
+//            }
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                $success['token'] = me()->createToken('authToken')->plainTextToken;
+                 return $this->returnSuccess($success);
             }
         } catch (\Throwable $th) {
             return $this->returnFalse("Something went wrong", $th->getMessage());

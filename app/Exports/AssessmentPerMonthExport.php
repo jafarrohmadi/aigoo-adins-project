@@ -32,7 +32,7 @@ class AssessmentPerMonthExport implements  FromView, ShouldAutoSize, WithTitle
 
       public function view(): View
       {
-          $assessmentQuestion = Question::all();
+          $assessmentQuestion = Question::orderBy('category')->get();
 
           return view('assessment.exports', [
               'assessment' => $assessmentQuestion,

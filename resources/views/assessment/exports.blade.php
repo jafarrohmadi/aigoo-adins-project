@@ -15,27 +15,60 @@
     <tr>
         <td></td>
         <td></td>
-        <td>Periode</td>
-        <td>{{ date('F Y', strtotime($assessmentMonts->first()->assessment_year_month)) }}</td>
+        <td style="background: orange">Department</td>
+        <td style="background: orange">{{ $assessmentMonts->first()->user->department }}</td>
     </tr>
-</table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td style="background: orange">Periode</td>
+        <td style="background: orange">{{ date('F Y', strtotime($assessmentMonts->first()->assessment_year_month)) }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @foreach ($assessmentMonts as $assessments)
+            <td style="background: orange">
+                @if($assessments->user->id == $assessments->assessor->id)
+                    Diri Sendiri
+                @else
+                    @if($assessments->assessor->id == $assessments->user->supervisor_id)
+                        Atasan 1 Tim
+                    @endif
 
-<table>
-    <thead>
+                    @if($assessments->assessor->supervisor_id == $assessments->user->id)
+                        Bawahan 1 Tim
+                    @endif
+
+                    @if($assessments->user->department == $assessments->assessor->department)
+                        Peer Satu Tim
+                    @endif
+
+                    @if($assessments->user->department != $assessments->assessor->department)
+                        Peer Beda Tim
+                    @endif
+                @endif
+            </td>
+        @endforeach
+    </tr>
+
     <tr>
         <th></th>
         <th>No</th>
+        <th style="background: orange">Cluster</th>
         <th>Assessment</th>
         @foreach ($assessmentMonts as $dataUser)
             <th> {{ $dataUser->assessor->name}} </th>
         @endforeach
     </tr>
-    </thead>
-    <tbody>
+
     @foreach($assessment as $key => $assessments)
         <tr>
             <td></td>
             <td> {{$key + 1}}</td>
+            <td> {{$assessments->categoryData->name ?? 'No Category'}}</td>
             <td>{{ $assessments->content }}</td>
             @foreach($assessmentMonts as $dataUser)
 
@@ -53,5 +86,5 @@
             @endforeach
         </tr>
     @endforeach
-    </tbody>
+
 </table>
