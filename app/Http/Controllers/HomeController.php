@@ -26,7 +26,7 @@ class HomeController extends Controller
             ->get();
 
         $played_today      = count($point_histories);
-        $total_coins_today = collect($point_histories)->sum('coins');
+        $total_coins_today = collect($point_histories)->sum('points');
 
         return view('home', compact('user_count', 'department_count', 'played_today', 'total_coins_today'));
     }

@@ -88,7 +88,7 @@
                                         <td>{{ $user->department }}</td>
                                         <td>{{$user->roles}}</td>
                                         <td>{{ $user->departments->team_name }}</td>
-                                        <td>{{ (asset('img/profile_picture') .'/') . $user->change_avatar ?? $user->avatar }}</td>
+                                        <td><img src="{{ $user->change_avatar ? (asset('img/profile_picture') .'/') . $user->change_avatar: (asset('img/profile_picture') .'/') .$user->avatar }}" width="100" height="100"></td>
                                         <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                         <td>{{$user->last_login_at}}</td>
                                         <td>

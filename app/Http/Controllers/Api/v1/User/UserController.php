@@ -16,6 +16,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -129,9 +130,13 @@ class UserController extends
 //
 //                return $this->returnSuccess($success);
 //            }
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
+            if (Auth::attempt(['email'    => $request->username, 'password' => $request->password,])) {
+                Auth::user()->last_login_at = Carbon::now()->toDateTimeString();
+                Auth::user()->save();
+
                 $success['token'] = me()->createToken('authToken')->plainTextToken;
-                 return $this->returnSuccess($success);
+                return $this->returnSuccess($success);
             }
         } catch (\Throwable $th) {
             return $this->returnFalse("Something went wrong", $th->getMessage());
@@ -214,7 +219,7 @@ class UserController extends
             $user = User::where('email', $value->Email)->first();
 
             if (!$user) {
-                $user = new User();
+                $user                    = new User();
                 $user->avatar            = 'default_avatar.png';
                 $user->email_verified_at = date('Y-m-d H:i:s');
                 $user->password          = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
@@ -226,36 +231,38 @@ class UserController extends
                 $user->department_id     = $department->id;
             }
 
-            $user->name              = $value->EmployeeName;
-            $user->email             = $value->Email;
-            $user->department        = $value->Department;
-            $user->username          = $value->Email;
-            $user->company           = $value->Company;
-            $user->bu                = $value->BU;
-            $user->subbu             = $value->SubBU;
-            $user->nik               = $value->NIK;
-            $user->jobposition       = $value->JobPosition;
-            $user->worklocationname  = $value->WorkLocationName;
-            $user->statusincompany   = $value->Status ?? 'Ga ada';
-            $user->gender            = $value->Gender == 'Male' ? 0 : 1;
-            $user->bu_code           = $value->BUCode ?? '';
-            $user->sub_bu_code       = $value->SubBUCode ?? '';
-            $user->department_code   = $value->DepartmentCode ?? '';
-            $user->job_level         = $value->JobLevel ?? '';
+            $user->name             = $value->EmployeeName;
+            $user->email            = $value->Email;
+            $user->department       = $value->Department;
+            $user->username         = $value->Email;
+            $user->company          = $value->Company;
+            $user->bu               = $value->BU;
+            $user->subbu            = $value->SubBU;
+            $user->nik              = $value->NIK;
+            $user->jobposition      = $value->JobPosition;
+            $user->worklocationname = $value->WorkLocationName;
+            $user->statusincompany  = $value->Status ?? 'Ga ada';
+            $user->gender           = $value->Gender == 'Male' ? 0 : 1;
+            $user->bu_code          = $value->BUCode ?? '';
+            $user->sub_bu_code      = $value->SubBUCode ?? '';
+            $user->department_code  = $value->DepartmentCode ?? '';
+            $user->job_level        = $value->JobLevel ?? '';
 
             if ($value->JobLevel == 'Staff' || $value->JobLevel == 'Operasional') {
-                $user->roles = 'Staff';
+                $user->roles             = 'Staff';
                 $user->employee_level_id = 1;
-            } else if ($value->JobLevel == 'Senior Manager'
-                || $value->JobLevel == 'Junior Manager'
-                || $value->JobLevel == 'General Manager'
-                || $value->JobLevel == 'Supervisor'
-                || $value->JobLevel == 'Officer') {
-                $user->roles = 'Managerial';
-                $user->employee_level_id = 2;
             } else {
-                $user->roles = 'BOD';
-                $user->employee_level_id = 3;
+                if ($value->JobLevel == 'Senior Manager'
+                    || $value->JobLevel == 'Junior Manager'
+                    || $value->JobLevel == 'General Manager'
+                    || $value->JobLevel == 'Supervisor'
+                    || $value->JobLevel == 'Officer') {
+                    $user->roles             = 'Managerial';
+                    $user->employee_level_id = 2;
+                } else {
+                    $user->roles             = 'BOD';
+                    $user->employee_level_id = 3;
+                }
             }
             $user->save();
 

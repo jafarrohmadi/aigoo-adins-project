@@ -32,7 +32,7 @@ class AssessmentExport implements WithMultipleSheets
     public function sheets(): array
     {
         $sheets = [];
-        $assessmentMonth = $this->collectionData->sortByDesc('assessment_year_month')->groupBy('assessment_year_month');
+        $assessmentMonth = $this->collectionData->sortBy('assessment_year_month')->groupBy('assessment_year_month');
 
         foreach ($assessmentMonth as $key => $month) {
             $sheets[] = new AssessmentPerMonthExport($month);

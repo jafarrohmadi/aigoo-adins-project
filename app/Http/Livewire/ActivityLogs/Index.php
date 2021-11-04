@@ -7,7 +7,8 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Spatie\Activitylog\Models\Activity;
 
-class Index extends Component
+class Index extends
+    Component
 {
     use WithPagination;
     use WithFileUploads;
@@ -29,7 +30,7 @@ class Index extends Component
 
     protected $listeners
         = [
-            'renderOnly'           => '$refresh',
+            'renderOnly' => '$refresh',
 
         ];
 
@@ -47,21 +48,23 @@ class Index extends Component
     {
         $this->resetPage();
     }
+
     public function render()
     {
-        if ($this->search)
-        {
-            $query           = Activity::latest()->where('description', 'like', '%' . $this->search . '%');
+        if ($this->search) {
+            $query           = Activity::latest()->whereHas('causer', function ($q) {
+                $q->where('name', 'like', '%'.$this->search.'%');
+            })->orWhere('description', 'like', '%'.$this->search.'%');
+
             $this->totalData = $query->count();
             return view('livewire.activity-log.index', [
-                'activityLogs' => $query->paginate($this->paginate)
+                'activityLogs' => $query->paginate($this->paginate),
             ]);
-        } else
-        {
+        } else {
             $query           = Activity::latest();
             $this->totalData = $query->count();
             return view('livewire.activity-log.index', [
-                'activityLogs' => $query->paginate($this->paginate)
+                'activityLogs' => $query->paginate($this->paginate),
             ]);
         }
     }

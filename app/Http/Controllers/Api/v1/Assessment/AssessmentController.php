@@ -13,17 +13,24 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AssessmentController extends
     BaseController
 {
     /**
-     * @return AssessmentCollection
+     * @return AssessmentCollection|ResponseFactory|Response
      */
     public function index(Request $request)
     {
-        $question = Question::where('level', 'like', '%'.me()->roles.'%')->paginate($request->limit ?? 10);
+        $user = User::find($request->user_id);
+
+        if(!$user){
+            return $this->returnFalse();
+        }
+
+        $question = Question::where('level', 'like', '%'.$user->roles.'%')->paginate($request->limit ?? 10);
 
         return new AssessmentCollection($question);
     }

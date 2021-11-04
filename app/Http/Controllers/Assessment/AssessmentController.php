@@ -13,4 +13,9 @@ class AssessmentController extends Controller
         return view('assessment.index');
     }
 
+    public function bulkImport()
+    {
+        return view('assessment.bulk-import');
+    }
+
 }
