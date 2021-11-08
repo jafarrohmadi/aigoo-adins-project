@@ -34,6 +34,7 @@ class ProfileResource extends
             $this->id)->pluck('attempt')->first();
 
         $departmentData = Department::where('id' , $this->department_id)->first();
+
         return [
             'status'  => true,
             'message' => 'Success',
