@@ -62,7 +62,7 @@ class Index extends
             }
 
             if ($this->date != null) {
-                $query = $query->where('created_at','>=', date('Y-m-d', strtotime($this->date)));
+                $query = $query->where('created_at','>=', date('Y-m-d 00:00:00', strtotime($this->date)));
             }
 
             if ($this->endDate != null) {
@@ -85,7 +85,7 @@ class Index extends
             }
 
             if ($this->date != null) {
-                $query = $query->where('created_at','>=', date('Y-m-d', strtotime($this->date)));
+                $query = $query->where('created_at','>=', date('Y-m-d 00:00:00', strtotime($this->date)));
             }
 
             if ($this->endDate != null) {
