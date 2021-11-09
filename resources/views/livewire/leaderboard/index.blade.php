@@ -14,16 +14,16 @@
                         <option selected>Filter By Department</option>
                         @foreach($department as $key => $division)
                             @if($division != '')
-                                <option value="{{ $key }}">{{ $division }}</option>
+                                <option value="{{ $division->id }}">{{ $division->name }}</option>
                             @endif
                         @endforeach
+                        <option value="7">Others</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3" wire:ignore>
                     <label>Start Date : </label>
                     <input type="text"  id="datepicker" class="form-control" placeholder="Start Date" autocomplete="off">
                 </div>
-
 
                 <div class="form-group col-md-3" wire:ignore>
                     <label>End Date :</label>

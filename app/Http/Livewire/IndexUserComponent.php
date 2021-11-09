@@ -30,7 +30,7 @@ class IndexUserComponent extends
 
     public function mount()
     {
-        $this->departmentData = Department::all()->pluck('name', 'id');
+        $this->departmentData = Department::orderBy('name')->get();
     }
 
     public function updatedFilterByDepartment($value)

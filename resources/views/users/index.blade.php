@@ -28,9 +28,10 @@
                                     <option selected>Filter by Department</option>
                                     @foreach($departmentData as $key => $division)
                                         @if($division != '')
-                                            <option value="{{ $key }}">{{ $division }}</option>
+                                            <option value="{{ $division->id }}">{{ $division->name }}</option>
                                         @endif
                                     @endforeach
+                                    <option value="7">Others</option>
                                 </select>
                             </div>
                         </div>

@@ -19,7 +19,7 @@ class Index extends Component
     public function mount()
     {
         $this->search     = request()->query('search', $this->search);
-        $this->department = Department::all()->pluck('name', 'id');
+        $this->department = Department::orderBy('name', 'asc')->where('id', '!=', 7)->get();
     }
 
     public function updatingSearch()

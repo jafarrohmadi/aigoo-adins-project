@@ -59,14 +59,14 @@ class Index extends
         $userDepartment = $this->userDepartment ?? Department::first()->allUser;
 
         if ($this->search) {
-            $query           = Department::latest()->where('name', 'like', '%'.$this->search.'%');
+            $query           = Department::where('name', 'like', '%'.$this->search.'%')->orderBy('name', 'asc');
             $this->totalData = $query->count();
             return view('livewire.department.index', [
                 'department'     => $query->paginate($this->paginate),
                 'userDepartment' => $userDepartment,
             ]);
         } else {
-            $query           = Department::latest();
+            $query           = Department::orderBy('name', 'asc');
             $this->totalData = $query->count();
             return view('livewire.department.index', [
                 'department'     => $query->paginate($this->paginate),
