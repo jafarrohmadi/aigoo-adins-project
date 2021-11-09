@@ -44,7 +44,8 @@ class Chart extends
             $this->assessment = $assessment;
             $this->name       = $assessment[0]['user']['name'];
 
-            $datum = collect($this->assessment)->groupBy('question.category')->map(function ($item) {
+            $getAllAssessment = Assessment::where('assessment_info', null)->with('assessor', 'user', 'question')->where('user_id', $this->assessment[0]['user_id'])->get();
+            $datum = collect($getAllAssessment)->groupBy('question.category')->map(function ($item) {
                 return $item->avg('value');
             })->sortDesc();
 
