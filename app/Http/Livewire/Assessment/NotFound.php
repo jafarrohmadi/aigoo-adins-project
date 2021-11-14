@@ -54,13 +54,14 @@ class NotFound extends
 
     public function render()
     {
-        $date = $this->date ?? date('Y-m');
-
         $assessmentData = Assessment::select('assessor_id')->where('assessment_year_month',
-            $date)->groupBy('assessor_id')->get()->pluck('assessor_id')->toArray();
+            $this->date)->groupBy('assessor_id')->get()->pluck('assessor_id')->toArray();
 
         $query          = User::whereNotIn('id', $assessmentData);
 
+        if($this->date){
+            $query= $query->where('created_at', '<=', ($this->date . '-01'));
+        }
         if ($this->search) {
             $query = $query->where(function ($row){
                 $row->where('name', 'like', '%'.$this->search.'%')->orwhere('department', 'like',
@@ -72,7 +73,7 @@ class NotFound extends
         $this->totalData = $query->count();
 
         $user_count       = User::where('created_at', '<=', ($this->date . '-01'))->count();
-        $user_have_assessment = count(Assessment::where('assessment_year_month' , $date)->groupBy('assessor_id')->get());
+        $user_have_assessment = count(Assessment::where('assessment_year_month' , $this->date)->groupBy('assessor_id')->get());
         $user_dont_have_assessment = $user_count - $user_have_assessment;
 
         return view('livewire.assessment.not-found', [

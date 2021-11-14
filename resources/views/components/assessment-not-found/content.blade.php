@@ -8,11 +8,6 @@
 <div class="card">
     @if (isset($header))
 
-        <div class="card-header">
-            <h3 class="card-title">
-                User Assessment Not Found
-            </h3>
-        </div>
     @endif
 
     @if (isset($body))

@@ -1,3 +1,9 @@
+<div>
+<div class="card-header">
+    <h3 class="card-title">
+        Tidak Melakukan Assessment ({{date('F Y' ,strtotime($date))}})
+    </h3>
+</div>
 <div class="card-body">
     <style>
         .ui-datepicker-calendar {
@@ -124,4 +130,4 @@
     @endpush
 </div>
 
-
+</div>
