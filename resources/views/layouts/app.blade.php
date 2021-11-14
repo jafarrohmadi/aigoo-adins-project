@@ -139,7 +139,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('assessment.bulkImport') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <span class="brand-text">Assessment History Import</span>
+                                    <span class="brand-text">Assessment Export</span>
                                 </a>
                             </li>
                         </ul>

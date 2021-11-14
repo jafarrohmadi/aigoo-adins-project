@@ -131,7 +131,7 @@ class Index extends
 
     public function downloadExcel()
     {
-        return Excel::download(new AssessmentExport($this->assessmentExcel), 'assessment-'.date('Y-m-d-'.$this->userData . '-'. date('Y-m-d')).'.xlsx');
+        return Excel::download(new AssessmentExport($this->assessmentExcel), 'assessment-'.date('Y-m-d').'-'.$this->userData.'.xlsx');
     }
 
 }

@@ -10,16 +10,6 @@
     </div>
 
     <div class="form-group col-md-3" wire:ignore>
-        <label>User:</label>
-        <select class="select2 form-control" name="selectName" id="select2">
-            <option value="">Select User</option>
-            @foreach($user as $users)
-                <option value="{{$users->id}}"> {{$users->name . ' ('. $users->department . ')' }}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="form-group col-md-3" wire:ignore>
         <label>Department:</label>
         <select class="select2 form-control" name="selectDepartment" id="select3">
             <option value="">Select Department</option>
@@ -31,8 +21,12 @@
 
 
     <div class="form-group col-md-3">
-        <button class="btn btn-info" wire:click="downloadExcel" type="submit" style="margin-top: 32px">Submit
+        <button class="btn btn-info" wire:click="downloadExcel" type="submit" style="margin-top: 32px" wire:loading.attr="disabled">Submit
         </button>
+    </div>
+
+    <div wire:loading wire:target="downloadExcel">
+        Processing Download Excel ...
     </div>
 </div>
 

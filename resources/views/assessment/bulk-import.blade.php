@@ -5,7 +5,7 @@
 @section('page-header')
     <!--Page header-->
     <x-content-header>
-        Assessment Bulk Import
+        Assessment Export
     </x-content-header>
     <!--End Page header-->
 @endsection
@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                Assessment Bulk Import
+                Assessment Export
             </h3>
         </div>
 
