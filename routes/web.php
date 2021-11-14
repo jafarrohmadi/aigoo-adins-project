@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('assessment', [AssessmentController::class, 'index'])->name('assessment.index');
         Route::get('assessment-bulk-import', [AssessmentController::class, 'bulkImport'])->name('assessment.bulkImport');
         Route::get('assessment/download', [AssessmentController::class, 'export'])->name('assessment.export');
+        Route::get('assessment/notFound', [AssessmentController::class, 'notFound'])->name('assessment.notFound');
         Route::get('appreciation', [AppreciationController::class, 'index'])->name('appreciation.index');
         Route::get('assessment-category', [AssessmentCategoryController::class, 'index'])->name('assessment-category.index');
 //        Route::get('roles', IndexRoleComponent::class)->name('roles.index');

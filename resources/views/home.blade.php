@@ -32,9 +32,56 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{$department_count}}</h3>
+                        @if($user_count > 0)
+                        <h3>{{$user_have_assessment .'('. round(($user_have_assessment/ $user_count) * 100, 2) . ' %)'}}</h3>
+                        @else
+                            <h3>0</h3>
+                            @endif
+                        <p>User Melakukan Asessment</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                </div>
+            </div>
 
-                        <p>Department</p>
+            <div class="col-lg-3 col-6">
+                <a href="{{ url('assessment/notFound') }}">
+                <div class="small-box bg-info">
+                    <div class="inner">
+
+                        @if($user_count > 0)
+                        <h3>{{$user_dont_have_assessment .'('. round(($user_dont_have_assessment/ $user_count) * 100, 2) . ' %)'}}</h3>
+                        @else
+                            <h3>0</h3>
+                        @endif
+                        <p>User Tidak Melakukan Asessment</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{$nasionalEmployee}}</h3>
+
+                        <p>Karyawan Point Tertinggi Bulan Ini</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{$departmentWinner}}</h3>
+
+                        <p>Department Point Tertinggi Bulan Ini</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-address-book"></i>
@@ -53,19 +100,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-6">
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>{{$total_coins_today}}</h3>
-
-                        <p>Total Score Today</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-cocktail"></i>
-                    </div>
-                </div>
-            </div>
-
         </div>
        <livewire:dashboard.chart/>
         <!-- /.row (main row) -->

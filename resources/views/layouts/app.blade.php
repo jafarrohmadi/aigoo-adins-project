@@ -142,6 +142,14 @@
                                     <span class="brand-text">Assessment Export</span>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('assessment.notFound') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <span class="brand-text">Assessment Not Found</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
                     <li class="nav-item">

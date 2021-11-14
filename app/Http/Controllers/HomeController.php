@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assessment;
 use App\Models\Department;
 use App\Models\PointHistory;
 use App\Models\User;
+use App\ViewModels\VwLeadeboard;
+use App\ViewModels\VwLeaderboardGuild;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -17,8 +20,8 @@ class HomeController extends Controller
     public function index()
     {
         $user_count       = User::count();
-        $department_count = Department::count();
-
+        $user_have_assessment = count(Assessment::where('assessment_year_month' , date('Y-m'))->groupBy('assessor_id')->get());
+        $user_dont_have_assessment = $user_count - $user_have_assessment;
         $point_histories = PointHistory::whereBetween('created_at', [
             Carbon::now()->setTime(0, 0, 0),
             Carbon::now()->setTime(23, 59, 59)
@@ -28,6 +31,14 @@ class HomeController extends Controller
         $played_today      = count($point_histories->groupBy('user_id'));
         $total_coins_today = collect($point_histories)->sum('points');
 
-        return view('home', compact('user_count', 'department_count', 'played_today', 'total_coins_today'));
+        $nasionalEmployee = VwLeadeboard::where('date', date('Y-m'))
+            ->orderBy('total_points', 'desc')->first()->name;
+
+        $departmentWinner = VwLeaderboardGuild::with('department')
+            ->where('date', date('Y-m'))
+            ->orderBy('total_points', 'desc')
+            ->first()->department->name;
+
+        return view('home', compact('user_count', 'played_today', 'total_coins_today', 'user_have_assessment', 'user_dont_have_assessment', 'nasionalEmployee', 'departmentWinner'));
     }
 }

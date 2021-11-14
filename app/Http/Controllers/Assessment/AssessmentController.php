@@ -18,4 +18,9 @@ class AssessmentController extends Controller
         return view('assessment.bulk-import');
     }
 
+    public function notFound()
+    {
+        return view('assessment.not-found');
+    }
+
 }
