@@ -93,11 +93,6 @@ class AssessmentController extends
             $user = $user->where('name', 'like', "%$request->name%");
         }
 
-        if (isset($request->name))
-        {
-            $user = $user->where('name', 'like', "%$request->name%");
-        }
-
         if (isset($request->department_id))
         {
             $user = $user->where('department_id', $request->department_id);
