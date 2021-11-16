@@ -9,6 +9,8 @@
         {{ session('flash')['message'] }}
     </div>
 @endif
+
+
 <div
     x-data="{show : false}"
     x-cloak
