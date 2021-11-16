@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Assessment;
 use App\Exports\AssessmentExport;
 use App\Models\Assessment;
 use App\Models\Department;
+use App\Models\User;
 use File;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
@@ -48,7 +49,7 @@ class BulkImport extends
 
         if ($this->selectDepartment != null) {
             $query = $query->whereHas('user', function ($q) {
-                $q->where('department_id', '>=', $this->selectDepartment);
+                $q->where('department_id', $this->selectDepartment);
             });
         }
 
@@ -61,43 +62,46 @@ class BulkImport extends
         }
 
         $data = $query->get()->groupBy('user_id');
+        if(count($data) > 0) {
+            foreach ($data as $datas) {
+                Excel::store(new AssessmentExport($datas),
+                    date('Y-m-d').'/'.$datas[0]->user->department_name.'/assessment-'.date('Y-m-d').'-'.$datas[0]->user->name.'.xlsx');
+            }
 
-        foreach ($data as $datas) {
-            Excel::store(new AssessmentExport($datas),
-                date('Y-m-d').'/'.$datas[0]->user->department_name.'/assessment-'.date('Y-m-d').'-'.$datas[0]->user->name.'.xlsx');
-        }
+            $zip = new ZipArchive;
 
-        $zip = new ZipArchive;
+            $zipFilename = 'app/'.date('Y-m-d').'.zip';
+            File::cleanDirectory(public_path('app/'));
 
-        $zipFilename = 'app/'.date('Y-m-d').'.zip';
-        File::cleanDirectory(public_path('app/'));
+            $rootPath = storage_path('app/'.date('Y-m-d'));
 
-        $rootPath = storage_path('app/'.date('Y-m-d'));
+            $zip = new ZipArchive();
+            $zip->open($zipFilename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-        $zip = new ZipArchive();
-        $zip->open($zipFilename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+            /** @var SplFileInfo[] $files */
+            $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath),
+                RecursiveIteratorIterator::LEAVES_ONLY);
 
-        /** @var SplFileInfo[] $files */
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($rootPath),
-            RecursiveIteratorIterator::LEAVES_ONLY);
+            foreach ($files as $name => $file) {
+                $filePath     = $file->getRealPath();
+                $relativePath = substr($filePath, strlen($rootPath) + 1);
 
-        foreach ($files as $name => $file) {
-            $filePath     = $file->getRealPath();
-            $relativePath = substr($filePath, strlen($rootPath) + 1);
-
-            if (!$file->isDir()) {
-                $zip->addFile($filePath, $relativePath);
-            } else {
-                if ($relativePath !== false) {
-                    $zip->addEmptyDir($relativePath);
+                if (!$file->isDir()) {
+                    $zip->addFile($filePath, $relativePath);
+                } else {
+                    if ($relativePath !== false) {
+                        $zip->addEmptyDir($relativePath);
+                    }
                 }
             }
+
+            $zip->close();
+            File::deleteDirectory($rootPath);
+            return response()->download(public_path($zipFilename));
+        }else{
+            session()->flash('error', 'Data Not Found');
+            return;
         }
-
-        $zip->close();
-        File::deleteDirectory($rootPath);
-        return response()->download(public_path($zipFilename));
-
     }
 
 

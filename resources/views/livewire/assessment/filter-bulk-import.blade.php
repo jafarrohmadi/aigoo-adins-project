@@ -28,6 +28,12 @@
     <div wire:loading wire:target="downloadExcel">
         Processing Download Excel ...
     </div>
+
+    @if (session()->has('error'))
+        <div>
+            {{ session('error') }}
+        </div>
+    @endif
 </div>
 
 @push('js')
@@ -67,6 +73,7 @@
         $(document).ready(function () {
             $('#select3').on('change', function (e) {
                 var data = $('#select3').select2("val");
+
             @this.set('selectDepartment', data)
             });
         })
