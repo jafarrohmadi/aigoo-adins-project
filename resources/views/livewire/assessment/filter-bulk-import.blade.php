@@ -65,11 +65,6 @@
         })
 
         $(document).ready(function () {
-            $('#select2').select2();
-            $('#select2').on('change', function (e) {
-                var data = $('#select2').select2("val");
-            @this.set('selectName', data)
-            });
             $('#select3').on('change', function (e) {
                 var data = $('#select3').select2("val");
             @this.set('selectDepartment', data)
