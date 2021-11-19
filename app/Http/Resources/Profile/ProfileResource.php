@@ -48,7 +48,7 @@ class ProfileResource extends
                     'rank_department'    => $rankDepartment + 1,
                     'rank_all'           => $rankAll + 1,
                     'total_coins'        => $this->pointHistories->where('coins', '>=', 0)->sum('coins'),
-                    'grand_total_points' => $this->pointHistories->sum('point'),
+                    'grand_total_points' => $this->pointHistories->where('point', '>=', 0)->sum('point'),
                     'total_points'       => $this->pointHistories->where('date_year_month', date('Y-m'))->sum('point'),
                     'grand_total_coin'   => $this->pointHistories->sum('coins'),
                     'current_coin'       => $this->pointHistories->where('date_year_month', date('Y-m'))->sum('coins'),
