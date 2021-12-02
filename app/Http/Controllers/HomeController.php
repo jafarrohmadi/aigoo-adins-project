@@ -30,14 +30,14 @@ class HomeController extends Controller
 
         $played_today      = count($point_histories->groupBy('user_id'));
         $total_coins_today = collect($point_histories)->sum('points');
+        $nasionalData = VwLeadeboard::where('date', date('Y-m'))->orderBy('total_points', 'desc')->first();
+        $nasionalEmployee = $nasionalData ? $nasionalData->name : 'No Data';
 
-        $nasionalEmployee = VwLeadeboard::where('date', date('Y-m'))
-            ->orderBy('total_points', 'desc')->first()->name;
-
-        $departmentWinner = VwLeaderboardGuild::with('department')
+        $departmentWin = VwLeaderboardGuild::with('department')
             ->where('date', date('Y-m'))
             ->orderBy('total_points', 'desc')
-            ->first()->department->name;
+            ->first();
+        $departmentWinner = $departmentWin ? $departmentWin->department->name: 'No Data';
 
         return view('home', compact('user_count', 'played_today', 'total_coins_today', 'user_have_assessment', 'user_dont_have_assessment', 'nasionalEmployee', 'departmentWinner'));
     }

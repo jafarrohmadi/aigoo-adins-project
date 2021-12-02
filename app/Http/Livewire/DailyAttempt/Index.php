@@ -52,7 +52,7 @@ class Index extends
 
     public function render()
     {
-        $query = DailyAttempt::select('date', 'user_id', 'quiz_ID',DB::raw('COUNT(attempt) as attempts'))->groupBy('date', 'user_id', 'quiz_ID');
+        $query = DailyAttempt::select('date', 'user_id', 'quiz_ID',DB::raw('attempt as attempts'))->groupBy('date', 'user_id', 'quiz_ID');
 
         if ($this->search) {
             $query->whereHas('user', function ($query) {
