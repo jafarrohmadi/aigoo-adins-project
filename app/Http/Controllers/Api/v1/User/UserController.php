@@ -30,6 +30,18 @@ class UserController extends
     public function login(LoginRequest $request)
     {
         try {
+            if (env('APP_ENV') == 'development') {
+                if (Auth::attempt(['email'    => $request->username,
+                                   'password' => $request->password,
+                ])) {
+                    Auth::user()->last_login_at = Carbon::now()->toDateTimeString();
+                    Auth::user()->save();
+
+                    $success['token'] = me()->createToken('authToken')->plainTextToken;
+                    return $this->returnSuccess($success);
+                }
+            }
+            
             $userNameData = $request->username;
             $passwordData = $request->password;
 
@@ -131,13 +143,6 @@ class UserController extends
                 return $this->returnSuccess($success);
             }
 
-//            if (Auth::attempt(['email'    => $request->username, 'password' => $request->password,])) {
-//                Auth::user()->last_login_at = Carbon::now()->toDateTimeString();
-//                Auth::user()->save();
-//
-//                $success['token'] = me()->createToken('authToken')->plainTextToken;
-//                return $this->returnSuccess($success);
-//            }
         } catch (\Throwable $th) {
             return $this->returnFalse("Something went wrong", $th->getMessage());
         }
