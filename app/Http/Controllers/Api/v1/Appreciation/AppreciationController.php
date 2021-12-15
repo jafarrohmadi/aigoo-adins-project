@@ -22,7 +22,7 @@ class AppreciationController extends
      */
     public function index(Request $request)
     {
-        $user = User::where('id', '!=', me()->id);
+        $user = User::where('id', '!=', me()->id)->where('id', '!=', 1);
         if (isset($request->name))
         {
             $user = $user->where('name', 'like', "%$request->name%");

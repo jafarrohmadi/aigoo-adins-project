@@ -22,7 +22,7 @@ class LeaderBoardController extends BaseController
     public function index(Request $request)
     {
         try {
-            $leaderBoard = VwLeadeboard::with('user')
+            $leaderBoard = VwLeadeboard::with('user')->where('user_id', '!=', 1)
                 ->setLimit($request->get('limit') ?? 50);
 
             return new LeaderboardCollection($leaderBoard->get());

@@ -24,7 +24,7 @@ class AssessmentController extends
      */
     public function index(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = User::where('id', '!=', 1)->find($request->user_id);
 
         if(!$user){
             return $this->returnFalse();
@@ -87,7 +87,7 @@ class AssessmentController extends
      */
     public function getAssessmentUser(Request $request)
     {
-        $user = User::with('assessmentAssessor');
+        $user = User::with('assessmentAssessor')->where('id', '!=', 1);
 
         if (isset($request->name)) {
             $user = $user->where('name', 'like', "%$request->name%");

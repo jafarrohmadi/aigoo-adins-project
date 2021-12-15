@@ -41,7 +41,7 @@ class UserController extends
                     return $this->returnSuccess($success);
                 }
             }
-            
+
             $userNameData = $request->username;
             $passwordData = $request->password;
 
