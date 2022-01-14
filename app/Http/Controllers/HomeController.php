@@ -41,4 +41,10 @@ class HomeController extends Controller
 
         return view('home', compact('user_count', 'played_today', 'total_coins_today', 'user_have_assessment', 'user_dont_have_assessment', 'nasionalEmployee', 'departmentWinner'));
     }
+
+    public function privacyPolicy()
+    {
+        return view('frontend.privacy-policy');
+    }
+
 }
