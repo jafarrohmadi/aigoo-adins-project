@@ -27,6 +27,10 @@
                 <div class="col-12">
                     <x-inputs.button text="Sign In" class="btn-primary" />
                 </div>
+                <br>
+                <div class="col-12">
+                    <a href="{{url('privacy-policy')}}">Privacy Policy</a>
+                </div>
             </div>
         </form>
 

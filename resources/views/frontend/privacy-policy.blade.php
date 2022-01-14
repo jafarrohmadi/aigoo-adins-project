@@ -1,4 +1,4 @@
-@extends('layouts.guest-app')
+@extends('layouts.static')
 
 @section('title')
     Sign In
